@@ -3,18 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-/** Nav + glass cards still stagger; hero copy is visible on load */
-const HERO_REVEAL_DELAY_MS = 5000;
-
 /** Glass cards row */
 const HERO_GLASS_MS = 6000;
-
-const NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "About", href: "#about" },
-  { label: "Interact", href: "#interact" },
-] as const;
 
 type GlassCardData = {
   id: string;
@@ -77,14 +67,11 @@ export function HeroSection({
   heroTitle = DEFAULT_HERO_TITLE,
   heroTagline = DEFAULT_HERO_TAGLINE,
 }: HeroSectionProps) {
-  const [navVisible, setNavVisible] = useState(false);
   const [showGlassCards, setShowGlassCards] = useState(false);
 
   useEffect(() => {
-    const navId = window.setTimeout(() => setNavVisible(true), HERO_REVEAL_DELAY_MS);
     const glassId = window.setTimeout(() => setShowGlassCards(true), HERO_GLASS_MS);
     return () => {
-      window.clearTimeout(navId);
       window.clearTimeout(glassId);
     };
   }, []);
@@ -110,32 +97,6 @@ export function HeroSection({
 
   return (
     <section className="hero" aria-label="Introduction">
-      <div className="hero__bar">
-        <Link className="hero__logo" href="/" aria-label="Home">
-          <img
-            className="hero__logoImg"
-            src="/logo.png"
-            alt=""
-            width={320}
-            height={82}
-          />
-        </Link>
-        <nav
-          className={`hero__nav${navVisible ? " hero__nav--visible" : ""}`}
-          aria-hidden={!navVisible}
-        >
-          <ul className="hero__navList">
-            {NAV_ITEMS.map(({ label, href }) => (
-              <li key={label} className="hero__navItem">
-                <Link className="hero__navLink" href={href}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-
       <div className="hero__media" aria-hidden="true">
         <video
           key={heroVideoSrc}
