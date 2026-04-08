@@ -8,7 +8,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100%;
   background: #0a0a0b;
   color: #f5f5f5;
   font-family:
@@ -18,6 +18,12 @@ body {
     Roboto,
     sans-serif;
   -webkit-font-smoothing: antialiased;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  display: none;
 }
 
 /* —— Home: Hero —— */
@@ -127,6 +133,12 @@ body {
   object-fit: cover;
   object-position: center;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero__video {
+    object-fit: fill;
+  }
 }
 
 .hero__overlay {
@@ -728,7 +740,7 @@ body {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .siteHeader__navDesktop {
     display: none;
   }
@@ -738,7 +750,7 @@ body {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
   .siteHeader__panel,
   .siteHeader__backdrop {
     display: none !important;

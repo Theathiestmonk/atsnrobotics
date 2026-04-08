@@ -7,7 +7,39 @@ import { ScrollReveal } from "../components/ScrollReveal";
 
 export function Contact() {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status !== "idle" && status !== "error") return;
+
+    setStatus("sending");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatus("sent");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
+  };
 
   useLayoutEffect(() => {
     let ctx: any;
@@ -127,12 +159,7 @@ export function Contact() {
           <form
             className="atsnForm"
             data-contact-anim
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (status !== "idle") return;
-              setStatus("sending");
-              window.setTimeout(() => setStatus("sent"), 900);
-            }}
+            onSubmit={handleSubmit}
           >
             <div>
               <label className="atsnLabel" htmlFor="name">
@@ -175,8 +202,14 @@ export function Contact() {
               <textarea className="atsnTextarea" id="message" name="message" required />
             </div>
 
-            <button className="atsnSubmit" type="submit" disabled={status !== "idle"}>
-              {status === "idle" ? "Send message" : status === "sending" ? "Sending…" : "Sent — we’ll reply soon"}
+            <button className="atsnSubmit" type="submit" disabled={status === "sending" || status === "sent"}>
+              {status === "idle"
+                ? "Send message"
+                : status === "sending"
+                ? "Sending…"
+                : status === "sent"
+                ? "Sent — we’ll reply soon"
+                : "Error — please try again"}
             </button>
           </form>
         </section>

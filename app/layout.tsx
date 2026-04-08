@@ -3,6 +3,7 @@ import "./globals.css";
 import "./atsn-pages.css";
 import { Footer } from "./components/Footer";
 import { SiteHeader } from "./components/SiteHeader";
+import { SmoothScroll } from "./components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "Intelligence in motion",
@@ -18,11 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="siteShell">
-          <SiteHeader />
-          <div className="siteMain">{children}</div>
-          <Footer />
-        </div>
+        <SmoothScroll>
+          <div className="siteShell">
+            <SiteHeader />
+            <div className="siteMain">{children}</div>
+            <Footer />
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

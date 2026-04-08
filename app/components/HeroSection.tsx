@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useLenis } from "@studio-freight/react-lenis";
 
 /** Glass cards row */
-const HERO_GLASS_MS = 6000;
+const HERO_GLASS_MS = 8500;
 
 type GlassCardData = {
   id: string;
@@ -68,6 +69,7 @@ export function HeroSection({
   heroTagline = DEFAULT_HERO_TAGLINE,
 }: HeroSectionProps) {
   const [showGlassCards, setShowGlassCards] = useState(false);
+  const lenis = useLenis();
 
   useEffect(() => {
     const glassId = window.setTimeout(() => setShowGlassCards(true), HERO_GLASS_MS);
@@ -83,17 +85,20 @@ export function HeroSection({
       root.style.overflow = "hidden";
       body.style.overflow = "hidden";
       root.style.overscrollBehavior = "none";
+      lenis?.stop();
     } else {
       root.style.overflow = "";
       body.style.overflow = "";
       root.style.overscrollBehavior = "";
+      lenis?.start();
     }
     return () => {
       root.style.overflow = "";
       body.style.overflow = "";
       root.style.overscrollBehavior = "";
+      lenis?.start();
     };
-  }, [showGlassCards]);
+  }, [showGlassCards, lenis]);
 
   return (
     <section className="hero" aria-label="Introduction">

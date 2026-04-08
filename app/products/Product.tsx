@@ -7,41 +7,43 @@ import { CardSwap, type CardSwapItem } from "../components/CardSwap";
 import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
 
+import { useLenis } from "@studio-freight/react-lenis";
+
 /** Same image assets as home hero glass cards (`HeroSection` → `GLASS_CARDS`). */
 const ARGO_MODELS = [
   {
-    id: "argo-h",
-    code: "ARGO‑H",
-    name: "ARGO for hospitality",
+    id: "argo-luxury",
+    code: "ARGO Luxury",
+    name: "For hospitality",
     segment: "Hotels & guest spaces",
     body:
-      "Tuned for lobbies, corridors, and service rhythms where presence matters. ARGO‑H moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
+      "Tuned for lobbies, corridors, and service rhythms where presence matters. ARGO Luxury moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
     imageSrc: "/argo_suave.png",
-    imageAlt: "ARGO‑H robot for hotels and hospitality",
+    imageAlt: "ARGO Luxury robot for hotels and hospitality",
     href: "/luxury",
     cta: "View hospitality",
   },
   {
-    id: "argo-r",
-    code: "ARGO‑R",
-    name: "ARGO for retail",
+    id: "argo-influence",
+    code: "ARGO Influence",
+    name: "For retail",
     segment: "Stores & atriums",
     body:
-      "Built for aisles, peaks, and shifting shopper flow. ARGO‑R keeps stock and transfers moving so your team stays on the floor with customers—not stuck on back-and-forth trips.",
+      "Built for aisles, peaks, and shifting shopper flow. ARGO Influence keeps stock and transfers moving so your team stays on the floor with customers—not stuck on back-and-forth trips.",
     imageSrc: "/Argo_lux.png",
-    imageAlt: "ARGO‑R robot for retail spaces",
+    imageAlt: "ARGO Influence robot for retail spaces",
     href: "/influence",
     cta: "View retail",
   },
   {
-    id: "argo-s",
-    code: "ARGO‑S",
-    name: "ARGO for stadiums & venues",
+    id: "argo-flex",
+    code: "ARGO Flex",
+    name: "For stadiums & venues",
     segment: "Concourses & large venues",
     body:
-      "Sized for concourses, stands, and high-energy crowds. ARGO‑S supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
+      "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
     imageSrc: "/argo-flex.png",
-    imageAlt: "ARGO‑S robot for stadiums and large venues",
+    imageAlt: "ARGO Flex robot for stadiums and large venues",
     href: "/flex",
     cta: "View venues",
   },
@@ -83,6 +85,13 @@ const featureCards: CardSwapItem[] = [
 ];
 
 export function Product() {
+  const lenis = useLenis();
+
+  const handleScrollToFleet = (e: React.MouseEvent) => {
+    e.preventDefault();
+    lenis?.scrollTo("#fleet", { offset: -90, duration: 1.5 });
+  };
+
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero" style={{ position: "relative" }}>
@@ -102,9 +111,9 @@ export function Product() {
           <Link className="atsnBtn atsnBtn--primary" href="/contact">
             Let’s talk
           </Link>
-          <Link className="atsnBtn" href="#fleet">
+          <button className="atsnBtn" onClick={handleScrollToFleet} type="button">
             See the fleet
-          </Link>
+          </button>
         </div>
 
         <section className="atsnSection" id="fleet" aria-label="ARGO models">

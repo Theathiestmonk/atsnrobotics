@@ -50,8 +50,11 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
       const dots = Array.from(el.querySelectorAll<HTMLElement>("[data-cardswap-dot]"));
       if (cards.length === 0) return;
 
+      let internalIdx = 0;
+
       const show = (i: number) => {
         const idx = ((i % cards.length) + cards.length) % cards.length;
+        internalIdx = idx;
         setActiveIndex(idx);
 
         cards.forEach((c, ci) => {
@@ -79,14 +82,19 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
           trigger: el,
           start,
           end: "bottom 35%",
-          onEnter: () => show(activeIndex),
+          onEnter: () => show(internalIdx),
         });
 
         let intervalId: number | undefined;
+        let isMobile = false;
+        if (typeof window !== "undefined") {
+          isMobile = window.matchMedia("(max-width: 900px)").matches;
+        }
+
         const startInterval = () => {
-          if (!autoPlay || cards.length <= 1) return;
+          if (!autoPlay || cards.length <= 1 || isMobile) return;
           if (intervalId) window.clearInterval(intervalId);
-          intervalId = window.setInterval(() => show((activeIndex + 1) % cards.length), 3200);
+          intervalId = window.setInterval(() => show((internalIdx + 1) % cards.length), 3200);
         };
 
         const stopInterval = () => {
@@ -104,14 +112,51 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
           onLeaveBack: () => stopInterval(),
         });
 
+        // Hover to pause
+        el.addEventListener("mouseenter", stopInterval);
+        el.addEventListener("mouseleave", startInterval);
+
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const handleTouchStart = (e: TouchEvent) => {
+          touchStartX = e.changedTouches[0].screenX;
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+          touchEndX = e.changedTouches[0].screenX;
+          const deltaX = touchStartX - touchEndX;
+          if (Math.abs(deltaX) > 40) {
+            if (deltaX > 0) {
+              // swipe left (next)
+              show(internalIdx + 1);
+            } else {
+              // swipe right (prev)
+              show(internalIdx - 1);
+            }
+            startInterval();
+          }
+        };
+
+        el.addEventListener("touchstart", handleTouchStart, { passive: true });
+        el.addEventListener("touchend", handleTouchEnd, { passive: true });
+
         // Clickable dots
         dots.forEach((d, i) => {
-          d.addEventListener("click", () => show(i));
+          d.addEventListener("click", () => {
+            show(i);
+            startInterval();
+          });
         });
 
         return () => {
           stopInterval();
           trigger?.kill?.();
+          el.removeEventListener("mouseenter", stopInterval);
+          el.removeEventListener("mouseleave", startInterval);
+          el.removeEventListener("touchstart", handleTouchStart);
+          el.removeEventListener("touchend", handleTouchEnd);
           dots.forEach((d, i) => {
             d.replaceWith(d.cloneNode(true));
           });

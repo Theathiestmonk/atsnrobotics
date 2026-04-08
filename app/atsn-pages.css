@@ -19,6 +19,7 @@
   flex-direction: column;
   background: var(--atsn-bg);
   color: var(--atsn-fg);
+  overflow-x: hidden;
 }
 
 .siteMain {
@@ -142,6 +143,12 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(0.9rem, 2.3vw, 1.35rem);
+}
+
+@media (max-width: 900px) {
+  .atsnGrid > * {
+    grid-column: span 12 !important;
+  }
 }
 
 .atsnCard {
@@ -390,6 +397,18 @@
   color: rgba(245, 245, 245, 0.42);
   font-size: 0.85rem;
   line-height: 1.6;
+}
+
+@media (max-width: 620px) {
+  .atsnFooter {
+    padding: 1.25rem 1rem;
+  }
+  .atsnFooter__inner {
+    gap: 1rem;
+  }
+  .atsnFooter__nav {
+    gap: 0.85rem;
+  }
 }
 
 /* Product page — three-model fleet (images match home hero glass cards) */
