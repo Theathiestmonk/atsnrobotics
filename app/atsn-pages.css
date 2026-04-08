@@ -24,11 +24,15 @@
 
 .siteMain {
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
   min-height: 0;
 }
 
 .atsnPage {
-  min-height: 100dvh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(
     180deg,
     var(--atsn-bg-2) 0%,
