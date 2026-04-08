@@ -562,3 +562,17 @@
   }
 }
 
+/* Performance fixes for mobile/tablet to prevent scroll lag */
+@media (max-width: 900px) {
+  .atsnCard, .atsnBtn, .atsnFooter {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .atsnCard {
+    background: rgba(40, 40, 45, 0.45); /* slightly more opaque to compensate for missing blur */
+  }
+  .atsnBtn {
+    background: rgba(40, 40, 45, 0.7);
+  }
+}
+

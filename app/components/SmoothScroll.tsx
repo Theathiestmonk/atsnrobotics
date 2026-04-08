@@ -29,7 +29,7 @@ function GSAPSync() {
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   return (
-    <ReactLenis root options={{ lerp: 0.1, smoothWheel: true, syncTouch: true }}>
+    <ReactLenis root options={{ lerp: 0.05, wheelMultiplier: 0.8, smoothWheel: true }}>
       <GSAPSync />
       {children as any}
     </ReactLenis>
