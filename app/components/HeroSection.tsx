@@ -72,13 +72,16 @@ export function HeroSection({
   const lenis = useLenis();
 
   useEffect(() => {
-    const glassId = window.setTimeout(() => setShowGlassCards(true), HERO_GLASS_MS);
-    return () => {
-      window.clearTimeout(glassId);
-    };
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+    // Faster reveal for modern look
+    const glassId = window.setTimeout(() => setShowGlassCards(true), isMobile ? 800 : 1800);
+    return () => window.clearTimeout(glassId);
   }, []);
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+    if (isMobile) return; // Never lock scroll on mobile
+
     const root = document.documentElement;
     const body = document.body;
     if (!showGlassCards) {

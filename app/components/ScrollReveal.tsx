@@ -8,7 +8,7 @@ type ScrollRevealProps = PropsWithChildren<{
   start?: string; // ScrollTrigger start
 }>;
 
-export function ScrollReveal({ children, className, once = true, start = "top 86%" }: ScrollRevealProps) {
+export function ScrollReveal({ children, className, once = true, start = "top 88%" }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -16,13 +16,22 @@ export function ScrollReveal({ children, className, once = true, start = "top 86
     let mounted = true;
 
     (async () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      if (prefersReduced) return;
+      // Check for mobile or reduced motion preference
+      const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches;
+      const prefersReduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      
+      if (!mounted) return;
 
       const el = ref.current;
       if (!el) return;
+
+      // If mobile, don't do reveal animations to speed up content loading as requested
+      if (isMobile || prefersReduced) {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.filter = "none";
+        return;
+      }
 
       const gsapMod = await import("gsap");
       const stMod = await import("gsap/ScrollTrigger");
@@ -36,13 +45,13 @@ export function ScrollReveal({ children, className, once = true, start = "top 86
       ctx = gsap.context(() => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 18, filter: "blur(10px)" },
+          { opacity: 0, y: 15, filter: "blur(8px)" },
           {
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
-            duration: 0.95,
-            ease: "power3.out",
+            duration: 0.8,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: el,
               start,
@@ -60,9 +69,8 @@ export function ScrollReveal({ children, className, once = true, start = "top 86
   }, [once, start]);
 
   return (
-    <div ref={ref} className={className} style={{ willChange: "transform, opacity, filter" }}>
+    <div ref={ref} className={className} style={{ willChange: "transform, opacity" }}>
       {children}
     </div>
   );
 }
-

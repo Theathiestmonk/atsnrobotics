@@ -54,6 +54,7 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
 
       const show = (i: number) => {
         const idx = ((i % cards.length) + cards.length) % cards.length;
+        const isMobile = window.matchMedia("(max-width: 900px)").matches;
         internalIdx = idx;
         setActiveIndex(idx);
 
@@ -66,16 +67,16 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
 
         gsap.to(cards, {
           opacity: (ci: number) => (ci === idx ? 1 : 0),
-          y: (ci: number) => (ci === idx ? 0 : 12),
-          filter: (ci: number) => (ci === idx ? "blur(0px)" : "blur(8px)"),
-          duration: 0.6,
-          ease: "power3.out",
+          y: (ci: number) => (isMobile ? 0 : (ci === idx ? 0 : 10)),
+          filter: "none", // Remove blur entirely to fix "blurry type" issue
+          duration: isMobile ? 0.35 : 0.5,
+          ease: "power2.out",
           overwrite: true,
         });
       };
 
       ctx = gsap.context(() => {
-        gsap.set(cards, { opacity: 0, y: 12, filter: "blur(8px)" });
+        gsap.set(cards, { opacity: 0, y: 10 });
         show(0);
 
         const trigger = ScrollTrigger.create({

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -28,6 +28,22 @@ function GSAPSync() {
 }
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
+  const [isMobile, setIsMobile] = useState(true); // Start true to prevent flash of smooth scroll on mobile
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 900px)").matches);
+    };
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
+  // Disable Lenis on mobile devices for native buttery feel
+  if (isMobile) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis root options={{ lerp: 0.05, wheelMultiplier: 0.8, smoothWheel: true }}>
       <GSAPSync />
