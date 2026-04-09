@@ -1,7 +1,6 @@
 "use client";
 
 import { BlurText } from "../components/BlurText";
-import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
 
 export function Privacy() {
@@ -10,8 +9,6 @@ export function Privacy() {
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero" style={{ position: "relative" }}>
-        <LightRays intensity={0.65} />
-
         <p className="atsnHero__eyebrow">Legal</p>
         <BlurText text="Privacy Policy" as="h1" className="atsnHero__title" />
         <ScrollReveal>

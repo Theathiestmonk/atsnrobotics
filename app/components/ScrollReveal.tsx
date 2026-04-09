@@ -45,7 +45,7 @@ export function ScrollReveal({ children, className, once = true, start = "top 88
       ctx = gsap.context(() => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 15, filter: "blur(8px)" },
+          { opacity: 0, y: 15, filter: "blur(4px)" },
           {
             opacity: 1,
             y: 0,
@@ -56,6 +56,7 @@ export function ScrollReveal({ children, className, once = true, start = "top 88
               trigger: el,
               start,
               toggleActions: once ? "play none none none" : "play reverse play reverse",
+              fastScrollEnd: true,
             },
           },
         );

@@ -1,7 +1,6 @@
 "use client";
 
 import { BlurText } from "../components/BlurText";
-import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
 
 export function Terms() {
@@ -10,8 +9,6 @@ export function Terms() {
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero" style={{ position: "relative" }}>
-        <LightRays intensity={0.6} />
-
         <p className="atsnHero__eyebrow">Legal</p>
         <BlurText text="Terms & Conditions" as="h1" className="atsnHero__title" />
         <ScrollReveal>

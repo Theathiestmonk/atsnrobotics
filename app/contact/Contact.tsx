@@ -2,7 +2,6 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { BlurText } from "../components/BlurText";
-import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
 
 export function Contact() {
@@ -86,8 +85,6 @@ export function Contact() {
   return (
     <main className="atsnPage">
       <div ref={rootRef} className="atsnContainer atsnHero" style={{ position: "relative" }}>
-        <LightRays intensity={0.75} />
-
         <p className="atsnHero__eyebrow" data-contact-anim>
           Contact
         </p>

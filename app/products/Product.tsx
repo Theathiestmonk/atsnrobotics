@@ -4,10 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BlurText } from "../components/BlurText";
 import { CardSwap, type CardSwapItem } from "../components/CardSwap";
-import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
-
-import { useLenis } from "@studio-freight/react-lenis";
 
 /** Same image assets as home hero glass cards (`HeroSection` → `GLASS_CARDS`). */
 const ARGO_MODELS = [
@@ -85,18 +82,14 @@ const featureCards: CardSwapItem[] = [
 ];
 
 export function Product() {
-  const lenis = useLenis();
-
   const handleScrollToFleet = (e: React.MouseEvent) => {
     e.preventDefault();
-    lenis?.scrollTo("#fleet", { offset: -90, duration: 1.5 });
+    document.querySelector("#fleet")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero" style={{ position: "relative" }}>
-        <LightRays />
-
         <p className="atsnHero__eyebrow">Product</p>
         <BlurText text="Meet ARGO." as="h1" className="atsnHero__title" />
         <ScrollReveal>

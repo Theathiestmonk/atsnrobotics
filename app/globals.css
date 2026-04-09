@@ -18,12 +18,24 @@ body {
     Roboto,
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  scrollbar-width: none; /* Firefox */
 }
 
 /* Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* —— Home: Hero —— */

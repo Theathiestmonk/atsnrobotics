@@ -2,15 +2,12 @@
 
 import Link from "next/link";
 import { BlurText } from "../components/BlurText";
-import { LightRays } from "../components/LightRays";
 import { ScrollReveal } from "../components/ScrollReveal";
 
 export function Careers() {
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero" style={{ position: "relative" }}>
-        <LightRays intensity={0.7} />
-
         <p className="atsnHero__eyebrow">Careers</p>
         <BlurText text="Build robots that belong." as="h1" className="atsnHero__title" />
         <ScrollReveal>

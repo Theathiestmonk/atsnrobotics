@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useLenis } from "@studio-freight/react-lenis";
 
 /** Glass cards row */
 const HERO_GLASS_MS = 8500;
@@ -69,39 +68,42 @@ export function HeroSection({
   heroTagline = DEFAULT_HERO_TAGLINE,
 }: HeroSectionProps) {
   const [showGlassCards, setShowGlassCards] = useState(false);
-  const lenis = useLenis();
 
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 900px)").matches;
-    // Faster reveal for modern look
-    const glassId = window.setTimeout(() => setShowGlassCards(true), isMobile ? 800 : 1800);
+    // Show glass cards after 6.5 seconds
+    const glassId = window.setTimeout(() => setShowGlassCards(true), 6500);
     return () => window.clearTimeout(glassId);
   }, []);
 
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 900px)").matches;
-    if (isMobile) return; // Never lock scroll on mobile
-
     const root = document.documentElement;
     const body = document.body;
+    
     if (!showGlassCards) {
+      // Disable scrolling for 6.5 seconds while video plays
       root.style.overflow = "hidden";
       body.style.overflow = "hidden";
       root.style.overscrollBehavior = "none";
-      lenis?.stop();
+      // Ensure smooth interaction
+      body.style.position = "fixed";
+      body.style.width = "100%";
     } else {
+      // Re-enable scrolling after 6.5 seconds
       root.style.overflow = "";
       body.style.overflow = "";
       root.style.overscrollBehavior = "";
-      lenis?.start();
+      body.style.position = "";
+      body.style.width = "";
     }
+    
     return () => {
       root.style.overflow = "";
       body.style.overflow = "";
       root.style.overscrollBehavior = "";
-      lenis?.start();
+      body.style.position = "";
+      body.style.width = "";
     };
-  }, [showGlassCards, lenis]);
+  }, [showGlassCards]);
 
   return (
     <section className="hero" aria-label="Introduction">
