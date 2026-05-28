@@ -147,12 +147,6 @@ body {
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  .hero__video {
-    object-fit: fill;
-  }
-}
-
 .hero__overlay {
   position: absolute;
   inset: 0;
