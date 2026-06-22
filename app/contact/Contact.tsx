@@ -107,7 +107,7 @@ export function Contact() {
               <div className="atsnCard__meta">
                 <span className="atsnPill">
                   <span className="atsnPill__dot" aria-hidden="true" />
-                  sales@atsnrobotics.com
+                  services@atsnai.com
                 </span>
               </div>
             </div>
@@ -122,7 +122,7 @@ export function Contact() {
               <div className="atsnCard__meta">
                 <span className="atsnPill">
                   <span className="atsnPill__dot" aria-hidden="true" />
-                  press@atsnrobotics.com
+                  services@atsnai.com
                 </span>
               </div>
             </div>
@@ -137,7 +137,7 @@ export function Contact() {
               <div className="atsnCard__meta">
                 <span className="atsnPill">
                   <span className="atsnPill__dot" aria-hidden="true" />
-                  support@atsnrobotics.com
+                  services@atsnai.com
                 </span>
               </div>
             </div>

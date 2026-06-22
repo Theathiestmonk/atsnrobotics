@@ -86,8 +86,8 @@ export function Careers() {
             <Link className="atsnBtn atsnBtn--primary" href="/contact">
               Reach out
             </Link>
-            <a className="atsnBtn" href="mailto:careers@atsnrobotics.com">
-              careers@atsnrobotics.com
+            <a className="atsnBtn" href="mailto:services@atsnai.com">
+              services@atsnai.com
             </a>
           </div>
         </section>

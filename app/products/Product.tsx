@@ -9,14 +9,14 @@ import { ScrollReveal } from "../components/ScrollReveal";
 /** Same image assets as home hero glass cards (`HeroSection` → `GLASS_CARDS`). */
 const ARGO_MODELS = [
   {
-    id: "argo-luxury",
-    code: "ARGO Luxury",
-    name: "For hospitality",
-    segment: "Hotels & guest spaces",
+    id: "argo-sonic",
+    code: "Argo Sonic",
+    name: "For hotels, restaurants, and cafes",
+    segment: "Hotels, restaurants & cafes",
     body:
-      "Tuned for lobbies, corridors, and service rhythms where presence matters. ARGO Luxury moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
+      "Tuned for lobbies, dining areas, and service rhythms where presence matters. Argo Sonic moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
     imageSrc: "/argo_suave.png",
-    imageAlt: "ARGO Luxury robot for hotels and hospitality",
+    imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
     href: "/luxury",
     cta: "View hospitality",
   },

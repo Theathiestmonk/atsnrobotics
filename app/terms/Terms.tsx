@@ -144,7 +144,7 @@ export function Terms() {
             <h2>8. Contact</h2>
             <p>
               Questions about these Terms? Contact ATSN Robotics at{" "}
-              <strong>legal@atsnrobotics.com</strong>.
+              <strong>services@atsnai.com</strong>.
             </p>
           </ScrollReveal>
         </section>

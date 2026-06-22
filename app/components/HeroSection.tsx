@@ -24,9 +24,9 @@ const GLASS_CARDS: GlassCardData[] = [
     href: "/luxury",
     imageSrc: "/argo_suave.png",
     imageAlt: "Argo Suave",
-    title: "Hotels & hospitality",
-    body: "Designed for lobbies, corridors, and guest-facing service.",
-    watermark: "Luxury",
+    title: "Hotels, restaurants & cafes",
+    body: "Designed for lobbies, dining areas, and guest-facing service.",
+    watermark: "Sonic",
   },
   {
     id: "retail-spaces",

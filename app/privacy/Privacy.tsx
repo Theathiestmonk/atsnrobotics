@@ -138,7 +138,7 @@ export function Privacy() {
             <h2>8. Contact</h2>
             <p>
               Questions about privacy? Contact ATSN Robotics at{" "}
-              <strong>privacy@atsnrobotics.com</strong>.
+              <strong>services@atsnai.com</strong>.
             </p>
           </ScrollReveal>
         </section>
