@@ -22,26 +22,16 @@ const GLASS_CARDS: GlassCardData[] = [
   {
     id: "hotels-hospitality",
     href: "/luxury",
-    imageSrc: "/argo_suave.png",
+    imageSrc: "/sonic_black_without_food.webp",
     imageAlt: "Argo Suave",
     title: "Hotels, restaurants & cafes",
     body: "Designed for lobbies, dining areas, and guest-facing service.",
     watermark: "Sonic",
   },
   {
-    id: "retail-spaces",
-    href: "/influence",
-    imageSrc: "/Argo_lux.png",
-    imageAlt: "Argo Lux",
-    title: "Retail spaces",
-    body: "Built for aisles, atriums, and shifting shopper flow.",
-    watermark: "Influence",
-    featured: true,
-  },
-  {
     id: "support",
     href: "/flex",
-    imageSrc: "/argo-flex.png",
+    imageSrc: "/argo_flex.webp",
     imageAlt: "Argo Flex",
     title: "Cricket stadiums & large venues",
     body: "Sized for concourses, stands, and high-energy crowds.",
@@ -127,8 +117,8 @@ export function HeroSection({
             <h1 className="hero__title">{heroTitle}</h1>
             <p className="hero__tagline">{heroTagline}</p>
             <div className="hero__ctaRow">
-              <Link className="hero__btn hero__btn--primary" href="#pre-order">
-                Pre-Order
+              <Link className="hero__btn hero__btn--primary" href="/order">
+                Order
               </Link>
               <Link className="hero__btn hero__btn--secondary" href="#fleet">
                 Explore our fleet
@@ -138,7 +128,7 @@ export function HeroSection({
         </div>
 
         {showGlassCards ? (
-          <div className="hero__glassRow">
+          <div className="hero__glassRow" id="fleet">
             <div className="hero__glassRowTrack">
               {GLASS_CARDS.map((card) => (
                 <Link

@@ -15,22 +15,10 @@ const ARGO_MODELS = [
     segment: "Hotels, restaurants & cafes",
     body:
       "Tuned for lobbies, dining areas, and service rhythms where presence matters. Argo Sonic moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
-    imageSrc: "/argo_suave.png",
+    imageSrc: "/sonic_black_without_food.webp",
     imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
     href: "/luxury",
     cta: "View hospitality",
-  },
-  {
-    id: "argo-influence",
-    code: "ARGO Influence",
-    name: "For retail",
-    segment: "Stores & atriums",
-    body:
-      "Built for aisles, peaks, and shifting shopper flow. ARGO Influence keeps stock and transfers moving so your team stays on the floor with customers—not stuck on back-and-forth trips.",
-    imageSrc: "/Argo_lux.png",
-    imageAlt: "ARGO Influence robot for retail spaces",
-    href: "/influence",
-    cta: "View retail",
   },
   {
     id: "argo-flex",
@@ -39,7 +27,7 @@ const ARGO_MODELS = [
     segment: "Concourses & large venues",
     body:
       "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
-    imageSrc: "/argo-flex.png",
+    imageSrc: "/argo_flex.webp",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
     href: "/flex",
     cta: "View venues",
@@ -95,8 +83,8 @@ export function Product() {
         <ScrollReveal>
           <p className="atsnHero__lead">
             ARGO is an autonomous, silent, intelligent robot line designed for goods movement. Choose
-            the build that matches your space—hospitality, retail, or stadium-scale venues—with the
-            same calm engineering philosophy across every model.
+            the build that matches your space—hospitality or stadium-scale venues—with the same
+            calm engineering philosophy across every model.
           </p>
         </ScrollReveal>
 
@@ -111,11 +99,11 @@ export function Product() {
 
         <section className="atsnSection" id="fleet" aria-label="ARGO models">
           <ScrollReveal>
-            <h2 className="atsnSection__title">Three robots. One platform.</h2>
+            <h2 className="atsnSection__title">Two robots. One platform.</h2>
             <p className="atsnSection__sub">
-              <strong>ARGO‑H</strong> for hotels and hospitality, <strong>ARGO‑R</strong> for retail
-              spaces, and <strong>ARGO‑S</strong> for stadiums and large venues. Each variant uses
-              the same intelligent motion stack—optimized for the constraints of your environment.
+              <strong>ARGO‑H</strong> for hotels and hospitality, and <strong>ARGO‑S</strong> for
+              stadiums and large venues. Each variant uses the same intelligent motion
+              stack—optimized for the constraints of your environment.
             </p>
           </ScrollReveal>
 
