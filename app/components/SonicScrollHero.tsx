@@ -143,6 +143,7 @@ export function SonicScrollHero() {
         model.setAttribute("field-of-view", `${STATE_2_START_FOV}deg`);
         model.setAttribute("camera-target", `0m ${STATE_2_START_TARGET_Y}m 0m`);
         modelWrap.style.transform = `translateX(${translateX}vw)`;
+        state1Text.style.opacity = state1TextOpacity.toString();
         state2Text.style.opacity = "0";
         state3Text.style.opacity = "0";
         state4Text.style.opacity = "0";
@@ -169,6 +170,8 @@ export function SonicScrollHero() {
         model.setAttribute("field-of-view", `${fov}deg`);
         model.setAttribute("camera-target", `0m ${targetY}m 0m`);
         modelWrap.style.transform = `translateX(${panX}vw)`;
+        state1Text.style.opacity = "0";
+        state1Features.style.opacity = "0";
         state2Text.style.opacity = state2TextOpacity.toString();
         state2Features.style.opacity = state2FeaturesOpacity.toString();
         state3Text.style.opacity = "0";
@@ -187,14 +190,13 @@ export function SonicScrollHero() {
         const panX = STATE_2_PAN_RIGHT_VW * (1 - p3);
         const state3TextOpacity = Math.min(1, p3 * 2.5);
         const state3FeaturesOpacity = Math.min(1, p3 * 2.5);
-        const state2FadeOut = Math.max(0, 1 - p3 * 2.5); // Smooth fade out like State 1→2
 
         model.setAttribute("camera-orbit", `${stateEndAzimuth}deg ${polar}deg ${ORBIT_RADIUS}`);
         model.setAttribute("field-of-view", `${fov}deg`);
         model.setAttribute("camera-target", `0m ${targetY}m 0m`);
         modelWrap.style.transform = `translateX(${panX}vw)`;
-        state2Text.style.opacity = state2FadeOut.toString();
-        state2Features.style.opacity = state2FadeOut.toString();
+        state2Text.style.opacity = "0";
+        state2Features.style.opacity = "0";
         state3Text.style.opacity = state3TextOpacity.toString();
         state3Features.style.opacity = state3FeaturesOpacity.toString();
         state4Text.style.opacity = "0";
@@ -210,15 +212,14 @@ export function SonicScrollHero() {
         const fov = STATE_4_START_FOV + p4 * (STATE_4_END_FOV - STATE_4_START_FOV);
         const state4TextOpacity = Math.min(1, p4 * 2.5);
         const state4FeaturesOpacity = Math.min(1, p4 * 2.5);
-        const state3FadeOut = Math.max(0, 1 - p4 * 2.5); // Smooth fade out like other transitions
 
         model.setAttribute("camera-orbit", `${stateEndAzimuth}deg ${polar}deg ${ORBIT_RADIUS}`);
         model.setAttribute("field-of-view", `${fov}deg`);
         model.setAttribute("camera-target", `0m ${targetY}m 0m`);
         modelWrap.style.transform = `translateX(0vw)`;
         state2Features.style.opacity = "0";
-        state3Text.style.opacity = state3FadeOut.toString();
-        state3Features.style.opacity = state3FadeOut.toString();
+        state3Text.style.opacity = "0";
+        state3Features.style.opacity = "0";
         state4Text.style.opacity = state4TextOpacity.toString();
         state4Features.style.opacity = state4FeaturesOpacity.toString();
       }
