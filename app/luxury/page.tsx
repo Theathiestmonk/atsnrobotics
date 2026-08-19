@@ -16,6 +16,7 @@ export default function LuxuryPage() {
         heroVideoSrc="/argo_sonic.webm"
         heroTitle="Luxury in motion"
         heroTagline="Bringing intelligent autonomous presence into hotels, restaurants, and cafes—calm, capable, and present from the lobby to every corridor."
+        hideFleet
       />
       <SonicScrollHero />
       <PerformanceSection />

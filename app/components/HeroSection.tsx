@@ -45,6 +45,8 @@ export type HeroSectionProps = {
   heroVideoSrc?: string;
   heroTitle?: string;
   heroTagline?: string;
+  /** Hide the fleet/glass cards section */
+  hideFleet?: boolean;
 };
 
 const DEFAULT_HERO_VIDEO = "/hero.mp4";
@@ -53,6 +55,7 @@ export function HeroSection({
   heroVideoSrc = DEFAULT_HERO_VIDEO,
   heroTitle = DEFAULT_HERO_TITLE,
   heroTagline = DEFAULT_HERO_TAGLINE,
+  hideFleet = false,
 }: HeroSectionProps) {
   const [showGlassCards, setShowGlassCards] = useState(false);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -241,7 +244,7 @@ export function HeroSection({
         </div>
       </section>
 
-      {showGlassCards ? (
+      {showGlassCards && !hideFleet ? (
         <section className="hero__glassRow" id="fleet" aria-label="Our fleet">
           <div className="hero__glassRowTrack" ref={trackRef}>
             {GLASS_CARDS.map((card) => (
