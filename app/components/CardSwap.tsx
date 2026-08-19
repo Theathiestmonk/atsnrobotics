@@ -30,11 +30,6 @@ export function CardSwap({ items, className, autoPlay = true, start = "top 75%" 
     let mounted = true;
 
     (async () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      if (prefersReduced) return;
-
       const el = rootRef.current;
       if (!el) return;
 

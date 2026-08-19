@@ -249,30 +249,23 @@ body {
 /* Glass cards row (minimal, still premium) */
 .hero__glassRow {
   position: relative;
-  z-index: 2;
-  margin-top: auto;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding-inline: clamp(1.5rem, 5vw, 4rem);
-  padding-bottom: clamp(1.1rem, 2.8vh, 2rem);
+  z-index: 1;
+  width: 100%;
+  background: #0a0a0b;
+  padding: clamp(2.5rem, 6vh, 4rem) clamp(1.5rem, 5vw, 4rem);
   box-sizing: border-box;
-  transform: translateY(-clamp(0.85rem, 2.2vh, 1.5rem));
 }
 
 .hero__glassRowTrack {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: clamp(0.75rem, 1.8vw, 1.35rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
   width: 100%;
-  max-width: clamp(320px, 32vw, 420px);
-  margin-left: auto;
-  margin-right: 0;
+  max-width: 84rem;
+  margin-inline: auto;
 }
 
 .hero__glassCardLink {
-  flex: none;
   min-width: 0;
   display: flex;
   text-decoration: none;
@@ -281,11 +274,25 @@ body {
 }
 
 .hero__glassCard {
-  flex: none;
   min-width: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
+  will-change: transform, opacity, filter;
+}
+
+.hero__glassSheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  opacity: 0;
 }
 
 .hero__glassCardSurface {
@@ -333,9 +340,9 @@ body {
 }
 
 .hero__glassCardSplit {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.6rem, 1.6vw, 1rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: clamp(0.75rem, 2.2vw, 1.35rem);
   align-items: stretch;
   min-height: 0;
 }
@@ -349,10 +356,11 @@ body {
 
 .hero__glassMedia {
   margin: 0;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: clamp(140px, 20vw, 200px);
+  justify-content: flex-end;
+  min-height: 0;
   overflow: hidden;
   border-radius: clamp(0.5rem, 1.2vw, 0.85rem);
 }
@@ -364,18 +372,30 @@ body {
   height: 100%;
   max-height: 100%;
   object-fit: contain;
-  object-position: center center;
-  transform-origin: center center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  object-position: right center;
+  transform-origin: right center;
 }
 
-.hero__glassMedia:hover .hero__glassImage {
-  transform: scale(1.06);
+.hero__glassMedia--multi {
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.2vw, 1.35rem);
+}
+
+.hero__glassMedia--multi .hero__glassImage {
+  width: 100%;
+  height: clamp(140px, 19vw, 220px);
+  max-height: none;
+  flex: none;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: clamp(0.4rem, 1vw, 0.7rem);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .hero__glassWatermark {
   position: absolute;
-  right: clamp(0.75rem, 2vw, 1.2rem);
+  left: clamp(0.75rem, 2vw, 1.2rem);
   bottom: clamp(0.35rem, 1.2vh, 0.8rem);
   margin: 0;
   font-size: clamp(2.1rem, 6.8vw, 4.2rem);
@@ -390,12 +410,22 @@ body {
 
 @media (max-width: 720px) {
   .hero__glassRowTrack {
-    max-width: none;
-    margin-left: 0;
+    grid-template-columns: 1fr;
+    max-width: 28rem;
+  }
+
+  .hero__glassCardSplit {
+    grid-template-columns: 1fr;
   }
 
   .hero__glassMedia {
+    justify-content: center;
     min-height: clamp(160px, 34vh, 270px);
+  }
+
+  .hero__glassImage {
+    object-position: center center;
+    transform-origin: center center;
   }
 }
 
@@ -457,14 +487,6 @@ body {
   100% {
     transform: translate3d(0, 0, 0) rotate(-1deg);
     opacity: 0.9;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__glassCardSurface,
-  .hero__glassImage,
-  .hero__btn {
-    transition: none;
   }
 }
 
@@ -762,13 +784,165 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .siteHeader__panel {
-    transition: none;
-  }
 
-  .siteHeader__burgerLines span {
-    transition: none;
-  }
+
+/* —— Sonic scroll hero (pinned scrollytelling) —— */
+/* Interactive drag-to-rotate 3D model hero.
+   User drags left/right on model to rotate 360°, features update with rotation. */
+.sonicHero {
+  position: relative;
+  height: 100vh;
+  background: #ffffff;
 }
 
+.sonicHero--interactive {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.sonicHero__interactiveBg {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sonicHero__interactiveContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sonicHero__interactiveModel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.sonicHero__model {
+  width: 70%;
+  height: 85%;
+  max-width: 500px;
+  max-height: 600px;
+  --poster-color: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sonicHero__model:active {
+  cursor: grabbing;
+}
+
+.sonicHero__interactiveFeatures {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  left: clamp(1.5rem, 4vw, 3rem);
+  z-index: 10;
+  max-width: 32rem;
+}
+
+.sonicHero__feature {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sonicHero__feature.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sonicHero__interactiveHint {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  right: clamp(1.5rem, 4vw, 3rem);
+  font-size: 0.85rem;
+  color: rgba(10, 10, 11, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.sonicHero__featureTitle {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #0a0a0b;
+}
+
+.sonicHero__featureDesc {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.65;
+  color: rgba(10, 10, 11, 0.75);
+  max-width: 28rem;
+}
+
+/* Mobile: stack model on top, features below in a column. */
+.sonicHero--mobile {
+  height: auto;
+  padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vh, 3rem);
+  background: #ffffff;
+}
+
+.sonicHero__mobileStage {
+  height: 55vh;
+  min-height: 20rem;
+  border-radius: clamp(0.75rem, 1.5vw, 1.25rem);
+  overflow: hidden;
+  background: rgba(10, 10, 11, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sonicHero--mobile .sonicHero__model {
+  width: 80%;
+  height: 90%;
+  max-width: none;
+  max-height: none;
+}
+
+.sonicHero__mobileFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.sonicHero__mobileFeature {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: rgba(10, 10, 11, 0.03);
+  border-radius: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.sonicHero__mobileTitle {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 650;
+  color: #0a0a0b;
+}
+
+.sonicHero__mobileDesc {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.6;
+  color: rgba(10, 10, 11, 0.72);
+}

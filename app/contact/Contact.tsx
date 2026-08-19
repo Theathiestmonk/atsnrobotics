@@ -45,11 +45,6 @@ export function Contact() {
     let mounted = true;
 
     (async () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      if (prefersReduced) return;
-
       const el = rootRef.current;
       if (!el) return;
 

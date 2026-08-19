@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { OrderGallery, SONIC_COLORS } from "./OrderGallery";
+import { OrderModelSwitch } from "./OrderModelSwitch";
 
 export const metadata: Metadata = {
   title: "Order ARGO Sonic",
@@ -13,6 +14,7 @@ export default function OrderPage() {
     <main className="atsnPage">
       <div className="atsnContainer atsnHero">
         <p className="atsnHero__eyebrow">Order</p>
+        <OrderModelSwitch active="sonic" />
 
         <div className="orderLayout">
           <OrderGallery colors={SONIC_COLORS} />

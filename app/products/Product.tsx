@@ -27,7 +27,7 @@ const ARGO_MODELS = [
     segment: "Concourses & large venues",
     body:
       "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
-    imageSrc: "/argo_flex.webp",
+    imageSrc: "/argo_flex_new.webp",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
     href: "/flex",
     cta: "View venues",

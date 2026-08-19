@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { OrderGallery, type ColorOption } from "../OrderGallery";
+import { OrderModelSwitch } from "../OrderModelSwitch";
 
 const FLEX_COLORS: ColorOption[] = [
   {
@@ -8,8 +9,13 @@ const FLEX_COLORS: ColorOption[] = [
     label: "ARGO Flex",
     swatch: "#8a8f98",
     images: [
-      { src: "/argo_flex.webp", alt: "ARGO Flex robot" },
-      { src: "/argo_flex_with_golf_kit.webp", alt: "ARGO Flex robot carrying a golf kit" },
+      { src: "/argo_flex_new.webp", alt: "ARGO Flex robot", width: 1122, height: 1402 },
+      {
+        src: "/argoflex_new_with_golf.webp",
+        alt: "ARGO Flex robot carrying a golf kit",
+        width: 561,
+        height: 701,
+      },
     ],
   },
 ];
@@ -25,6 +31,7 @@ export default function OrderFlexPage() {
     <main className="atsnPage">
       <div className="atsnContainer atsnHero">
         <p className="atsnHero__eyebrow">Order</p>
+        <OrderModelSwitch active="flex" />
 
         <div className="orderLayout">
           <OrderGallery colors={FLEX_COLORS} />
