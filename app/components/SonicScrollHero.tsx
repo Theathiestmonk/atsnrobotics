@@ -179,14 +179,14 @@ export function SonicScrollHero() {
         state4Text.style.opacity = "0";
         state4Features.style.opacity = "0";
       } else if (inState3) {
-        // State 3: continues from state 2's end frame — pan the camera down
-        // from the tray to the body (vertical center), zoom out slightly, and
-        // straighten the tilt back toward level. Keep robot panned to the right.
+        // State 3: continues from state 2's end frame — straighten the bot
+        // by adjusting the polar angle. Keep FOV constant (no zoom), and keep
+        // robot panned to the right.
         const stateEndAzimuth = START_ORBIT_AZIMUTH + STATE_1_AZIMUTH_DELTA + STATE_2_AZIMUTH_DELTA;
         const targetY =
           STATE_3_START_TARGET_Y + p3 * (STATE_3_END_TARGET_Y - STATE_3_START_TARGET_Y);
         const polar = STATE_3_START_POLAR + p3 * (STATE_3_END_POLAR - STATE_3_START_POLAR);
-        const fov = STATE_3_START_FOV + p3 * (STATE_3_END_FOV - STATE_3_START_FOV);
+        const fov = STATE_3_START_FOV; // Keep FOV constant, no zoom
         const panX = STATE_2_PAN_RIGHT_VW; // Keep robot on the right
         const state3TextOpacity = Math.min(1, p3 * 2.5);
         const state3FeaturesOpacity = Math.min(1, p3 * 2.5);
