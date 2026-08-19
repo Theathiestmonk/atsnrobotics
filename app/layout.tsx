@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Intelligence in motion",
   description:
     "Bringing intelligent autonomous robots into the spaces where people live, work, and interact.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
