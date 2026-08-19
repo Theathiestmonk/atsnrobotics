@@ -181,13 +181,13 @@ export function SonicScrollHero() {
       } else if (inState3) {
         // State 3: continues from state 2's end frame — pan the camera down
         // from the tray to the body (vertical center), zoom out slightly, and
-        // straighten the tilt back toward level. Horizontal pan resets to 0.
+        // straighten the tilt back toward level. Keep robot panned to the right.
         const stateEndAzimuth = START_ORBIT_AZIMUTH + STATE_1_AZIMUTH_DELTA + STATE_2_AZIMUTH_DELTA;
         const targetY =
           STATE_3_START_TARGET_Y + p3 * (STATE_3_END_TARGET_Y - STATE_3_START_TARGET_Y);
         const polar = STATE_3_START_POLAR + p3 * (STATE_3_END_POLAR - STATE_3_START_POLAR);
         const fov = STATE_3_START_FOV + p3 * (STATE_3_END_FOV - STATE_3_START_FOV);
-        const panX = STATE_2_PAN_RIGHT_VW * (1 - p3);
+        const panX = STATE_2_PAN_RIGHT_VW; // Keep robot on the right
         const state3TextOpacity = Math.min(1, p3 * 2.5);
         const state3FeaturesOpacity = Math.min(1, p3 * 2.5);
 
@@ -204,7 +204,7 @@ export function SonicScrollHero() {
       } else {
         // State 4: continues from state 3's end frame — camera zooms in on the
         // bottom section of the bot (wheels/base), tilting back to a similar
-        // angle as state 2 for a focused close-up view.
+        // angle as state 2 for a focused close-up view. Keep robot on the right.
         const stateEndAzimuth = START_ORBIT_AZIMUTH + STATE_1_AZIMUTH_DELTA + STATE_2_AZIMUTH_DELTA;
         const targetY =
           STATE_4_START_TARGET_Y + p4 * (STATE_4_END_TARGET_Y - STATE_4_START_TARGET_Y);
@@ -216,7 +216,7 @@ export function SonicScrollHero() {
         model.setAttribute("camera-orbit", `${stateEndAzimuth}deg ${polar}deg ${ORBIT_RADIUS}`);
         model.setAttribute("field-of-view", `${fov}deg`);
         model.setAttribute("camera-target", `0m ${targetY}m 0m`);
-        modelWrap.style.transform = `translateX(0vw)`;
+        modelWrap.style.transform = `translateX(${STATE_2_PAN_RIGHT_VW}vw)`;
         state2Features.style.opacity = "0";
         state3Text.style.opacity = "0";
         state3Features.style.opacity = "0";
