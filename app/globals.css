@@ -159,6 +159,22 @@ body {
   pointer-events: none;
 }
 
+.hero__overlay::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 240px;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 11, 0.55) 0%,
+    rgba(154, 154, 154, 0.8) 70%,
+    rgba(154, 154, 154, 1) 100%
+  );
+  pointer-events: none;
+}
+
 .hero__inner {
   position: relative;
   z-index: 1;
@@ -793,18 +809,18 @@ body {
 .sonicHero {
   position: relative;
   height: 800vh;
-  background: #a7a796;
+  background: #9a9a9a;
 }
 
 .sonicHero--scroll-states {
   height: 800vh;
-  background: #a7a796;
+  background: #9a9a9a;
 }
 
 .sonicHero__scrollBg {
   position: fixed;
   inset: 0;
-  background: #a7a796;
+  background: #9a9a9a;
   z-index: -1;
   pointer-events: none;
 }
