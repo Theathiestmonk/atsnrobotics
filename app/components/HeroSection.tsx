@@ -59,12 +59,21 @@ export function HeroSection({
 }: HeroSectionProps) {
   const [showGlassCards, setShowGlassCards] = useState(false);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const gsapModulesRef = useRef<Promise<[any, any]> | null>(null);
 
   useEffect(() => {
     // Show glass cards after 6.5 seconds
     const glassId = window.setTimeout(() => setShowGlassCards(true), 6500);
     return () => window.clearTimeout(glassId);
+  }, []);
+
+  useEffect(() => {
+    // Set video playback rate to 1.5x
+    const video = videoRef.current;
+    if (video) {
+      video.playbackRate = 1.5;
+    }
   }, []);
 
   useEffect(() => {
@@ -211,6 +220,7 @@ export function HeroSection({
       <section className="hero" aria-label="Introduction">
         <div className="hero__media" aria-hidden="true">
           <video
+            ref={videoRef}
             key={heroVideoSrc}
             className="hero__video"
             autoPlay

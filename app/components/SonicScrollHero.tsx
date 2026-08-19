@@ -55,7 +55,7 @@ const STATE_4_START_TARGET_Y = MODEL_CENTER_Y;
 const STATE_4_END_TARGET_Y = 0.1; // focus near the bottom/wheels
 const STATE_4_START_POLAR = STATE_3_END_POLAR;
 const STATE_4_END_POLAR = 90; // straighten completely to horizontal view
-const STATE_4_START_FOV = STATE_3_END_FOV;
+const STATE_4_START_FOV = STATE_3_START_FOV; // Start with same FOV as State 3
 const STATE_4_END_FOV = 16; // zoom in close to the bottom
 
 export function SonicScrollHero() {
@@ -424,6 +424,7 @@ export function SonicScrollHero() {
               <div className="sonicHero__scrollText" ref={state4TextRef}>
                 <h2 className="sonicHero__heading">Intelligence in motion</h2>
                 <p className="sonicHero__subheading">Autonomous delivery, precisely engineered</p>
+                <a href="/order" className="sonicHero__ctaButton">Order Now</a>
               </div>
             </div>
           </div>

@@ -539,11 +539,33 @@ body {
 }
 
 .siteHeader__logoImg {
-  height: clamp(2.2rem, 5.5vh, 3.2rem);
+  height: clamp(2.7rem, 6.6vh, 3.9rem);
   width: auto;
-  max-width: min(280px, 52vw);
+  max-width: min(340px, 52vw);
   display: block;
   object-fit: contain;
+}
+
+.siteHeader__logoText {
+  display: none;
+  margin-left: 0.75rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f5f5f5;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .siteHeader__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .siteHeader__logoText {
+    display: inline;
+  }
 }
 
 .siteHeader__list {
@@ -855,18 +877,21 @@ body {
   inset: 0;
   height: 100%;
   width: 100%;
+  max-width: 1296px;
+  max-height: 1377px;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateX(100vw);
   transition: transform 0s linear;
+  margin: auto;
 }
 
 .sonicHero__model {
   width: 100%;
   height: 100%;
-  max-width: 1440px;
-  max-height: 1530px;
+  max-width: 1296px;
+  max-height: 1377px;
   --poster-color: transparent;
 }
 
@@ -1005,6 +1030,34 @@ body {
   font-size: clamp(0.72rem, 1.17vw, 0.81rem);
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.3;
+}
+
+.sonicHero__ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-size: clamp(0.9rem, 1.9vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(245, 245, 245, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.sonicHero__ctaButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
 .sonicHero__state4 {
