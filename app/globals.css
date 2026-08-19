@@ -793,18 +793,18 @@ body {
 .sonicHero {
   position: relative;
   height: 800vh;
-  background: #9a9a9a;
+  background: #121212;
 }
 
 .sonicHero--scroll-states {
   height: 800vh;
-  background: #9a9a9a;
+  background: #121212;
 }
 
 .sonicHero__scrollBg {
   position: fixed;
   inset: 0;
-  background: #9a9a9a;
+  background: #121212;
   z-index: -1;
   pointer-events: none;
 }
