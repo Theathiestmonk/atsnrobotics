@@ -69,8 +69,6 @@ export function SonicScrollHero() {
   const state4TextRef = useRef<HTMLDivElement | null>(null);
   const state1FeaturesRef = useRef<HTMLDivElement | null>(null);
   const state2FeaturesRef = useRef<HTMLDivElement | null>(null);
-  const state3FeaturesRef = useRef<HTMLDivElement | null>(null);
-  const state4FeaturesRef = useRef<HTMLDivElement | null>(null);
   const [ready, setReady] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -101,9 +99,7 @@ export function SonicScrollHero() {
     const state4Text = state4TextRef.current;
     const state1Features = state1FeaturesRef.current;
     const state2Features = state2FeaturesRef.current;
-    const state3Features = state3FeaturesRef.current;
-    const state4Features = state4FeaturesRef.current;
-    if (!track || !stage || !model || !modelWrap || !state1Text || !state2Text || !state3Text || !state4Text || !state1Features || !state2Features || !state3Features || !state4Features) return;
+    if (!track || !stage || !model || !modelWrap || !state1Text || !state2Text || !state3Text || !state4Text || !state1Features || !state2Features) return;
 
     let rafId: number | null = null;
 
@@ -131,8 +127,6 @@ export function SonicScrollHero() {
       state1Features.style.opacity = inState1 ? featuresOpacity.toString() : "0";
       if (inState1) {
         state2Features.style.opacity = "0";
-        state3Features.style.opacity = "0";
-        state4Features.style.opacity = "0";
       }
 
       if (inState1) {
@@ -175,9 +169,7 @@ export function SonicScrollHero() {
         state2Text.style.opacity = state2TextOpacity.toString();
         state2Features.style.opacity = state2FeaturesOpacity.toString();
         state3Text.style.opacity = "0";
-        state3Features.style.opacity = "0";
         state4Text.style.opacity = "0";
-        state4Features.style.opacity = "0";
       } else if (inState3) {
         // State 3: continues from state 2's end frame — straighten the bot
         // by adjusting the polar angle. Keep FOV constant (no zoom), and keep
@@ -189,7 +181,6 @@ export function SonicScrollHero() {
         const fov = STATE_3_START_FOV; // Keep FOV constant, no zoom
         const panX = STATE_2_PAN_RIGHT_VW; // Keep robot on the right
         const state3TextOpacity = Math.min(1, p3 * 2.5);
-        const state3FeaturesOpacity = Math.min(1, p3 * 2.5);
 
         model.setAttribute("camera-orbit", `${stateEndAzimuth}deg ${polar}deg ${ORBIT_RADIUS}`);
         model.setAttribute("field-of-view", `${fov}deg`);
@@ -198,9 +189,7 @@ export function SonicScrollHero() {
         state2Text.style.opacity = "0";
         state2Features.style.opacity = "0";
         state3Text.style.opacity = state3TextOpacity.toString();
-        state3Features.style.opacity = state3FeaturesOpacity.toString();
         state4Text.style.opacity = "0";
-        state4Features.style.opacity = "0";
       } else {
         // State 4: continues from state 3's end frame — camera zooms in on the
         // bottom section of the bot (wheels/base), tilting back to a similar
@@ -209,9 +198,8 @@ export function SonicScrollHero() {
         const targetY =
           STATE_4_START_TARGET_Y + p4 * (STATE_4_END_TARGET_Y - STATE_4_START_TARGET_Y);
         const polar = STATE_4_START_POLAR + p4 * (STATE_4_END_POLAR - STATE_4_START_POLAR);
-        const fov = STATE_4_START_FOV + p4 * (STATE_4_END_FOV - STATE_4_START_FOV);
+        const fov = STATE_4_START_FOV; // Keep FOV constant, no zoom
         const state4TextOpacity = Math.min(1, p4 * 2.5);
-        const state4FeaturesOpacity = Math.min(1, p4 * 2.5);
 
         model.setAttribute("camera-orbit", `${stateEndAzimuth}deg ${polar}deg ${ORBIT_RADIUS}`);
         model.setAttribute("field-of-view", `${fov}deg`);
@@ -219,9 +207,7 @@ export function SonicScrollHero() {
         modelWrap.style.transform = `translateX(${STATE_2_PAN_RIGHT_VW}vw)`;
         state2Features.style.opacity = "0";
         state3Text.style.opacity = "0";
-        state3Features.style.opacity = "0";
         state4Text.style.opacity = state4TextOpacity.toString();
-        state4Features.style.opacity = state4FeaturesOpacity.toString();
       }
     };
 
@@ -430,110 +416,14 @@ export function SonicScrollHero() {
                 </div>
               </div>
 
-              <div className="sonicHero__contentContainer" ref={state3TextRef}>
-                <div className="sonicHero__scrollText sonicHero__scrollText--state3">
-                  <h2 className="sonicHero__heading">Ergonomic Design</h2>
-                  <p className="sonicHero__subheading">Smooth curves and rounded edges, built to move safely alongside people</p>
-                </div>
-
-                <div className="sonicHero__state3Features" ref={state3FeaturesRef}>
-                  <div className="sonicHero__featureGrid">
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
-                          <path d="M12 6v6l4 2.5"></path>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Rounded Edges</h3>
-                      <p className="sonicHero__featureText">Safety first design</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 2v20M2 12h20"></path>
-                          <circle cx="12" cy="12" r="10"></circle>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Lightweight</h3>
-                      <p className="sonicHero__featureText">Easy to maintain</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 1v6m0 6v10M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"></path>
-                          <circle cx="12" cy="12" r="2"></circle>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Human-Safe</h3>
-                      <p className="sonicHero__featureText">People-friendly</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                          <line x1="9" y1="9" x2="15" y2="15"></line>
-                          <line x1="15" y1="9" x2="9" y2="15"></line>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Compact Form</h3>
-                      <p className="sonicHero__featureText">Space efficient</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="sonicHero__scrollText" ref={state3TextRef}>
+                <h2 className="sonicHero__heading">Ergonomic Design</h2>
+                <p className="sonicHero__subheading">Smooth curves and rounded edges, built to move safely alongside people</p>
               </div>
 
-              <div className="sonicHero__contentContainer" ref={state4TextRef}>
-                <div className="sonicHero__scrollText sonicHero__scrollText--state4">
-                  <h2 className="sonicHero__heading">Intelligence in motion</h2>
-                  <p className="sonicHero__subheading">Autonomous delivery, precisely engineered</p>
-                </div>
-
-                <div className="sonicHero__state4Features" ref={state4FeaturesRef}>
-                  <div className="sonicHero__featureGrid">
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Smart Navigation</h3>
-                      <p className="sonicHero__featureText">AI-powered pathfinding</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M12 6v6l4 2"></path>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Real-Time Updates</h3>
-                      <p className="sonicHero__featureText">Live tracking</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Obstacle Detection</h3>
-                      <p className="sonicHero__featureText">Adaptive awareness</p>
-                    </div>
-                    <div className="sonicHero__featureCard">
-                      <div className="sonicHero__featureIcon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="12 1 3 5 3 19 12 23 21 19 21 5 3 5"></polyline>
-                          <polyline points="12 12 3 8 12 4 21 8 12 12"></polyline>
-                          <polyline points="12 12 12 23"></polyline>
-                          <polyline points="12 12 21 8"></polyline>
-                        </svg>
-                      </div>
-                      <h3 className="sonicHero__featureTitle">Efficient Routing</h3>
-                      <p className="sonicHero__featureText">Optimized paths</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="sonicHero__scrollText" ref={state4TextRef}>
+                <h2 className="sonicHero__heading">Intelligence in motion</h2>
+                <p className="sonicHero__subheading">Autonomous delivery, precisely engineered</p>
               </div>
             </div>
           </div>
