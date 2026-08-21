@@ -214,7 +214,7 @@ body {
   justify-content: center;
   padding: 0.72rem 1.35rem;
   font-size: clamp(0.9rem, 1.9vw, 1rem);
-  font-weight: 650;
+  font-weight: 400;
   letter-spacing: 0.02em;
   text-decoration: none;
   border-radius: 999px;
@@ -249,29 +249,23 @@ body {
 /* Glass cards row (minimal, still premium) */
 .hero__glassRow {
   position: relative;
-  z-index: 2;
-  margin-top: auto;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding-inline: clamp(1.5rem, 5vw, 4rem);
-  padding-bottom: clamp(1.1rem, 2.8vh, 2rem);
+  z-index: 1;
+  width: 100%;
+  background: #0a0a0b;
+  padding: clamp(2.5rem, 6vh, 4rem) clamp(1.5rem, 5vw, 4rem);
   box-sizing: border-box;
-  transform: translateY(-clamp(0.85rem, 2.2vh, 1.5rem));
 }
 
 .hero__glassRowTrack {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  gap: clamp(0.75rem, 1.8vw, 1.35rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
   width: 100%;
-  max-width: 110rem;
+  max-width: 84rem;
   margin-inline: auto;
 }
 
 .hero__glassCardLink {
-  flex: 1 1 0;
   min-width: 0;
   display: flex;
   text-decoration: none;
@@ -280,11 +274,25 @@ body {
 }
 
 .hero__glassCard {
-  flex: 1;
   min-width: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
+  will-change: transform, opacity, filter;
+}
+
+.hero__glassSheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  opacity: 0;
 }
 
 .hero__glassCardSurface {
@@ -366,16 +374,28 @@ body {
   object-fit: contain;
   object-position: right center;
   transform-origin: right center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hero__glassMedia:hover .hero__glassImage {
-  transform: scale(1.06);
+.hero__glassMedia--multi {
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.2vw, 1.35rem);
+}
+
+.hero__glassMedia--multi .hero__glassImage {
+  width: 100%;
+  height: clamp(140px, 19vw, 220px);
+  max-height: none;
+  flex: none;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: clamp(0.4rem, 1vw, 0.7rem);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .hero__glassWatermark {
   position: absolute;
-  right: clamp(0.75rem, 2vw, 1.2rem);
+  left: clamp(0.75rem, 2vw, 1.2rem);
   bottom: clamp(0.35rem, 1.2vh, 0.8rem);
   margin: 0;
   font-size: clamp(2.1rem, 6.8vw, 4.2rem);
@@ -390,8 +410,8 @@ body {
 
 @media (max-width: 720px) {
   .hero__glassRowTrack {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    max-width: 28rem;
   }
 
   .hero__glassCardSplit {
@@ -427,7 +447,7 @@ body {
 .performanceSection__eyebrow {
   margin: 0 0 0.65rem;
   font-size: 0.78rem;
-  font-weight: 650;
+  font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(245, 245, 245, 0.42);
@@ -436,7 +456,7 @@ body {
 .performanceSection__title {
   margin: 0 0 clamp(1.25rem, 3vh, 1.75rem);
   font-size: clamp(2rem, 5vw, 2.75rem);
-  font-weight: 650;
+  font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1.15;
   color: #fafafa;
@@ -467,14 +487,6 @@ body {
   100% {
     transform: translate3d(0, 0, 0) rotate(-1deg);
     opacity: 0.9;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__glassCardSurface,
-  .hero__glassImage,
-  .hero__btn {
-    transition: none;
   }
 }
 
@@ -533,11 +545,33 @@ body {
 }
 
 .siteHeader__logoImg {
-  height: clamp(2.2rem, 5.5vh, 3.2rem);
+  height: clamp(2.7rem, 6.6vh, 3.9rem);
   width: auto;
-  max-width: min(280px, 52vw);
+  max-width: min(340px, 52vw);
   display: block;
   object-fit: contain;
+}
+
+.siteHeader__logoText {
+  display: none;
+  margin-left: 0.75rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f5f5f5;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .siteHeader__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .siteHeader__logoText {
+    display: inline;
+  }
 }
 
 .siteHeader__list {
@@ -778,17 +812,344 @@ body {
   }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
-  .siteHeader__panel {
-    transition: none;
-  }
-
-  .siteHeader__burgerLines span {
-    transition: none;
-  }
-
   .siteHeader__bar {
     transition: none;
   }
 }
 
+/* —— Sonic scroll hero (pinned scrollytelling) —— */
+/* Scroll-driven 4-state 3D model hero animation.
+   States 1+2+3+4 share one continuous 800vh pinned track (smooth handoff, no
+   jump cut). */
+.sonicHero {
+  position: relative;
+  height: 800vh;
+  background: #121212;
+}
+
+.sonicHero--scroll-states {
+  height: 800vh;
+  background: #121212;
+}
+
+.sonicHero__scrollBg {
+  position: fixed;
+  inset: 0;
+  background:
+    /* Rim/accent light - top center, subtle warmth */
+    radial-gradient(ellipse 900px 400px at 50% -15%, rgba(245, 230, 211, 0.12) 0%, transparent 55%),
+    /* Main key light - left side, soft white */
+    radial-gradient(ellipse 1400px 1000px at 10% 45%, rgba(255, 255, 255, 0.35) 0%, transparent 50%),
+    /* Fill light - right side, subtle white */
+    radial-gradient(ellipse 1200px 900px at 90% 55%, rgba(255, 255, 255, 0.20) 0%, transparent 50%),
+    /* Top accent light - gentle illumination */
+    radial-gradient(ellipse 1600px 500px at 50% -5%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
+    /* Base color */
+    #121212;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sonicHero__scrollContent {
+  position: relative;
+  width: 100%;
+}
+
+.sonicHero__track {
+  position: relative;
+  height: 800vh;
+  width: 100%;
+}
+
+.sonicHero__stage {
+  /* position is set imperatively (fixed/absolute) by SonicScrollHero, since an
+     ancestor (.siteShell) has overflow-x set, which breaks CSS position:sticky
+     for every descendant on the site. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sonicHero__scrollState {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sonicHero__scrollModel {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 1296px;
+  max-height: 1377px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100vw);
+  transition: transform 0s linear;
+  margin: auto;
+}
+
+.sonicHero__model {
+  width: 100%;
+  height: 100%;
+  max-width: 1296px;
+  max-height: 1377px;
+  --poster-color: transparent;
+  filter: drop-shadow(0 20px 40px rgba(218, 165, 32, 0.4));
+}
+
+.sonicHero__scrollText {
+  position: absolute;
+  top: 50%;
+  left: clamp(1.5rem, 5vw, 4rem);
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.sonicHero__heading {
+  margin: 0 0 0.5rem;
+  font-size: clamp(3.1rem, 10vw, 5.8rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.sonicHero__subheading {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(245, 245, 245, 0.78);
+  max-width: 26rem;
+}
+
+.sonicHero__state1Features {
+  position: absolute;
+  top: 50%;
+  right: clamp(2rem, 5vw, 4rem);
+  transform: translateY(-50%);
+  width: auto;
+  max-width: 520px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.sonicHero__contentContainer {
+  position: absolute;
+  top: 50%;
+  left: clamp(1.5rem, 5vw, 4rem);
+  transform: translateY(-50%);
+  width: auto;
+  max-width: 520px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: clamp(2rem, 4vh, 3rem);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.sonicHero__state3Features,
+.sonicHero__state4Features {
+  position: static;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  opacity: 1;
+}
+
+.sonicHero__scrollText--state3,
+.sonicHero__scrollText--state4 {
+  position: static;
+  transform: none;
+  z-index: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none;
+  opacity: 1;
+  transition: none;
+  text-align: left;
+}
+
+.sonicHero__featureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.35rem, 1.8vw, 2.25rem);
+}
+
+.sonicHero__featureCard {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: clamp(1.35rem, 1.8vh, 1.8rem);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.sonicHero__featureCard:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px);
+}
+
+.sonicHero__featureIcon {
+  width: clamp(2.25rem, 3.6vw, 2.7rem);
+  height: clamp(2.25rem, 3.6vw, 2.7rem);
+  margin: 0 auto 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1.35rem;
+}
+
+.sonicHero__featureTitle {
+  margin: 0 0 0.45rem;
+  font-size: clamp(0.855rem, 1.62vw, 0.99rem);
+  font-weight: 600;
+  color: #ffffff !important;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.sonicHero__featureText {
+  margin: 0;
+  font-size: clamp(0.72rem, 1.17vw, 0.81rem);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.3;
+}
+
+.sonicHero__ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-size: clamp(0.9rem, 1.9vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(245, 245, 245, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.sonicHero__ctaButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.sonicHero__state4 {
+  height: 200vh;
+  background: #2a2a2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+}
+
+.sonicHero__stateContent {
+  text-align: center;
+}
+
+.sonicHero__featureTitle {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #0a0a0b;
+}
+
+.sonicHero__featureDesc {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.65;
+  color: rgba(10, 10, 11, 0.75);
+  max-width: 28rem;
+}
+
+/* Mobile: stack model on top, text below in a column. */
+.sonicHero--mobile {
+  height: auto;
+  padding: clamp(2rem, 6vh, 3.5rem) clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vh, 3rem);
+  background: #2a2a2c;
+}
+
+.sonicHero__mobileStage {
+  height: 55vh;
+  min-height: 20rem;
+  border-radius: clamp(0.75rem, 1.5vw, 1.25rem);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sonicHero--mobile .sonicHero__model {
+  width: 80%;
+  height: 90%;
+  max-width: none;
+  max-height: none;
+}
+
+.sonicHero__mobileText {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.sonicHero__mobileHeading {
+  margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.sonicHero__mobileSubheading {
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}

@@ -27,11 +27,6 @@ export function BlurText({
     let ctx: any;
     let mounted = true;
     (async () => {
-      const prefersReduced =
-        typeof window !== "undefined" &&
-        window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      if (prefersReduced) return;
-
       const el = rootRef.current;
       if (!el) return;
 

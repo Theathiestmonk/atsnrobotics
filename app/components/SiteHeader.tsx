@@ -90,6 +90,7 @@ export function SiteHeader() {
             width={320}
             height={82}
           />
+          <span className="siteHeader__logoText">atsn robotics</span>
         </Link>
 
         <nav className="siteHeader__navDesktop" aria-label="Main navigation">

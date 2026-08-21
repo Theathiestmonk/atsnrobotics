@@ -16,17 +16,16 @@ export function ScrollReveal({ children, className, once = true, start = "top 88
     let mounted = true;
 
     (async () => {
-      // Check for mobile or reduced motion preference
+      // Check for mobile
       const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches;
-      const prefersReduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      
+
       if (!mounted) return;
 
       const el = ref.current;
       if (!el) return;
 
       // If mobile, don't do reveal animations to speed up content loading as requested
-      if (isMobile || prefersReduced) {
+      if (isMobile) {
         el.style.opacity = "1";
         el.style.transform = "none";
         el.style.filter = "none";
