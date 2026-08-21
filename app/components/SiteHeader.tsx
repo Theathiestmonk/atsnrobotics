@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -14,11 +14,44 @@ const NAV_ITEMS = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [barHidden, setBarHidden] = useState(false);
   const panelId = useId();
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+
+      if (currentY < 80) {
+        setBarHidden(false);
+      } else if (delta > 4) {
+        setBarHidden(true);
+      } else if (delta < -4) {
+        setBarHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -46,7 +79,9 @@ export function SiteHeader() {
 
   return (
     <header className="siteHeader">
-      <div className="siteHeader__bar">
+      <div
+        className={`siteHeader__bar${barHidden && !menuOpen ? " siteHeader__bar--hidden" : ""}`}
+      >
         <Link className="siteHeader__logo" href="/" aria-label="Home">
           <img
             className="siteHeader__logoImg"

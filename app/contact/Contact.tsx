@@ -1,12 +1,19 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { CitySelect, CountrySelect, StateSelect } from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
 import { BlurText } from "../components/BlurText";
 import { ScrollReveal } from "../components/ScrollReveal";
+
+type GeoOption = { id: number; name: string };
 
 export function Contact() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [selectedCountry, setSelectedCountry] = useState<GeoOption | null>(null);
+  const [selectedState, setSelectedState] = useState<GeoOption | null>(null);
+  const [selectedCity, setSelectedCity] = useState<GeoOption | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +25,10 @@ export function Contact() {
     const data = {
       name: formData.get("name"),
       company: formData.get("company"),
+      mobile: formData.get("mobile"),
+      country: selectedCountry?.name ?? "",
+      state: selectedState?.name ?? "",
+      city: selectedCity?.name ?? "",
       email: formData.get("email"),
       message: formData.get("message"),
     };
@@ -176,6 +187,73 @@ export function Contact() {
                 autoComplete="organization"
                 required
               />
+            </div>
+
+            <div>
+              <label className="atsnLabel" htmlFor="mobile">
+                Mobile Number
+              </label>
+              <input
+                className="atsnInput"
+                id="mobile"
+                name="mobile"
+                type="tel"
+                autoComplete="tel"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="atsnLabel" htmlFor="country">
+                Country
+              </label>
+              <div className="atsnGeoField">
+                <CountrySelect
+                  id="country"
+                  inputClassName="atsnInput"
+                  placeHolder="Select country"
+                  required
+                  onChange={(c: any) => {
+                    setSelectedCountry({ id: c.id, name: c.name });
+                    setSelectedState(null);
+                    setSelectedCity(null);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="atsnLabel" htmlFor="state">
+                State / Province
+              </label>
+              <div className="atsnGeoField">
+                <StateSelect
+                  id="state"
+                  inputClassName="atsnInput"
+                  placeHolder={selectedCountry ? "Select state" : "Select country first"}
+                  countryid={selectedCountry?.id ?? 0}
+                  onChange={(s: any) => {
+                    setSelectedState({ id: s.id, name: s.name });
+                    setSelectedCity(null);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="atsnLabel" htmlFor="city">
+                City
+              </label>
+              <div className="atsnGeoField">
+                <CitySelect
+                  id="city"
+                  inputClassName="atsnInput"
+                  placeHolder={selectedState ? "Select city" : "Select state first"}
+                  countryid={selectedCountry?.id ?? 0}
+                  stateid={selectedState?.id ?? 0}
+                  onChange={(c: any) => setSelectedCity({ id: c.id, name: c.name })}
+                />
+              </div>
             </div>
 
             <div className="atsnForm__full">

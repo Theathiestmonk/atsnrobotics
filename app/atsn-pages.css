@@ -305,6 +305,44 @@
   background: rgba(10, 10, 11, 0.66);
 }
 
+.atsnGeoField .stdropdown-container {
+  border: none;
+  background: transparent;
+}
+
+.atsnGeoField .stdropdown-input.stsearch-box {
+  padding: 0;
+  background: transparent;
+}
+
+.atsnGeoField .stdropdown-input input {
+  cursor: pointer;
+}
+
+.atsnGeoField .stdropdown-tool svg {
+  fill: rgba(245, 245, 245, 0.5);
+}
+
+.atsnGeoField .stdropdown-menu {
+  background: #0c0c0e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  margin-top: 0.35rem;
+}
+
+.atsnGeoField .stdropdown-item {
+  color: rgba(245, 245, 245, 0.8);
+}
+
+.atsnGeoField .stdropdown-item:hover {
+  background-color: rgba(201, 169, 98, 0.18);
+}
+
+.atsnGeoField .stdropdown-item.selected {
+  background-color: #c9a962;
+  color: #0a0a0b;
+}
+
 .atsnSubmit {
   grid-column: 1 / -1;
   display: inline-flex;

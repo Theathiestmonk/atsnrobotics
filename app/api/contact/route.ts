@@ -3,7 +3,8 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, company, message } = await req.json();
+    const { name, email, company, mobile, country, state, city, message } = await req.json();
+    const location = [city, state, country].filter(Boolean).join(", ");
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
       to: process.env.CONTACT_FORM_TO || "services@atsnai.com",
       replyTo: email,
       subject: `New Inquiry: ${name} from ${company}`,
-      text: `New contact form submission from ATSN Robotics\n\nName: ${name}\nCompany: ${company}\nEmail: ${email}\n\nMessage:\n${message}`,
+      text: `New contact form submission from ATSN Robotics\n\nName: ${name}\nCompany: ${company}\nMobile: ${mobile}\nLocation: ${location}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -59,6 +60,16 @@ export async function POST(req: Request) {
                 <div class="field">
                   <div class="label">Company</div>
                   <div class="value">${company}</div>
+                </div>
+
+                <div class="field">
+                  <div class="label">Mobile</div>
+                  <div class="value">${mobile}</div>
+                </div>
+
+                <div class="field">
+                  <div class="label">Location</div>
+                  <div class="value">${location}</div>
                 </div>
 
                 <div class="field">

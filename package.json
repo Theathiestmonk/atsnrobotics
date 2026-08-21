@@ -13,6 +13,7 @@
     "next": "^15.1.0",
     "nodemailer": "^8.0.4",
     "react": "19.2.5",
+    "react-country-state-city": "^1.1.13",
     "react-dom": "19.2.5"
   },
   "devDependencies": {

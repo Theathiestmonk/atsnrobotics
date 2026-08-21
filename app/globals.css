@@ -505,6 +505,12 @@ body {
   -webkit-backdrop-filter: blur(12px);
   position: relative;
   z-index: 1002;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.siteHeader__bar--hidden {
+  transform: translateY(-100%);
 }
 
 .siteHeader__logo {
@@ -778,6 +784,10 @@ body {
   }
 
   .siteHeader__burgerLines span {
+    transition: none;
+  }
+
+  .siteHeader__bar {
     transition: none;
   }
 }
