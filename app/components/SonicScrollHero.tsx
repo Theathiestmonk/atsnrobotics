@@ -21,7 +21,7 @@ const ORBIT_RADIUS = "104%"; // slightly beyond model-viewer's ideal fit, avoids
 // getDimensions()): height ≈ 0.98m, resting on the ground at y=0, box center
 // at y≈0.49 — NOT y=0 or y=1 as earlier (incorrect) assumptions used.
 const MODEL_CENTER_Y = 0.49;
-const MODEL_TOP_Y = 0.9; // near the tray, just under the true top (0.98)
+const MODEL_TOP_Y = 0.84; // near the tray, offset down to keep content away from canvas edge
 
 // State 1: model slides in from the right and rotates 90° to a sideways view.
 const STATE_1_AZIMUTH_DELTA = 90;
@@ -33,7 +33,7 @@ const STATE_2_AZIMUTH_DELTA = -90;
 const STATE_2_START_POLAR = START_ORBIT_POLAR;
 const STATE_2_END_POLAR = 50;
 const STATE_2_START_FOV = 30;
-const STATE_2_END_FOV = 15; // Halved FOV ≈ 200% zoom
+const STATE_2_END_FOV = 18; // Slightly wider than 15° to keep tray content fully visible
 const STATE_2_START_TARGET_Y = MODEL_CENTER_Y;
 const STATE_2_END_TARGET_Y = MODEL_TOP_Y;
 const STATE_2_ZOOM_PHASE_END = 0.7;
@@ -52,7 +52,7 @@ const STATE_3_END_FOV = 40; // zoom out more (20% additional zoom-out from 15°�
 // State 4: continues from state 3's end — camera zooms in on the bottom section
 // of the bot (wheels/base), closing back to a zoom level similar to state 2.
 const STATE_4_START_TARGET_Y = MODEL_CENTER_Y;
-const STATE_4_END_TARGET_Y = 0.1; // focus near the bottom/wheels
+const STATE_4_END_TARGET_Y = 0.15; // focus near the bottom/wheels, offset up to prevent edge clipping
 const STATE_4_START_POLAR = STATE_3_END_POLAR;
 const STATE_4_END_POLAR = 90; // straighten completely to horizontal view
 const STATE_4_START_FOV = STATE_3_START_FOV; // Start with same FOV as State 3
@@ -392,26 +392,6 @@ export function SonicScrollHero() {
                     </div>
                     <h3 className="sonicHero__featureTitle">Quick Delivery</h3>
                     <p className="sonicHero__featureText">Efficient routing</p>
-                  </div>
-                  <div className="sonicHero__featureCard">
-                    <div className="sonicHero__featureIcon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 2v20M2 12h20"></path>
-                        <circle cx="12" cy="12" r="10"></circle>
-                      </svg>
-                    </div>
-                    <h3 className="sonicHero__featureTitle">Climate Control</h3>
-                    <p className="sonicHero__featureText">Temperature managed</p>
-                  </div>
-                  <div className="sonicHero__featureCard">
-                    <div className="sonicHero__featureIcon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 1v6m0 6v10M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"></path>
-                        <circle cx="12" cy="12" r="2"></circle>
-                      </svg>
-                    </div>
-                    <h3 className="sonicHero__featureTitle">Secure Lock</h3>
-                    <p className="sonicHero__featureText">Safe containment</p>
                   </div>
                 </div>
               </div>
