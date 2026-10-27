@@ -1,43 +1,142 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { parsePhoneNumber, isValidPhoneNumber } from "libphonenumber-js";
-import intlTelInput from "intl-tel-input";
+import { GetCountries, GetState, GetCity } from "react-country-state-city";
 import { BlurText } from "../components/BlurText";
 import { ScrollReveal } from "../components/ScrollReveal";
+
+interface Country {
+  id: number;
+  name: string;
+  iso2: string;
+  iso3: string;
+  phone_code: string;
+  currency: string;
+  latitude: number;
+  longitude: number;
+}
+
+interface State {
+  id: number;
+  name: string;
+  iso2: string;
+  type: string;
+  latitude: number;
+  longitude: number;
+}
+
+interface City {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
 
 export function TalkToUs({ model }: { model: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [phoneError, setPhoneError] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<string>("in");
-  const phoneInputRef = useRef<HTMLInputElement>(null);
-  const itiRef = useRef<any>(null);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
+  // Country State City
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [country, setCountry] = useState<Country | null>(null);
+  const [countrySearch, setCountrySearch] = useState<string>("");
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+
+  const [states, setStates] = useState<State[]>([]);
+  const [state, setState] = useState<State | null>(null);
+  const [stateSearch, setStateSearch] = useState<string>("");
+  const [showStateDropdown, setShowStateDropdown] = useState(false);
+
+  const [cities, setCities] = useState<City[]>([]);
+  const [city, setCity] = useState<City | null>(null);
+  const [citySearch, setCitySearch] = useState<string>("");
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
+
+  const [selectedCountryCode, setSelectedCountryCode] = useState<string>("91");
+
+  // Load countries on mount
   useEffect(() => {
-    if (phoneInputRef.current && !itiRef.current) {
-      itiRef.current = intlTelInput(phoneInputRef.current, {
-        initialCountry: "in",
-        preferredCountries: ["in", "us", "gb", "de", "fr", "au", "ca"],
-        separateDialCode: true,
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.0.0/build/js/utils.js",
-      });
+    GetCountries().then(result => {
+      const countriesData = result.map((c: any) => ({
+        ...c,
+        latitude: typeof c.latitude === 'string' ? parseFloat(c.latitude) : c.latitude,
+        longitude: typeof c.longitude === 'string' ? parseFloat(c.longitude) : c.longitude,
+      })) as Country[];
+      setCountries(countriesData);
+      // Set default to India
+      const india = countriesData.find(c => c.iso2 === "IN");
+      if (india) {
+        setCountry(india);
+        setSelectedCountryCode(india.phone_code);
+      }
+    });
+  }, []);
 
-      phoneInputRef.current.addEventListener("countrychange", () => {
-        setSelectedCountry(itiRef.current.getSelectedCountryData().iso2);
-        setPhoneError("");
+  // Fetch states when country changes
+  useEffect(() => {
+    if (country) {
+      GetState(country.id).then(result => {
+        const statesData = result.map((s: any) => ({
+          ...s,
+          latitude: typeof s.latitude === 'string' ? parseFloat(s.latitude) : s.latitude,
+          longitude: typeof s.longitude === 'string' ? parseFloat(s.longitude) : s.longitude,
+        })) as State[];
+        setStates(statesData);
+        setState(null);
+        setCities([]);
+        setCity(null);
+        setStateSearch("");
+        setCitySearch("");
       });
     }
+  }, [country]);
 
-    return () => {
-      if (phoneInputRef.current) {
-        phoneInputRef.current.removeEventListener("countrychange", () => {});
-      }
-    };
-  }, []);
+  // Fetch cities when state changes
+  useEffect(() => {
+    if (state && country) {
+      GetCity(country.id, state.id).then(result => {
+        const citiesData = result.map((c: any) => ({
+          ...c,
+          latitude: typeof c.latitude === 'string' ? parseFloat(c.latitude) : c.latitude,
+          longitude: typeof c.longitude === 'string' ? parseFloat(c.longitude) : c.longitude,
+        })) as City[];
+        setCities(citiesData);
+        setCity(null);
+        setCitySearch("");
+      });
+    }
+  }, [state, country]);
+
+  const validateForm = (formData: FormData): boolean => {
+    const errors: Record<string, string> = {};
+
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+
+    if (!name?.trim()) errors.name = "Full name is required";
+    if (!email?.trim()) errors.email = "Email is required";
+    if (!isValidEmail(email)) errors.email = "Please enter a valid email";
+    if (!phone?.trim()) errors.phone = "Contact number is required";
+    if (!country) errors.country = "Country is required";
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const isValidEmail = (email: string): boolean => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const validatePhone = (phoneNumber: string, countryCode: string): boolean => {
     if (!phoneNumber.trim()) return false;
-    return isValidPhoneNumber(phoneNumber, countryCode.toUpperCase() as any);
+    try {
+      return isValidPhoneNumber(phoneNumber, countryCode.toUpperCase() as any);
+    } catch {
+      return false;
+    }
   };
 
   const formatPhoneToE164 = (phoneNumber: string, countryCode: string): string | null => {
@@ -49,20 +148,38 @@ export function TalkToUs({ model }: { model: string }) {
     }
   };
 
+  const filteredCountries = countries.filter(c =>
+    c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    c.phone_code.includes(countrySearch)
+  );
+
+  const filteredStates = states.filter(s =>
+    s.name.toLowerCase().includes(stateSearch.toLowerCase())
+  );
+
+  const filteredCities = cities.filter(c =>
+    c.name.toLowerCase().includes(citySearch.toLowerCase())
+  );
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (status !== "idle" && status !== "error") return;
 
     const formData = new FormData(e.currentTarget);
-    const phoneInput = formData.get("phone") as string;
-    const countryCode = selectedCountry.toUpperCase();
 
-    if (!validatePhone(phoneInput, selectedCountry)) {
-      setPhoneError(`Invalid phone number for ${countryCode}. Please check and try again.`);
+    if (!validateForm(formData)) {
       return;
     }
 
-    const e164Phone = formatPhoneToE164(phoneInput, selectedCountry);
+    const phoneInput = formData.get("phone") as string;
+    const countryCode = country?.iso2 || "IN";
+
+    if (!validatePhone(phoneInput, countryCode)) {
+      setPhoneError(`Invalid phone number for ${country?.name || countryCode}. Please check and try again.`);
+      return;
+    }
+
+    const e164Phone = formatPhoneToE164(phoneInput, countryCode);
     if (!e164Phone) {
       setPhoneError("Unable to format phone number. Please check and try again.");
       return;
@@ -77,10 +194,11 @@ export function TalkToUs({ model }: { model: string }) {
       email: formData.get("email"),
       phone: e164Phone,
       phoneCountry: countryCode,
+      phoneCountryCode: selectedCountryCode,
       address: formData.get("address"),
-      city: formData.get("city"),
-      state: formData.get("state"),
-      country: formData.get("country"),
+      city: city?.name || "",
+      state: state?.name || "",
+      country: country?.name || "",
     };
 
     try {
@@ -101,10 +219,10 @@ export function TalkToUs({ model }: { model: string }) {
     <main className="atsnPage">
       <div className="atsnContainer atsnHero">
         <p className="atsnHero__eyebrow">Talk to us</p>
-        <BlurText text="Let’s bring ARGO on board." as="h1" className="atsnHero__title" />
+        <BlurText text="Let's bring ARGO on board." as="h1" className="atsnHero__title" />
 
         <p className="atsnHero__lead">
-          Share a few details about your business and where you’d like to deploy your robot. Our
+          Share a few details about your business and where you'd like to deploy your robot. Our
           team will follow up with next steps.
         </p>
 
@@ -124,17 +242,29 @@ export function TalkToUs({ model }: { model: string }) {
             </p>
           </ScrollReveal>
 
-          <form className="atsnForm" onSubmit={handleSubmit}>
+          <form className="atsnForm atsnForm--grid" onSubmit={handleSubmit}>
             <input type="hidden" name="model" value={model} />
 
-            <div>
+            {/* Row 1: Full Name (Left) & Company Name (Right) */}
+            <div className="atsnForm__col atsnForm__col--half">
               <label className="atsnLabel" htmlFor="name">
                 Full name <span style={{ color: "#dc2626" }}>*</span>
               </label>
-              <input className="atsnInput" id="name" name="name" autoComplete="name" required />
+              <input
+                className="atsnInput"
+                id="name"
+                name="name"
+                autoComplete="name"
+                required
+              />
+              {formErrors.name && (
+                <p style={{ color: "#dc2626", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+                  {formErrors.name}
+                </p>
+              )}
             </div>
 
-            <div>
+            <div className="atsnForm__col atsnForm__col--half">
               <label className="atsnLabel" htmlFor="businessName">
                 Company name
               </label>
@@ -146,7 +276,8 @@ export function TalkToUs({ model }: { model: string }) {
               />
             </div>
 
-            <div>
+            {/* Row 2: Email (Full Width) */}
+            <div className="atsnForm__col atsnForm__col--full">
               <label className="atsnLabel" htmlFor="email">
                 Email <span style={{ color: "#dc2626" }}>*</span>
               </label>
@@ -158,14 +289,74 @@ export function TalkToUs({ model }: { model: string }) {
                 autoComplete="email"
                 required
               />
+              {formErrors.email && (
+                <p style={{ color: "#dc2626", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+                  {formErrors.email}
+                </p>
+              )}
             </div>
 
-            <div>
+            {/* Row 3: Country Code (Left) & Contact Number (Right) */}
+            <div className="atsnForm__col atsnForm__col--half">
+              <label className="atsnLabel" htmlFor="country-select">
+                Country Code <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <div style={{ position: "relative" }}>
+                <input
+                  className="atsnInput"
+                  id="country-select"
+                  type="text"
+                  placeholder="Search country..."
+                  value={countrySearch || country?.name || ""}
+                  onChange={(e) => {
+                    setCountrySearch(e.target.value);
+                    setShowCountryDropdown(true);
+                  }}
+                  onFocus={() => setShowCountryDropdown(true)}
+                  required
+                />
+                {showCountryDropdown && countrySearch && (
+                  <div style={dropdownStyle}>
+                    {filteredCountries.length > 0 ? (
+                      filteredCountries.map(c => (
+                        <div
+                          key={c.id}
+                          onClick={() => {
+                            setCountry(c);
+                            setCountrySearch("");
+                            setSelectedCountryCode(c.phone_code);
+                            setShowCountryDropdown(false);
+                          }}
+                          style={dropdownItemStyle}
+                        >
+                          <span>{c.name}</span> <span style={{ color: "#c9a962" }}>+{c.phone_code}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ ...dropdownItemStyle, cursor: "default", color: "rgba(245, 245, 245, 0.5)" }}>
+                        No countries found
+                      </div>
+                    )}
+                  </div>
+                )}
+                {country && !showCountryDropdown && (
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
+                    +{selectedCountryCode}
+                  </div>
+                )}
+              </div>
+              {formErrors.country && (
+                <p style={{ color: "#dc2626", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+                  {formErrors.country}
+                </p>
+              )}
+            </div>
+
+            <div className="atsnForm__col atsnForm__col--half">
               <label className="atsnLabel" htmlFor="phone">
                 Contact Number <span style={{ color: "#dc2626" }}>*</span>
               </label>
               <input
-                ref={phoneInputRef}
                 className="atsnInput"
                 id="phone"
                 name="phone"
@@ -179,9 +370,15 @@ export function TalkToUs({ model }: { model: string }) {
                   {phoneError}
                 </p>
               )}
+              {formErrors.phone && (
+                <p style={{ color: "#dc2626", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+                  {formErrors.phone}
+                </p>
+              )}
             </div>
 
-            <div className="atsnForm__full">
+            {/* Row 4: Address (Full Width) */}
+            <div className="atsnForm__col atsnForm__col--full">
               <label className="atsnLabel" htmlFor="address">
                 Address
               </label>
@@ -193,40 +390,103 @@ export function TalkToUs({ model }: { model: string }) {
               />
             </div>
 
-            <div>
-              <label className="atsnLabel" htmlFor="city">
-                City
-              </label>
-              <input
-                className="atsnInput"
-                id="city"
-                name="city"
-                autoComplete="address-level2"
-              />
-            </div>
-
-            <div>
-              <label className="atsnLabel" htmlFor="state">
+            {/* Row 5: State (Left) & City (Right) */}
+            <div className="atsnForm__col atsnForm__col--half">
+              <label className="atsnLabel" htmlFor="state-select">
                 State / Province
               </label>
-              <input
-                className="atsnInput"
-                id="state"
-                name="state"
-                autoComplete="address-level1"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  className="atsnInput"
+                  id="state-select"
+                  type="text"
+                  placeholder="Select state..."
+                  disabled={!country}
+                  value={stateSearch || state?.name || ""}
+                  onChange={(e) => {
+                    setStateSearch(e.target.value);
+                    setShowStateDropdown(true);
+                  }}
+                  onFocus={() => country && setShowStateDropdown(true)}
+                />
+                {showStateDropdown && state === null && states.length > 0 && (
+                  <div style={dropdownStyle}>
+                    {filteredStates.length > 0 ? (
+                      filteredStates.slice(0, 10).map(s => (
+                        <div
+                          key={s.id}
+                          onClick={() => {
+                            setState(s);
+                            setStateSearch("");
+                            setShowStateDropdown(false);
+                          }}
+                          style={dropdownItemStyle}
+                        >
+                          {s.name}
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ ...dropdownItemStyle, cursor: "default", color: "rgba(245, 245, 245, 0.5)" }}>
+                        No states found
+                      </div>
+                    )}
+                  </div>
+                )}
+                {state && !showStateDropdown && (
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
+                    {state.name}
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="atsnForm__full">
-              <label className="atsnLabel" htmlFor="country">
-                Country
+            <div className="atsnForm__col atsnForm__col--half">
+              <label className="atsnLabel" htmlFor="city-select">
+                City
               </label>
-              <input
-                className="atsnInput"
-                id="country"
-                name="country"
-                autoComplete="country-name"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  className="atsnInput"
+                  id="city-select"
+                  type="text"
+                  placeholder="Select city..."
+                  disabled={!state}
+                  value={citySearch || city?.name || ""}
+                  onChange={(e) => {
+                    setCitySearch(e.target.value);
+                    setShowCityDropdown(true);
+                  }}
+                  onFocus={() => state && setShowCityDropdown(true)}
+                />
+                {showCityDropdown && city === null && cities.length > 0 && (
+                  <div style={dropdownStyle}>
+                    {filteredCities.length > 0 ? (
+                      filteredCities.slice(0, 10).map(c => (
+                        <div
+                          key={c.id}
+                          onClick={() => {
+                            setCity(c);
+                            setCitySearch("");
+                            setShowCityDropdown(false);
+                          }}
+                          style={dropdownItemStyle}
+                        >
+                          {c.name}
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ ...dropdownItemStyle, cursor: "default", color: "rgba(245, 245, 245, 0.5)" }}>
+                        No cities found
+                      </div>
+                    )}
+                  </div>
+                )}
+                {city && !showCityDropdown && (
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
+                    {city.name}
+                  </div>
+                )}
+              </div>
             </div>
 
             <button
@@ -239,7 +499,7 @@ export function TalkToUs({ model }: { model: string }) {
                 : status === "sending"
                 ? "Sending…"
                 : status === "sent"
-                ? "Sent — we’ll reply soon"
+                ? "Sent — we'll reply soon"
                 : "Error — please try again"}
             </button>
           </form>
@@ -247,54 +507,67 @@ export function TalkToUs({ model }: { model: string }) {
       </div>
 
       <style>{`
-        .iti {
-          width: 100%;
+        .atsnForm--grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
         }
-        .iti__input {
-          width: 100%;
-          padding: 12px 16px 12px 50px;
-          font-size: 1rem;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 8px;
-          background-color: transparent;
-          color: #f5f5f5;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+        .atsnForm__col {
+          display: flex;
+          flex-direction: column;
         }
-        .iti__input:focus {
-          outline: none;
-          border-color: #c9a962;
-          box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+
+        .atsnForm__col--full {
+          grid-column: 1 / -1;
         }
-        .iti__country-list {
-          background-color: #0c0c0e;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #f5f5f5;
-          max-height: 200px;
-          overflow-y: auto;
+
+        .atsnForm__col--half {
+          grid-column: span 1;
         }
-        .iti__country {
-          padding: 8px 12px;
-          cursor: pointer;
-        }
-        .iti__country:hover,
-        .iti__country.iti__highlighted {
-          background-color: rgba(201, 169, 98, 0.1);
-        }
-        .iti__flag {
-          margin-right: 8px;
-        }
-        .iti__dial-code {
-          color: rgba(245, 245, 245, 0.6);
-        }
-        .iti__arrow {
-          border-color: #f5f5f5 transparent transparent transparent;
-        }
-        @media (max-width: 640px) {
-          .iti {
-            width: 100%;
+
+        @media (max-width: 768px) {
+          .atsnForm--grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
           }
+
+          .atsnForm__col--full,
+          .atsnForm__col--half {
+            grid-column: 1;
+          }
+        }
+
+        .atsnInput:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
       `}</style>
     </main>
   );
 }
+
+const dropdownStyle: React.CSSProperties = {
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  right: 0,
+  backgroundColor: "#0c0c0e",
+  border: "1px solid rgba(255, 255, 255, 0.12)",
+  borderRadius: "8px",
+  marginTop: "4px",
+  maxHeight: "200px",
+  overflowY: "auto",
+  zIndex: 10,
+};
+
+const dropdownItemStyle: React.CSSProperties = {
+  padding: "12px 16px",
+  cursor: "pointer",
+  color: "#f5f5f5",
+  fontSize: "0.95rem",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+};
