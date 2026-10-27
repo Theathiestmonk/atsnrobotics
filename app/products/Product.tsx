@@ -17,7 +17,7 @@ const ARGO_MODELS = [
       "Tuned for lobbies, dining areas, and service rhythms where presence matters. Argo Sonic moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
     imageSrc: "/sonic_black_without_food.webp",
     imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
-    href: "/luxury",
+    href: "/sonic",
     cta: "View hospitality",
   },
   {

@@ -20,8 +20,8 @@ type GlassCardData = {
 const GLASS_CARDS: GlassCardData[] = [
   {
     id: "hotels-hospitality",
-    href: "/luxury",
-    images: [{ src: "/sonic_black_without_food.webp", alt: "Argo Suave" }],
+    href: "/sonic",
+    images: [{ src: "/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png", alt: "Argo Sonic" }],
     title: "Hotels, restaurants & cafes",
     body: "Designed for lobbies, dining areas, and guest-facing service.",
     watermark: "Sonic",
@@ -29,10 +29,18 @@ const GLASS_CARDS: GlassCardData[] = [
   {
     id: "support",
     href: "/flex",
-    images: [{ src: "/argo_flex_new.webp", alt: "Argo Flex" }],
+    images: [{ src: "/argo_flex_rover_3x_upscaled-removebg-preview.png", alt: "Argo Flex" }],
     title: "Cricket stadiums & large venues",
     body: "Sized for concourses, stands, and high-energy crowds.",
     watermark: "Flex",
+  },
+  {
+    id: "argo-uno",
+    href: "/uno",
+    images: [{ src: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png", alt: "Argo Uno" }],
+    title: "The next Argo model",
+    body: "Argo Uno is in development. Follow along as the next model takes shape.",
+    watermark: "Uno",
   },
 ];
 
@@ -256,7 +264,7 @@ export function HeroSection({
 
       {showGlassCards && !hideFleet ? (
         <section className="hero__glassRow" id="fleet" aria-label="Our fleet">
-          <div className="hero__glassRowTrack" ref={trackRef}>
+          <div className={`hero__glassRowTrack${GLASS_CARDS.length > 2 ? " hero__glassRowTrack--three" : ""}`} ref={trackRef}>
             {GLASS_CARDS.map((card) => (
               <Link
                 key={card.id}

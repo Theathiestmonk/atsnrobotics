@@ -1,11 +1,5 @@
-import { HeroSection } from "./components/HeroSection";
-import { PerformanceSection } from "./components/PerformanceSection";
+import { HomeExperience } from "./components/HomeExperience";
 
 export default function Home() {
-  return (
-    <main>
-      <HeroSection />
-      <PerformanceSection />
-    </main>
-  );
+  return <HomeExperience />;
 }
