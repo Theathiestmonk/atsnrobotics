@@ -161,6 +161,48 @@ export function TalkToUs({ model }: { model: string }) {
     c.name.toLowerCase().includes(citySearch.toLowerCase())
   );
 
+  const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
+    // Filter to only allow digits 0-9
+    const input = e.currentTarget;
+    const filtered = input.value.replace(/[^\d]/g, "");
+    input.value = filtered;
+    setPhoneError("");
+  };
+
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasted = e.clipboardData.getData("text");
+    const filtered = pasted.replace(/[^\d]/g, "");
+    const current = (e.target as HTMLInputElement).value;
+    const newValue = current + filtered;
+
+    setTimeout(() => {
+      (e.target as HTMLInputElement).value = newValue.replace(/[^\d]/g, "");
+    }, 0);
+  };
+
+  const handleCountryChange = (c: Country) => {
+    setCountry(c);
+    setCountrySearch("");
+    setSelectedCountryCode(c.phone_code);
+    setShowCountryDropdown(false);
+    setPhoneError("");
+  };
+
+  const handleStateChange = (s: State) => {
+    setState(s);
+    setStateSearch("");
+    setShowStateDropdown(false);
+    setCity(null);
+    setCitySearch("");
+    setCities([]);
+  };
+
+  const handleCityChange = (c: City) => {
+    setCity(c);
+    setCitySearch("");
+    setShowCityDropdown(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (status !== "idle" && status !== "error") return;
@@ -307,12 +349,18 @@ export function TalkToUs({ model }: { model: string }) {
                   id="country-select"
                   type="text"
                   placeholder="Search country..."
-                  value={countrySearch || country?.name || ""}
+                  value={showCountryDropdown || !country ? countrySearch : `${country.name} +${country.phone_code}`}
                   onChange={(e) => {
                     setCountrySearch(e.target.value);
                     setShowCountryDropdown(true);
                   }}
-                  onFocus={() => setShowCountryDropdown(true)}
+                  onFocus={() => {
+                    if (country) {
+                      setCountrySearch("");
+                    }
+                    setShowCountryDropdown(true);
+                  }}
+                  onBlur={() => setTimeout(() => setShowCountryDropdown(false), 100)}
                   required
                 />
                 {showCountryDropdown && countrySearch && (
@@ -321,12 +369,7 @@ export function TalkToUs({ model }: { model: string }) {
                       filteredCountries.map(c => (
                         <div
                           key={c.id}
-                          onClick={() => {
-                            setCountry(c);
-                            setCountrySearch("");
-                            setSelectedCountryCode(c.phone_code);
-                            setShowCountryDropdown(false);
-                          }}
+                          onClick={() => handleCountryChange(c)}
                           style={dropdownItemStyle}
                         >
                           <span>{c.name}</span> <span style={{ color: "#c9a962" }}>+{c.phone_code}</span>
@@ -337,11 +380,6 @@ export function TalkToUs({ model }: { model: string }) {
                         No countries found
                       </div>
                     )}
-                  </div>
-                )}
-                {country && !showCountryDropdown && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
-                    +{selectedCountryCode}
                   </div>
                 )}
               </div>
@@ -361,8 +399,11 @@ export function TalkToUs({ model }: { model: string }) {
                 id="phone"
                 name="phone"
                 type="tel"
+                inputMode="numeric"
                 autoComplete="tel"
                 placeholder="Phone number"
+                onInput={handlePhoneInput}
+                onPaste={handlePhonePaste}
                 required
               />
               {phoneError && (
@@ -402,24 +443,31 @@ export function TalkToUs({ model }: { model: string }) {
                   type="text"
                   placeholder="Select state..."
                   disabled={!country}
-                  value={stateSearch || state?.name || ""}
+                  value={stateSearch}
                   onChange={(e) => {
                     setStateSearch(e.target.value);
-                    setShowStateDropdown(true);
+                    if (e.target.value) {
+                      setShowStateDropdown(true);
+                    }
                   }}
                   onFocus={() => country && setShowStateDropdown(true)}
+                  onBlur={() => {
+                    if (!stateSearch && state) {
+                      setShowStateDropdown(false);
+                    } else if (!stateSearch && !state) {
+                      setShowStateDropdown(false);
+                    } else {
+                      setTimeout(() => setShowStateDropdown(false), 100);
+                    }
+                  }}
                 />
-                {showStateDropdown && state === null && states.length > 0 && (
+                {showStateDropdown && states.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredStates.length > 0 ? (
                       filteredStates.slice(0, 10).map(s => (
                         <div
                           key={s.id}
-                          onClick={() => {
-                            setState(s);
-                            setStateSearch("");
-                            setShowStateDropdown(false);
-                          }}
+                          onClick={() => handleStateChange(s)}
                           style={dropdownItemStyle}
                         >
                           {s.name}
@@ -432,8 +480,8 @@ export function TalkToUs({ model }: { model: string }) {
                     )}
                   </div>
                 )}
-                {state && !showStateDropdown && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
+                {state && !stateSearch && (
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none", backgroundColor: "transparent" }}>
                     {state.name}
                   </div>
                 )}
@@ -451,24 +499,31 @@ export function TalkToUs({ model }: { model: string }) {
                   type="text"
                   placeholder="Select city..."
                   disabled={!state}
-                  value={citySearch || city?.name || ""}
+                  value={citySearch}
                   onChange={(e) => {
                     setCitySearch(e.target.value);
-                    setShowCityDropdown(true);
+                    if (e.target.value) {
+                      setShowCityDropdown(true);
+                    }
                   }}
                   onFocus={() => state && setShowCityDropdown(true)}
+                  onBlur={() => {
+                    if (!citySearch && city) {
+                      setShowCityDropdown(false);
+                    } else if (!citySearch && !city) {
+                      setShowCityDropdown(false);
+                    } else {
+                      setTimeout(() => setShowCityDropdown(false), 100);
+                    }
+                  }}
                 />
-                {showCityDropdown && city === null && cities.length > 0 && (
+                {showCityDropdown && cities.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredCities.length > 0 ? (
                       filteredCities.slice(0, 10).map(c => (
                         <div
                           key={c.id}
-                          onClick={() => {
-                            setCity(c);
-                            setCitySearch("");
-                            setShowCityDropdown(false);
-                          }}
+                          onClick={() => handleCityChange(c)}
                           style={dropdownItemStyle}
                         >
                           {c.name}
@@ -481,8 +536,8 @@ export function TalkToUs({ model }: { model: string }) {
                     )}
                   </div>
                 )}
-                {city && !showCityDropdown && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none" }}>
+                {city && !citySearch && (
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none", backgroundColor: "transparent" }}>
                     {city.name}
                   </div>
                 )}
