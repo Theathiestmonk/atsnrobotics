@@ -379,12 +379,12 @@ export function TalkToUs({ model }: { model: string }) {
                   value={countrySearch || (country ? `${country.name} +${country.phone_code}` : "")}
                   onChange={(e) => {
                     setCountrySearch(e.target.value);
-                    setShowCountryDropdown(true);
+                    if (e.target.value) {
+                      setCountry(null);
+                      setShowCountryDropdown(true);
+                    }
                   }}
-                  onFocus={() => {
-                    setCountrySearch("");
-                    setShowCountryDropdown(true);
-                  }}
+                  onFocus={() => (setCountry(null), setCountrySearch(""), setShowCountryDropdown(true))}
                   onBlur={() => setTimeout(() => setShowCountryDropdown(false), 100)}
                   required
                 />
