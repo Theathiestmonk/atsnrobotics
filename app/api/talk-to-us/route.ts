@@ -1,10 +1,37 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
 
 export async function POST(req: Request) {
   try {
-    const { model, name, businessName, email, phone, address, city, state, country } =
+    const { model, name, businessName, email, phone, phoneCountry, address, city, state, country } =
       await req.json();
+
+    // Validate phone number on backend
+    if (!phone || typeof phone !== "string" || !phone.startsWith("+")) {
+      return NextResponse.json(
+        { error: "Invalid phone number format" },
+        { status: 400 }
+      );
+    }
+
+    // Verify it's a valid E.164 format and matches expected country code
+    let phoneCountryCode = phoneCountry;
+    try {
+      const parsed = parsePhoneNumber(phone);
+      if (!parsed || !isValidPhoneNumber(phone)) {
+        return NextResponse.json(
+          { error: "Invalid phone number" },
+          { status: 400 }
+        );
+      }
+      phoneCountryCode = parsed.country || phoneCountry;
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid phone number" },
+        { status: 400 }
+      );
+    }
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -72,7 +99,7 @@ export async function POST(req: Request) {
 
                 <div class="field">
                   <div class="label">Contact number</div>
-                  <div class="value">${phone}</div>
+                  <div class="value">${phone} <span style="color: rgba(245, 245, 245, 0.5); font-size: 14px;">(${phoneCountryCode})</span></div>
                 </div>
 
                 <div class="field">

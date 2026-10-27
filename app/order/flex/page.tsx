@@ -76,7 +76,7 @@ export default function OrderFlexPage() {
 
             <div className="atsnHero__ctaRow">
               <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us?model=ARGO%20Flex">
-                Talk to us
+                Let's Connect
               </Link>
               <Link className="atsnBtn" href="/products">
                 View all models
