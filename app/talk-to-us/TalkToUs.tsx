@@ -376,21 +376,19 @@ export function TalkToUs({ model }: { model: string }) {
                   id="country-select"
                   type="text"
                   placeholder="Search country..."
-                  value={showCountryDropdown || !country ? countrySearch : `${country.name} +${country.phone_code}`}
+                  value={countrySearch || (country ? `${country.name} +${country.phone_code}` : "")}
                   onChange={(e) => {
                     setCountrySearch(e.target.value);
                     setShowCountryDropdown(true);
                   }}
                   onFocus={() => {
-                    if (country) {
-                      setCountrySearch("");
-                    }
+                    setCountrySearch("");
                     setShowCountryDropdown(true);
                   }}
                   onBlur={() => setTimeout(() => setShowCountryDropdown(false), 100)}
                   required
                 />
-                {showCountryDropdown && countrySearch && (
+                {showCountryDropdown && (
                   <div style={dropdownStyle}>
                     {filteredCountries.length > 0 ? (
                       filteredCountries.map(c => (
@@ -470,25 +468,20 @@ export function TalkToUs({ model }: { model: string }) {
                   type="text"
                   placeholder="Select state..."
                   disabled={!country}
-                  value={stateSearch}
+                  value={stateSearch || (state ? state.name : "")}
                   onChange={(e) => {
                     setStateSearch(e.target.value);
                     if (e.target.value) {
+                      setState(null);
                       setShowStateDropdown(true);
                     }
                   }}
-                  onFocus={() => country && setShowStateDropdown(true)}
+                  onFocus={() => country && (setState(null), setStateSearch(""), setShowStateDropdown(true))}
                   onBlur={() => {
-                    if (!stateSearch && state) {
-                      setShowStateDropdown(false);
-                    } else if (!stateSearch && !state) {
-                      setShowStateDropdown(false);
-                    } else {
-                      setTimeout(() => setShowStateDropdown(false), 100);
-                    }
+                    setTimeout(() => setShowStateDropdown(false), 100);
                   }}
                 />
-                {showStateDropdown && !state && states.length > 0 && (
+                {showStateDropdown && states.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredStates.length > 0 ? (
                       filteredStates.slice(0, 10).map(s => (
@@ -507,11 +500,6 @@ export function TalkToUs({ model }: { model: string }) {
                     )}
                   </div>
                 )}
-                {state && !stateSearch && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "#f5f5f5", pointerEvents: "none", backgroundColor: "transparent" }}>
-                    {state.name}
-                  </div>
-                )}
               </div>
             </div>
 
@@ -526,25 +514,20 @@ export function TalkToUs({ model }: { model: string }) {
                   type="text"
                   placeholder="Select city..."
                   disabled={!state}
-                  value={citySearch}
+                  value={citySearch || (city ? city.name : "")}
                   onChange={(e) => {
                     setCitySearch(e.target.value);
                     if (e.target.value) {
+                      setCity(null);
                       setShowCityDropdown(true);
                     }
                   }}
-                  onFocus={() => state && setShowCityDropdown(true)}
+                  onFocus={() => state && (setCity(null), setCitySearch(""), setShowCityDropdown(true))}
                   onBlur={() => {
-                    if (!citySearch && city) {
-                      setShowCityDropdown(false);
-                    } else if (!citySearch && !city) {
-                      setShowCityDropdown(false);
-                    } else {
-                      setTimeout(() => setShowCityDropdown(false), 100);
-                    }
+                    setTimeout(() => setShowCityDropdown(false), 100);
                   }}
                 />
-                {showCityDropdown && !city && cities.length > 0 && (
+                {showCityDropdown && cities.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredCities.length > 0 ? (
                       filteredCities.slice(0, 10).map(c => (
@@ -561,11 +544,6 @@ export function TalkToUs({ model }: { model: string }) {
                         No cities found
                       </div>
                     )}
-                  </div>
-                )}
-                {city && !citySearch && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "#f5f5f5", pointerEvents: "none", backgroundColor: "transparent" }}>
-                    {city.name}
                   </div>
                 )}
               </div>
