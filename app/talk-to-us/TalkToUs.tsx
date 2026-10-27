@@ -396,7 +396,7 @@ export function TalkToUs({ model }: { model: string }) {
                       filteredCountries.map(c => (
                         <div
                           key={c.id}
-                          onClick={() => handleCountryChange(c)}
+                          onMouseDown={() => handleCountryChange(c)}
                           style={dropdownItemStyle}
                         >
                           <span>{c.name}</span> <span style={{ color: "#c9a962" }}>+{c.phone_code}</span>
@@ -494,7 +494,7 @@ export function TalkToUs({ model }: { model: string }) {
                       filteredStates.slice(0, 10).map(s => (
                         <div
                           key={s.id}
-                          onClick={() => handleStateChange(s)}
+                          onMouseDown={() => handleStateChange(s)}
                           style={dropdownItemStyle}
                         >
                           {s.name}
@@ -550,7 +550,7 @@ export function TalkToUs({ model }: { model: string }) {
                       filteredCities.slice(0, 10).map(c => (
                         <div
                           key={c.id}
-                          onClick={() => handleCityChange(c)}
+                          onMouseDown={() => handleCityChange(c)}
                           style={dropdownItemStyle}
                         >
                           {c.name}
