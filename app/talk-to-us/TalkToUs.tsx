@@ -6,6 +6,25 @@ import { GetCountries, GetState, GetCity } from "react-country-state-city";
 import { BlurText } from "../components/BlurText";
 import { ScrollReveal } from "../components/ScrollReveal";
 
+// Country phone number lengths (max digits without country code)
+const PHONE_LENGTH_MAP: Record<string, number> = {
+  "IN": 10, // India
+  "US": 10, // United States
+  "GB": 11, // United Kingdom
+  "CA": 10, // Canada
+  "AU": 9,  // Australia
+  "DE": 11, // Germany
+  "FR": 9,  // France
+  "AE": 9,  // UAE
+  "SG": 8,  // Singapore
+  "JP": 10, // Japan
+  "CN": 11, // China
+  "BR": 11, // Brazil
+  "MX": 10, // Mexico
+  "NZ": 9,  // New Zealand
+  "ZA": 9,  // South Africa
+};
+
 interface Country {
   id: number;
   name: string;
@@ -161,11 +180,17 @@ export function TalkToUs({ model }: { model: string }) {
     c.name.toLowerCase().includes(citySearch.toLowerCase())
   );
 
+  const getMaxPhoneLength = (): number => {
+    if (!country) return 15;
+    return PHONE_LENGTH_MAP[country.iso2] || 15;
+  };
+
   const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
-    // Filter to only allow digits 0-9
     const input = e.currentTarget;
     const filtered = input.value.replace(/[^\d]/g, "");
-    input.value = filtered;
+    const maxLength = getMaxPhoneLength();
+    const limited = filtered.slice(0, maxLength);
+    input.value = limited;
     setPhoneError("");
   };
 
@@ -173,10 +198,12 @@ export function TalkToUs({ model }: { model: string }) {
     const pasted = e.clipboardData.getData("text");
     const filtered = pasted.replace(/[^\d]/g, "");
     const current = (e.target as HTMLInputElement).value;
-    const newValue = current + filtered;
+    const combined = current + filtered;
+    const maxLength = getMaxPhoneLength();
+    const limited = combined.replace(/[^\d]/g, "").slice(0, maxLength);
 
     setTimeout(() => {
-      (e.target as HTMLInputElement).value = newValue.replace(/[^\d]/g, "");
+      (e.target as HTMLInputElement).value = limited;
     }, 0);
   };
 
@@ -461,7 +488,7 @@ export function TalkToUs({ model }: { model: string }) {
                     }
                   }}
                 />
-                {showStateDropdown && states.length > 0 && (
+                {showStateDropdown && !state && states.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredStates.length > 0 ? (
                       filteredStates.slice(0, 10).map(s => (
@@ -481,7 +508,7 @@ export function TalkToUs({ model }: { model: string }) {
                   </div>
                 )}
                 {state && !stateSearch && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none", backgroundColor: "transparent" }}>
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "#f5f5f5", pointerEvents: "none", backgroundColor: "transparent" }}>
                     {state.name}
                   </div>
                 )}
@@ -517,7 +544,7 @@ export function TalkToUs({ model }: { model: string }) {
                     }
                   }}
                 />
-                {showCityDropdown && cities.length > 0 && (
+                {showCityDropdown && !city && cities.length > 0 && (
                   <div style={dropdownStyle}>
                     {filteredCities.length > 0 ? (
                       filteredCities.slice(0, 10).map(c => (
@@ -537,7 +564,7 @@ export function TalkToUs({ model }: { model: string }) {
                   </div>
                 )}
                 {city && !citySearch && (
-                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "rgba(245, 245, 245, 0.6)", pointerEvents: "none", backgroundColor: "transparent" }}>
+                  <div style={{ ...dropdownItemStyle, padding: "0", position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", paddingLeft: "12px", fontSize: "0.875rem", color: "#f5f5f5", pointerEvents: "none", backgroundColor: "transparent" }}>
                     {city.name}
                   </div>
                 )}
