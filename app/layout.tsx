@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./atsn-pages.css";
-import "intl-tel-input/build/css/intlTelInput.css";
 import { Footer } from "./components/Footer";
 import { SiteHeader } from "./components/SiteHeader";
 
