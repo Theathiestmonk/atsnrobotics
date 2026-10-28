@@ -12,6 +12,7 @@ const ARGO_MODELS = [
   {
     id: "argo-sonic",
     code: "Argo Sonic",
+    modelCode: "ARGO‑H",
     name: "For hotels, restaurants, and cafes",
     segment: "Hotels, restaurants & cafes",
     status: "Available",
@@ -26,6 +27,7 @@ const ARGO_MODELS = [
   {
     id: "argo-flex",
     code: "ARGO Flex",
+    modelCode: "ARGO‑S",
     name: "For stadiums & venues",
     segment: "Concourses & large venues",
     status: "Coming soon",
@@ -40,6 +42,7 @@ const ARGO_MODELS = [
   {
     id: "argo-uno",
     code: "Argo Uno",
+    modelCode: "Argo Uno",
     name: "The next Argo model",
     segment: "In development",
     status: "In development",
@@ -70,10 +73,23 @@ function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
     setIsFlipped(flipped);
   };
 
+  const canHover = () =>
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
   return (
     <article
       className={`atsnCard productRobotCard${isFlipped ? " productRobotCard--flipped" : ""}`}
       aria-label={`${robot.code} product card`}
+      onMouseEnter={(event) => {
+        if (canHover() && !event.currentTarget.contains(document.activeElement)) {
+          setIsFlipped(true);
+        }
+      }}
+      onMouseLeave={(event) => {
+        if (canHover() && !event.currentTarget.contains(document.activeElement)) {
+          setIsFlipped(false);
+        }
+      }}
     >
       <div className="productRobotCard__inner">
         <div
@@ -110,33 +126,43 @@ function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
           className="productRobotCard__face productRobotCard__back"
           aria-hidden={!isFlipped}
         >
-          <p className="productRobotCard__backKicker">{robot.segment}</p>
-          <h3 className="productRobotCard__backTitle">{robot.code}</h3>
-          <p className="productRobotCard__body">{robot.body}</p>
-          <ul className="productRobotCard__capabilities">
-            {robot.capabilities.map((capability) => (
-              <li key={capability}>{capability}</li>
-            ))}
-          </ul>
-          <div className="productRobotCard__backActions">
-            <button
-              ref={backButtonRef}
-              className="productRobotCard__flip productRobotCard__flip--back"
-              type="button"
-              aria-pressed={isFlipped}
-              aria-label={`Return to ${robot.code} overview`}
-              tabIndex={isFlipped ? 0 : -1}
-              onClick={() => flipTo(false)}
-            >
-              Back to overview <span aria-hidden="true">↻</span>
-            </button>
-            <Link
-              className="productRobotCard__link"
-              href={robot.href}
-              tabIndex={isFlipped ? 0 : -1}
-            >
-              {robot.cta}
-            </Link>
+          <Image
+            className="productRobotCard__backImage"
+            src={robot.imageSrc}
+            alt=""
+            fill
+            sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 30vw"
+            aria-hidden="true"
+          />
+          <div className="productRobotCard__backContent">
+            <p className="productRobotCard__backKicker">{robot.segment}</p>
+            <h3 className="productRobotCard__backTitle">{robot.modelCode}</h3>
+            <p className="productRobotCard__body">{robot.body}</p>
+            <ul className="productRobotCard__capabilities">
+              {robot.capabilities.map((capability) => (
+                <li key={capability}>{capability}</li>
+              ))}
+            </ul>
+            <div className="productRobotCard__backActions">
+              <button
+                ref={backButtonRef}
+                className="productRobotCard__flipBack"
+                type="button"
+                aria-pressed={isFlipped}
+                aria-label={`Show ${robot.code} robot image`}
+                tabIndex={isFlipped ? 0 : -1}
+                onClick={() => flipTo(false)}
+              >
+                <span aria-hidden="true">↶</span>
+              </button>
+              <Link
+                className="productRobotCard__link"
+                href={robot.href}
+                tabIndex={isFlipped ? 0 : -1}
+              >
+                {robot.cta}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -211,9 +237,9 @@ export function Product() {
           <ScrollReveal>
             <h2 className="atsnSection__title">Three robots. One platform.</h2>
             <p className="atsnSection__sub">
-              <strong>ARGO‑H</strong> for hotels and hospitality, and <strong>ARGO‑S</strong> for
-              stadiums and large venues, alongside Argo Uno in development. Each model is designed
-              around the needs of its environment.
+              <strong>ARGO‑H (Argo Sonic)</strong> is built for hotels and hospitality, while{" "}
+              <strong>ARGO‑S (Argo Flex)</strong> is designed for stadiums and large venues. Argo
+              Uno is in development, with details to come.
             </p>
           </ScrollReveal>
 

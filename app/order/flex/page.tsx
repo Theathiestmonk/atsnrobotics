@@ -21,9 +21,9 @@ const FLEX_COLORS: ColorOption[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Order ARGO Flex",
+  title: "Order ARGO‑S (Argo Flex)",
   description:
-    "Order the ARGO Flex — an autonomous, rugged robot built for stadiums, concourses, and large venues.",
+    "Order ARGO‑S (Argo Flex), an autonomous robot designed for stadiums, concourses, and large venues. ₹8,00,000 plus 18% GST.",
 };
 
 export default function OrderFlexPage() {
@@ -37,11 +37,11 @@ export default function OrderFlexPage() {
           <OrderGallery colors={FLEX_COLORS} />
 
           <div>
-            <p className="orderSegment">Stadiums &amp; large venues</p>
+            <p className="orderSegment">ARGO‑S · Stadiums &amp; large venues</p>
             <h1 className="orderName">ARGO Flex</h1>
             <p className="orderPrice">
-              Coming soon
-              <span className="orderPrice__note">(pricing to be announced)</span>
+              ₹8,00,000 <span className="orderPrice__note">+ 18% GST (₹1,44,000)</span>
+              <span className="orderPrice__total">Total: ₹9,44,000 including GST</span>
             </p>
 
             <p className="orderDescription">
@@ -61,8 +61,12 @@ export default function OrderFlexPage() {
                 <span className="orderSpecs__value">Stadiums &amp; large venues</span>
               </li>
               <li>
-                <span className="orderSpecs__label">Starting price</span>
-                <span className="orderSpecs__value">Coming soon</span>
+                <span className="orderSpecs__label">Base price</span>
+                <span className="orderSpecs__value">₹8,00,000</span>
+              </li>
+              <li>
+                <span className="orderSpecs__label">18% GST</span>
+                <span className="orderSpecs__value">₹1,44,000 · Total ₹9,44,000</span>
               </li>
               <li>
                 <span className="orderSpecs__label">Availability</span>

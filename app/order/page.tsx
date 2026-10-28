@@ -4,9 +4,9 @@ import { OrderGallery, SONIC_COLORS } from "./OrderGallery";
 import { OrderModelSwitch } from "./OrderModelSwitch";
 
 export const metadata: Metadata = {
-  title: "Order ARGO Sonic",
+  title: "Order ARGO‑H (Argo Sonic)",
   description:
-    "Order the ARGO Sonic — an autonomous, silent, intelligent robot for hotels, restaurants, and cafes. Starting at ₹5,00,000 onwards.",
+    "Order ARGO‑H (Argo Sonic), an autonomous hospitality robot for hotels, restaurants, and cafes. ₹4,00,000 plus 18% GST.",
 };
 
 export default function OrderPage() {
@@ -20,11 +20,11 @@ export default function OrderPage() {
           <OrderGallery colors={SONIC_COLORS} />
 
           <div>
-            <p className="orderSegment">Hotels, restaurants &amp; cafes</p>
+            <p className="orderSegment">ARGO‑H · Hotels, restaurants &amp; cafes</p>
             <h1 className="orderName">ARGO Sonic</h1>
             <p className="orderPrice">
-              ₹5,00,000 onwards
-              <span className="orderPrice__note">(final price depends on configuration)</span>
+              ₹4,00,000 <span className="orderPrice__note">+ 18% GST (₹72,000)</span>
+              <span className="orderPrice__total">Total: ₹4,72,000 including GST</span>
             </p>
 
             <p className="orderDescription">
@@ -44,8 +44,12 @@ export default function OrderPage() {
                 <span className="orderSpecs__value">Hotels, restaurants &amp; cafes</span>
               </li>
               <li>
-                <span className="orderSpecs__label">Starting price</span>
-                <span className="orderSpecs__value">₹5,00,000 onwards</span>
+                <span className="orderSpecs__label">Base price</span>
+                <span className="orderSpecs__value">₹4,00,000</span>
+              </li>
+              <li>
+                <span className="orderSpecs__label">18% GST</span>
+                <span className="orderSpecs__value">₹72,000 · Total ₹4,72,000</span>
               </li>
               <li>
                 <span className="orderSpecs__label">Availability</span>
