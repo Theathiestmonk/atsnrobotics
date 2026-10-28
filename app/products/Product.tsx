@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { BlurText } from "../components/BlurText";
 import { CardSwap, type CardSwapItem } from "../components/CardSwap";
 import { ScrollReveal } from "../components/ScrollReveal";
@@ -13,9 +14,11 @@ const ARGO_MODELS = [
     code: "Argo Sonic",
     name: "For hotels, restaurants, and cafes",
     segment: "Hotels, restaurants & cafes",
+    status: "Available",
     body:
       "Tuned for lobbies, dining areas, and service rhythms where presence matters. Argo Sonic moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
-    imageSrc: "/sonic_black_without_food.webp",
+    capabilities: ["Guest-facing delivery", "Quiet replenishment runs", "Hospitality environments"],
+    imageSrc: "/sonic_black-removebg-preview.png",
     imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
     href: "/sonic",
     cta: "View hospitality",
@@ -25,14 +28,121 @@ const ARGO_MODELS = [
     code: "ARGO Flex",
     name: "For stadiums & venues",
     segment: "Concourses & large venues",
+    status: "Coming soon",
     body:
       "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
-    imageSrc: "/argo_flex_new.webp",
+    capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
+    imageSrc: "/argo_flex_new-removebg-preview.png",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
     href: "/flex",
     cta: "View venues",
   },
+  {
+    id: "argo-uno",
+    code: "Argo Uno",
+    name: "The next Argo model",
+    segment: "In development",
+    status: "In development",
+    body:
+      "Our next robot is taking shape. Follow along as development continues and we share more about Argo Uno.",
+    capabilities: ["Development in progress", "Role and capabilities to be announced", "Follow model updates"],
+    imageSrc: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png",
+    imageAlt: "Argo Uno robot in development",
+    href: "/uno",
+    cta: "Explore Argo Uno",
+  },
 ] as const;
+
+function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const frontButtonRef = useRef<HTMLButtonElement>(null);
+  const backButtonRef = useRef<HTMLButtonElement>(null);
+  const restoreFocus = useRef(false);
+
+  useEffect(() => {
+    if (!restoreFocus.current) return;
+    (isFlipped ? backButtonRef.current : frontButtonRef.current)?.focus();
+    restoreFocus.current = false;
+  }, [isFlipped]);
+
+  const flipTo = (flipped: boolean) => {
+    restoreFocus.current = true;
+    setIsFlipped(flipped);
+  };
+
+  return (
+    <article
+      className={`atsnCard productRobotCard${isFlipped ? " productRobotCard--flipped" : ""}`}
+      aria-label={`${robot.code} product card`}
+    >
+      <div className="productRobotCard__inner">
+        <div
+          className="productRobotCard__face productRobotCard__front"
+          aria-hidden={isFlipped}
+        >
+          <div className="productRobotCard__media">
+            <Image
+              src={robot.imageSrc}
+              alt={robot.imageAlt}
+              width={640}
+              height={480}
+              sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 30vw"
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          </div>
+          <p className="productRobotCard__code">{robot.code}</p>
+          <h3 className="productRobotCard__name">{robot.name}</h3>
+          <p className="productRobotCard__status">{robot.status}</p>
+          <button
+            ref={frontButtonRef}
+            className="productRobotCard__flip"
+            type="button"
+            aria-pressed={isFlipped}
+            aria-label={`Show ${robot.code} capabilities`}
+            tabIndex={isFlipped ? -1 : 0}
+            onClick={() => flipTo(true)}
+          >
+            View capabilities <span aria-hidden="true">↻</span>
+          </button>
+        </div>
+
+        <div
+          className="productRobotCard__face productRobotCard__back"
+          aria-hidden={!isFlipped}
+        >
+          <p className="productRobotCard__backKicker">{robot.segment}</p>
+          <h3 className="productRobotCard__backTitle">{robot.code}</h3>
+          <p className="productRobotCard__body">{robot.body}</p>
+          <ul className="productRobotCard__capabilities">
+            {robot.capabilities.map((capability) => (
+              <li key={capability}>{capability}</li>
+            ))}
+          </ul>
+          <div className="productRobotCard__backActions">
+            <button
+              ref={backButtonRef}
+              className="productRobotCard__flip productRobotCard__flip--back"
+              type="button"
+              aria-pressed={isFlipped}
+              aria-label={`Return to ${robot.code} overview`}
+              tabIndex={isFlipped ? 0 : -1}
+              onClick={() => flipTo(false)}
+            >
+              Back to overview <span aria-hidden="true">↻</span>
+            </button>
+            <Link
+              className="productRobotCard__link"
+              href={robot.href}
+              tabIndex={isFlipped ? 0 : -1}
+            >
+              {robot.cta}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 const featureCards: CardSwapItem[] = [
   {
@@ -83,8 +193,8 @@ export function Product() {
         <ScrollReveal>
           <p className="atsnHero__lead">
             ARGO is an autonomous, silent, intelligent robot line designed for goods movement. Choose
-            the build that matches your space—hospitality or stadium-scale venues—with the same
-            calm engineering philosophy across every model.
+            the build that matches your space, or discover Argo Uno, the next model in development.
+            Every model shares the same calm engineering philosophy.
           </p>
         </ScrollReveal>
 
@@ -99,35 +209,17 @@ export function Product() {
 
         <section className="atsnSection" id="fleet" aria-label="ARGO models">
           <ScrollReveal>
-            <h2 className="atsnSection__title">Two robots. One platform.</h2>
+            <h2 className="atsnSection__title">Three robots. One platform.</h2>
             <p className="atsnSection__sub">
               <strong>ARGO‑H</strong> for hotels and hospitality, and <strong>ARGO‑S</strong> for
-              stadiums and large venues. Each variant uses the same intelligent motion
-              stack—optimized for the constraints of your environment.
+              stadiums and large venues, alongside Argo Uno in development. Each model is designed
+              around the needs of its environment.
             </p>
           </ScrollReveal>
 
           <div className="productRobotGrid">
             {ARGO_MODELS.map((robot) => (
-              <article key={robot.id} className="atsnCard productRobotCard">
-                <div className="productRobotCard__media">
-                  <Image
-                    src={robot.imageSrc}
-                    alt={robot.imageAlt}
-                    width={640}
-                    height={480}
-                    sizes="(max-width: 900px) 90vw, 33vw"
-                    style={{ width: "100%", height: "auto", objectFit: "contain" }}
-                  />
-                </div>
-                <p className="productRobotCard__code">{robot.code}</p>
-                <h3 className="productRobotCard__name">{robot.name}</h3>
-                <p className="productRobotCard__segment">{robot.segment}</p>
-                <p className="productRobotCard__body">{robot.body}</p>
-                <Link className="productRobotCard__link" href={robot.href}>
-                  {robot.cta}
-                </Link>
-              </article>
+              <ProductRobotCard key={robot.id} robot={robot} />
             ))}
           </div>
         </section>

@@ -1,0 +1,303 @@
+.page {
+  --accent: #c9a962;
+  --text: #f5f5f5;
+  --muted: rgba(245, 245, 245, 0.68);
+  flex: 1;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 75% 48%, rgba(201, 169, 98, 0.1), transparent 34%),
+    linear-gradient(180deg, #0a0a0b 0%, #0c0c0e 58%, #121214 100%);
+  color: var(--text);
+}
+
+.content {
+  width: min(1120px, calc(100% - 64px));
+  min-height: min(680px, calc(100svh - 160px));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  align-items: center;
+  gap: clamp(24px, 6vw, 88px);
+  padding-block: 72px;
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  animation: arrive 700ms both;
+}
+
+.code {
+  margin: 0 0 12px;
+  color: rgba(245, 245, 245, 0.94);
+  font-size: clamp(6rem, 15vw, 10.5rem);
+  font-weight: 700;
+  letter-spacing: -0.09em;
+  line-height: 0.88;
+}
+
+.code span {
+  color: var(--accent);
+}
+
+.title {
+  max-width: 560px;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 620;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.description {
+  max-width: 440px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.homeLink,
+.productsLink {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+
+.homeLink {
+  padding: 0 18px;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  background: var(--accent);
+  color: #0a0a0b;
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.homeLink:hover {
+  transform: translateY(-2px);
+  background: #d7bc79;
+}
+
+.homeLink span {
+  font-size: 1.1rem;
+}
+
+.productsLink {
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.productsLink:hover {
+  color: var(--accent);
+}
+
+.visual {
+  position: relative;
+  min-width: 0;
+  min-height: clamp(340px, 42vw, 520px);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  animation: arrive 850ms 100ms both;
+}
+
+.orbit,
+.orbitInner {
+  position: absolute;
+  width: min(100%, 430px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(201, 169, 98, 0.18);
+  border-radius: 50%;
+}
+
+.orbit {
+  animation: orbit-turn 28s linear infinite;
+}
+
+.orbit::before,
+.orbit::after {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(201, 169, 98, 0.7);
+  content: "";
+}
+
+.orbit::before {
+  top: 16%;
+  left: 18%;
+}
+
+.orbit::after {
+  right: 7%;
+  bottom: 36%;
+  width: 4px;
+  height: 4px;
+}
+
+.orbitInner {
+  width: min(82%, 350px);
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.12);
+  animation: orbit-turn 36s linear infinite reverse;
+}
+
+.robot {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(76%, 310px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 42px rgba(0, 0, 0, 0.42));
+  animation: robot-float 5.5s ease-in-out infinite;
+}
+
+.visualLabel {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 8%;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 10, 11, 0.78);
+  color: rgba(245, 245, 245, 0.7);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.signal {
+  position: absolute;
+  z-index: 0;
+  bottom: 13%;
+  left: 50%;
+  width: 36%;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(201, 169, 98, 0.22);
+  filter: blur(14px);
+  transform: translateX(-50%);
+  animation: signal-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes robot-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes orbit-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateX(-50%) scaleX(0.82);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: translateX(-50%) scaleX(1.08);
+  }
+}
+
+@media (max-width: 760px) {
+  .content {
+    width: min(100% - 36px, 560px);
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-block: 112px 56px;
+  }
+
+  .copy {
+    text-align: center;
+  }
+
+  .code {
+    font-size: clamp(6rem, 28vw, 9rem);
+  }
+
+  .title,
+  .description {
+    margin-inline: auto;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .visual {
+    min-height: clamp(280px, 78vw, 420px);
+  }
+
+  .robot {
+    width: min(62%, 250px);
+  }
+}
+
+@media (max-width: 420px) {
+  .content {
+    width: min(100% - 28px, 360px);
+    padding-block: 100px 42px;
+  }
+
+  .actions {
+    gap: 10px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy,
+  .visual,
+  .orbit,
+  .orbitInner,
+  .robot,
+  .signal {
+    animation: none;
+  }
+
+  .homeLink,
+  .productsLink {
+    transition: none;
+  }
+}
