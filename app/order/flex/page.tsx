@@ -9,7 +9,12 @@ const FLEX_COLORS: ColorOption[] = [
     label: "ARGO Flex",
     swatch: "#8a8f98",
     images: [
-      { src: "/argo_flex_new.webp", alt: "ARGO Flex robot", width: 1122, height: 1402 },
+      {
+        src: "/argo_flex_rover_3x_upscaled-removebg-preview.png",
+        alt: "ARGO Flex rover robot",
+        width: 601,
+        height: 415,
+      },
       {
         src: "/argoflex_new_with_golf.webp",
         alt: "ARGO Flex robot carrying a golf kit",

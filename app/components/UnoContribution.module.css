@@ -1,0 +1,263 @@
+.section {
+  --contribution-accent: #c9a962;
+  position: relative;
+  isolation: isolate;
+  width: min(1240px, calc(100% - 64px));
+  margin: 0 auto clamp(88px, 12vw, 140px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  align-items: center;
+  gap: clamp(32px, 7vw, 96px);
+  padding: clamp(32px, 5.5vw, 68px);
+  overflow: hidden;
+  border: 1px solid rgba(201, 169, 98, 0.3);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 100% 0, rgba(201, 169, 98, 0.16), transparent 38%),
+    radial-gradient(ellipse at 0 100%, rgba(201, 169, 98, 0.07), transparent 48%),
+    linear-gradient(145deg, #171719, #0d0d0f 72%);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.section::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, var(--contribution-accent), transparent);
+  content: "";
+}
+
+.copy {
+  max-width: 700px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  color: var(--contribution-accent);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 20px;
+  height: 1px;
+  background: var(--contribution-accent);
+  content: "";
+}
+
+.title {
+  margin: 0;
+  color: #f5f5f5;
+  font-size: clamp(2rem, 4.2vw, 3.35rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.description {
+  max-width: 610px;
+  margin: 20px 0 0;
+  color: rgba(245, 245, 245, 0.7);
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.action {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 0 18px;
+  border: 1px solid var(--contribution-accent);
+  border-radius: 3px;
+  background: var(--contribution-accent);
+  color: #0a0a0b;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.action:not(:disabled):hover {
+  transform: translateY(-2px);
+  background: #d7bc79;
+}
+
+.actionPending {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 0 16px;
+  border: 1px solid rgba(201, 169, 98, 0.34);
+  border-radius: 4px;
+  background: rgba(201, 169, 98, 0.08);
+  color: rgba(245, 245, 245, 0.8);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.pendingDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--contribution-accent);
+  box-shadow: 0 0 0 4px rgba(201, 169, 98, 0.12);
+}
+
+.note {
+  max-width: 500px;
+  margin: 14px 0 0;
+  color: rgba(245, 245, 245, 0.48);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.qrPanel {
+  width: min(100%, 280px);
+  aspect-ratio: 1;
+  justify-self: end;
+  padding: 12px;
+  border: 1px solid rgba(201, 169, 98, 0.34);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(201, 169, 98, 0.07), rgba(10, 10, 11, 0.72));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.qrImageFrame,
+.qrImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qrImageFrame {
+  position: relative;
+}
+
+.qrImageLink {
+  position: absolute;
+  inset: 0;
+}
+
+.qrImage {
+  object-fit: contain;
+}
+
+.qrPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(201, 169, 98, 0.18);
+  border-radius: 10px;
+  background:
+    linear-gradient(rgba(245, 245, 245, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 245, 245, 0.025) 1px, transparent 1px),
+    rgba(10, 10, 11, 0.35);
+  background-size: 22px 22px;
+  color: rgba(245, 245, 245, 0.65);
+  text-align: center;
+}
+
+.qrIcon {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  display: block;
+  margin-bottom: 4px;
+  background:
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) left top / 24px 2px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) left top / 2px 24px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) right top / 24px 2px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) right top / 2px 24px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) left bottom / 24px 2px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) left bottom / 2px 24px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) right bottom / 24px 2px no-repeat,
+    linear-gradient(var(--contribution-accent), var(--contribution-accent)) right bottom / 2px 24px no-repeat;
+  opacity: 0.72;
+}
+
+.qrIcon span {
+  position: absolute;
+  inset: 30px;
+  border: 1px solid rgba(201, 169, 98, 0.65);
+  background: rgba(201, 169, 98, 0.16);
+}
+
+.qrTitle {
+  color: #f5f5f5;
+  font-size: 0.9rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.qrNote {
+  color: rgba(245, 245, 245, 0.48);
+  font-size: 0.76rem;
+}
+
+@media (min-width: 761px) {
+  .section {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    width: min(100% - 36px, 600px);
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    gap: 32px;
+    padding: clamp(24px, 6vw, 40px);
+    border-radius: 20px;
+  }
+
+  .copy {
+    text-align: left;
+  }
+
+  .qrPanel {
+    width: min(220px, 100%);
+    justify-self: start;
+  }
+
+  .action {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .section {
+    width: min(100% - 28px, 360px);
+  }
+
+  .actionPending {
+    padding-inline: 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action,
+  .actionPending {
+    transition: none;
+  }
+}

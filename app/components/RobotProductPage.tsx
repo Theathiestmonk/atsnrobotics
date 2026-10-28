@@ -8,8 +8,9 @@ type RobotProductPageProps = {
   status: string;
   headline: string;
   introduction: string;
-  imageSrc?: string;
-  imageAlt?: string;
+  imageSrc: string;
+  imageAlt: string;
+  emphasizeImage?: boolean;
   detailTitle: string;
   detail: string;
   nextHref: string;
@@ -24,6 +25,7 @@ export function RobotProductPage({
   introduction,
   imageSrc,
   imageAlt,
+  emphasizeImage = false,
   detailTitle,
   detail,
   nextHref,
@@ -52,26 +54,17 @@ export function RobotProductPage({
           </div>
         </div>
 
-        {imageSrc ? (
-          <div className={styles.visual}>
-            <Image
-              className={styles.robotImage}
-              src={imageSrc}
-              alt={imageAlt ?? model}
-              fill
-              priority
-              sizes="(max-width: 760px) 90vw, 52vw"
-            />
-            <span className={styles.visualLabel}>{model}</span>
-          </div>
-        ) : (
-          <div className={`${styles.visual} ${styles.visualPending}`} role="img" aria-label={`${model} design in development`}>
-            <span className={styles.visualLabel}>{status}</span>
-            <p className={styles.pendingKicker}>Next in the Argo fleet</p>
-            <p className={styles.pendingTitle}>Argo<br />Uno</p>
-            <span className={styles.pendingProgress} aria-hidden="true"><span /></span>
-          </div>
-        )}
+        <div className={styles.visual}>
+          <Image
+            className={`${styles.robotImage}${emphasizeImage ? ` ${styles.robotImageEmphasized}` : ""}`}
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="(max-width: 760px) 90vw, 52vw"
+          />
+          <span className={styles.visualLabel}>{model}</span>
+        </div>
       </section>
 
       <section className={styles.details} aria-labelledby="detail-title">

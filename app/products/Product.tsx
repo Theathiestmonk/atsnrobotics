@@ -21,6 +21,8 @@ const ARGO_MODELS = [
     capabilities: ["Guest-facing delivery", "Quiet replenishment runs", "Hospitality environments"],
     imageSrc: "/sonic_black-removebg-preview.png",
     imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
+    imageWidth: 447,
+    imageHeight: 558,
     href: "/sonic",
     cta: "View hospitality",
   },
@@ -34,8 +36,10 @@ const ARGO_MODELS = [
     body:
       "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
     capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
-    imageSrc: "/argo_flex_new-removebg-preview.png",
+    imageSrc: "/argo_flex_rover_3x_upscaled-removebg-preview.png",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
+    imageWidth: 601,
+    imageHeight: 415,
     href: "/flex",
     cta: "View venues",
   },
@@ -51,6 +55,8 @@ const ARGO_MODELS = [
     capabilities: ["Development in progress", "Role and capabilities to be announced", "Follow model updates"],
     imageSrc: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png",
     imageAlt: "Argo Uno robot in development",
+    imageWidth: 408,
+    imageHeight: 612,
     href: "/uno",
     cta: "Explore Argo Uno",
   },
@@ -100,10 +106,9 @@ function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
             <Image
               src={robot.imageSrc}
               alt={robot.imageAlt}
-              width={640}
-              height={480}
+              width={robot.imageWidth}
+              height={robot.imageHeight}
               sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 30vw"
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </div>
           <p className="productRobotCard__code">{robot.code}</p>

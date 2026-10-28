@@ -464,7 +464,7 @@
 
 .productRobotCard {
   position: relative;
-  min-height: 620px;
+  min-height: 500px;
   padding: 0;
   perspective: 1200px;
 }
@@ -537,8 +537,8 @@
   position: relative;
   flex: 0 0 auto;
   width: 100%;
-  height: clamp(13rem, 22vw, 17rem);
-  margin: 0 0 0.8rem;
+  height: clamp(15rem, 25vw, 18rem);
+  margin: 0 0 0.55rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -546,8 +546,9 @@
 }
 
 .productRobotCard__media img {
-  width: 100%;
+  width: auto;
   height: 100%;
+  max-width: 100%;
   object-fit: contain;
   object-position: center;
   animation: productRobotFloat 6s ease-in-out infinite;
@@ -765,13 +766,12 @@
   }
 
   .productRobotCard {
-    min-height: 600px;
+    min-height: 500px;
   }
 
   .productRobotCard__media {
-    height: clamp(13rem, 58vw, 16rem);
+    height: clamp(15rem, 70vw, 18rem);
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {

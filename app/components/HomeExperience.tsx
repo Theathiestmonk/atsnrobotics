@@ -38,10 +38,10 @@ const ROBOTS = [
     role: "The next Argo model",
     status: "In development",
     description: "Our next robot is taking shape. Follow along as development continues.",
-    image: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png",
+    image: "/argo-uno-hero.webp",
     alt: "Argo Uno robot in development",
-    width: 408,
-    height: 612,
+    width: 816,
+    height: 1224,
     href: "/uno",
     cta: "Explore Argo Uno",
   },
@@ -59,7 +59,7 @@ export function HomeExperience() {
       return;
     }
 
-    const introTimer = window.setTimeout(() => setIntroComplete(true), 2000);
+    const introTimer = window.setTimeout(() => setIntroComplete(true), 1300);
     const skipIntroForReducedMotion = (event: MediaQueryListEvent) => {
       if (event.matches) setIntroComplete(true);
     };
@@ -153,6 +153,7 @@ export function HomeExperience() {
                     width={heroRobot.width}
                     height={heroRobot.height}
                     priority
+                    quality={90}
                     sizes="(max-width: 700px) 78vw, (max-width: 1100px) 48vw, 42vw"
                   />
                 </figure>

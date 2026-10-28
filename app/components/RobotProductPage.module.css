@@ -131,6 +131,11 @@
   animation: float 6s ease-in-out infinite;
 }
 
+.robotImageEmphasized {
+  padding: 0;
+  animation-name: float-large;
+}
+
 .visualLabel {
   position: absolute;
   right: 12px;
@@ -142,52 +147,6 @@
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.visualPending {
-  align-content: center;
-  justify-items: start;
-  padding: clamp(28px, 5vw, 64px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background:
-    linear-gradient(rgba(245, 245, 245, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(245, 245, 245, 0.045) 1px, transparent 1px),
-    rgba(20, 20, 22, 0.6);
-  background-size: 34px 34px;
-}
-
-.pendingKicker {
-  margin: 0 0 18px;
-  color: var(--page-accent);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.pendingTitle {
-  margin: 0;
-  font-size: clamp(4rem, 8vw, 7rem);
-  font-weight: 650;
-  letter-spacing: -0.06em;
-  line-height: 0.88;
-}
-
-.pendingProgress {
-  position: absolute;
-  right: 26px;
-  bottom: 28px;
-  left: 26px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.pendingProgress span {
-  display: block;
-  width: 38%;
-  height: 100%;
-  background: var(--page-accent);
-  transform-origin: left;
-  animation: progress-in 1.2s 350ms both;
 }
 
 .details {
@@ -243,9 +202,9 @@
   50% { transform: translateY(-8px); }
 }
 
-@keyframes progress-in {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+@keyframes float-large {
+  0%, 100% { transform: translateY(0) scale(1.22); }
+  50% { transform: translateY(-8px) scale(1.22); }
 }
 
 @media (max-width: 760px) {
@@ -263,14 +222,21 @@
 
   .title { font-size: clamp(2.6rem, 12vw, 4.2rem); }
   .visual { min-height: min(112vw, 480px); }
+  .robotImageEmphasized {
+    animation-name: float-large-mobile;
+  }
   .details { gap: 24px; padding-top: 34px; }
+}
+
+@keyframes float-large-mobile {
+  0%, 100% { transform: translateY(0) scale(1.12); }
+  50% { transform: translateY(-6px) scale(1.12); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .copy,
   .visual,
-  .robotImage,
-  .pendingProgress span {
+  .robotImage {
     animation: none;
   }
 }
