@@ -261,9 +261,9 @@ export function HomeExperience() {
             >
               <span className={styles.updatesCategory}>Upcoming event</span>
               <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University</p>
-              <h3>Full Argo Fleet Showcase</h3>
+              <h3>Argo Series Showcase</h3>
               <p className={styles.updatesDescription}>
-                Meet the ATSN team and experience autonomous service and delivery robots up close at Tech EXPO Gujarat 2026.
+                We're participating at Tech EXPO Gujarat 2026 with the full Argo series. Come explore our autonomous robots and meet the team.
               </p>
               <span className={styles.updatesStatus}>Nov 27 – 29, 2026 · Ahmedabad</span>
             </article>

@@ -35,14 +35,14 @@ const EVENTS = [
     logo: null,
     logoAlt: null,
     organizer: "Tech EXPO Gujarat · Gujarat University, Ahmedabad",
-    title: "Full Argo Fleet Showcase",
+    title: "Argo Series Showcase",
     dates: "Nov 27 – 29, 2026",
     booth: null,
     instagram: null,
     description:
-      "ATSN Robotics will showcase the complete Argo fleet at Tech EXPO Gujarat 2026 at Gujarat University. Meet the team and experience autonomous service and delivery robots up close.",
+      "ATSN Robotics will be participating at Tech EXPO Gujarat 2026 at Gujarat University with the full Argo series. Come explore our range of autonomous service and delivery robots and meet the team.",
     highlights: [
-      { label: "Full Argo Fleet on Display" },
+      { label: "Argo Series on Display" },
       { label: "Live Robot Demonstrations" },
       { label: "Meet the ATSN Team" },
     ],

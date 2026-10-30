@@ -3,6 +3,7 @@ import "./globals.css";
 import "./atsn-pages.css";
 import { Footer } from "./components/Footer";
 import { SiteHeader } from "./components/SiteHeader";
+import { ShellGuard } from "./components/ShellGuard";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.atsnrobotics.com"),
@@ -165,11 +166,9 @@ export default function RootLayout({
             }).replace(/</g, "\\u003c"),
           }}
         />
-        <div className="siteShell">
-          <SiteHeader />
-          <div className="siteMain">{children}</div>
-          <Footer />
-        </div>
+        <ShellGuard header={<SiteHeader />} footer={<Footer />}>
+          {children}
+        </ShellGuard>
       </body>
     </html>
   );
