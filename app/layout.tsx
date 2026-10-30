@@ -104,6 +104,48 @@ export default function RootLayout({
                   },
                 },
                 {
+                  "@type": "Event",
+                  name: "Amalthea Tech Expo 2026 — ATSN Robotics",
+                  startDate: "2026-10-31",
+                  endDate: "2026-11-01",
+                  description:
+                    "Visit ATSN Robotics at Amalthea Tech Expo 2026 at IIT Gandhinagar. See the Argo Sonic prototype launch, outdoor navigation demos, and robotics in action at Booth B-2, U Corridor.",
+                  location: {
+                    "@type": "Place",
+                    name: "IIT Gandhinagar",
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: "Gandhinagar",
+                      addressRegion: "Gujarat",
+                      addressCountry: "IN",
+                    },
+                  },
+                  organizer: { "@id": "https://www.atsnrobotics.com/#organization" },
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                },
+                {
+                  "@type": "Event",
+                  name: "Tech EXPO Gujarat 2026 — ATSN Robotics",
+                  startDate: "2026-11-27",
+                  endDate: "2026-11-29",
+                  description:
+                    "See the Argo fleet live at Tech EXPO Gujarat 2026 at Gujarat University, Ahmedabad. ATSN Robotics will showcase autonomous service and delivery robots at our booth.",
+                  location: {
+                    "@type": "Place",
+                    name: "Gujarat University",
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: "Ahmedabad",
+                      addressRegion: "Gujarat",
+                      addressCountry: "IN",
+                    },
+                  },
+                  organizer: { "@id": "https://www.atsnrobotics.com/#organization" },
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                },
+                {
                   "@type": "Product",
                   "@id": "https://www.atsnrobotics.com/flex#product",
                   name: "Argo Flex",

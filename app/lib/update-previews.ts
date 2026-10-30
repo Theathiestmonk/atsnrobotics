@@ -1,15 +1,17 @@
 export const UPDATE_PREVIEWS = [
   {
-    category: "From the blog",
-    title: "Stories from ATSN Robotics",
-    description: "Insights on robotics, service, and the spaces where people gather.",
-    status: "Articles coming soon",
+    category: "Live event",
+    title: "Amalthea Tech Expo 2026 — IIT Gandhinagar",
+    description:
+      "We’re exhibiting at Amalthea Tech Expo 2026 at IIT Gandhinagar. Come see the Argo Sonic prototype launch, outdoor navigation demos, and robotics in action. Find us at Booth B-2, U Corridor.",
+    status: "Oct 31 – Nov 1, 2026 · Booth B-2, U Corridor · IIT Gandhinagar",
   },
   {
-    category: "Upcoming events",
-    title: "Meet us in person",
-    description: "Find out where to see ATSN Robotics and the Argo fleet.",
-    status: "Events to be announced",
+    category: "Upcoming event",
+    title: "Tech EXPO Gujarat 2026 — Gujarat University",
+    description:
+      "ATSN Robotics will be showcasing the Argo fleet at Tech EXPO Gujarat 2026 at Gujarat University. Meet the team and see autonomous service and delivery robots up close.",
+    status: "Nov 27 – 29, 2026 · Gujarat University, Ahmedabad",
   },
   {
     category: "Product updates",
