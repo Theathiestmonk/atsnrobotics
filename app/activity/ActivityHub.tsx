@@ -44,42 +44,61 @@ export function ActivityHub() {
   if (active === "maze") return <MazeGame onExit={() => setActive(null)} />;
   if (active === "program") return <ProgramGame onExit={() => setActive(null)} />;
 
+  const accentColor = (id: GameId) =>
+    id === "delivery" ? "#c9a962" : id === "maze" ? "#60a5fa" : "#a78bfa";
+  const hoverBorder = (id: GameId) =>
+    id === "delivery" ? "rgba(201,169,98,0.55)" : id === "maze" ? "rgba(99,179,237,0.5)" : "rgba(167,139,250,0.5)";
+
   return (
-    <div style={{ position: "fixed", inset: 0, background: "#080810", fontFamily: "system-ui, sans-serif", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 20px" }}>
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <p style={{ margin: "0 0 8px", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "#c9a962", textTransform: "uppercase" }}>ATSN Robotics</p>
-        <h1 style={{ margin: "0 0 10px", fontSize: "clamp(2rem,5vw,3rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>Activity Zone</h1>
-        <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: 15 }}>Choose a game and see what Argo can do.</p>
-      </div>
+    <>
+      <style>{`
+        .hub-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .hub-scroll::-webkit-scrollbar { display: none; }
+        .game-card { transition: transform 0.15s, border-color 0.15s; }
+        .game-card:active { transform: scale(0.97); }
+        @media (hover: hover) {
+          .game-card:hover { transform: translateY(-3px); }
+        }
+      `}</style>
+      <div style={{ position: "fixed", inset: 0, background: "#080810", fontFamily: "system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
 
-      {/* Game cards */}
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: 760 }}>
-        {GAMES.map(g => (
-          <div key={g.id}
-            style={{ flex: "1 1 300px", maxWidth: 360, background: g.color, border: `1.5px solid ${g.border}`, borderRadius: 20, padding: "28px 28px 24px", cursor: "pointer", transition: "transform 0.15s, border-color 0.15s", position: "relative", overflow: "hidden" }}
-            onClick={() => setActive(g.id)}
-            onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.borderColor = g.id === "delivery" ? "rgba(201,169,98,0.55)" : g.id === "maze" ? "rgba(99,179,237,0.5)" : "rgba(167,139,250,0.5)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "none"; (e.currentTarget as HTMLDivElement).style.borderColor = g.border; }}
-          >
-            {/* Ambient glow */}
-            <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: g.id === "delivery" ? "rgba(201,169,98,0.06)" : "rgba(99,179,237,0.06)", pointerEvents: "none" }} />
+        {/* Header — compact */}
+        <div style={{ flexShrink: 0, textAlign: "center", padding: "20px 16px 12px" }}>
+          <p style={{ margin: "0 0 4px", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: "#c9a962", textTransform: "uppercase" }}>ATSN Robotics</p>
+          <h1 style={{ margin: "0 0 4px", fontSize: "clamp(1.5rem,6vw,2.4rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>Activity Zone</h1>
+          <p style={{ margin: 0, color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Choose a game and see what Argo can do.</p>
+        </div>
 
-            <div style={{ marginBottom: 16 }}>
-              <span style={{ display: "inline-block", padding: "3px 10px", borderRadius: 999, background: g.id === "delivery" ? "rgba(201,169,98,0.15)" : g.id === "maze" ? "rgba(99,179,237,0.12)" : "rgba(167,139,250,0.12)", color: g.id === "delivery" ? "#c9a962" : g.id === "maze" ? "#60a5fa" : "#a78bfa", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>{g.tag}</span>
-              <h2 style={{ margin: "0 0 10px", fontSize: "clamp(1.2rem,3vw,1.5rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.01em" }}>{g.title}</h2>
-              <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.65 }}>{g.desc}</p>
+        {/* Cards — scrollable, compact on mobile */}
+        <div className="hub-scroll" style={{ flex: 1, padding: "8px 14px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
+          {GAMES.map(g => (
+            <div key={g.id} className="game-card"
+              style={{ background: g.color, border: `1.5px solid ${g.border}`, borderRadius: 16, padding: "14px 16px", cursor: "pointer", position: "relative", overflow: "hidden" }}
+              onClick={() => setActive(g.id)}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = hoverBorder(g.id); }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = g.border; }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10 }}>
+                {/* Left: text */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 999, background: g.id === "delivery" ? "rgba(201,169,98,0.15)" : g.id === "maze" ? "rgba(99,179,237,0.12)" : "rgba(167,139,250,0.12)", color: accentColor(g.id), fontSize: 10, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>{g.tag}</span>
+                  <h2 style={{ margin: "0 0 5px", fontSize: "clamp(1rem,4vw,1.25rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.01em" }}>{g.title}</h2>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.45)", fontSize: 12, lineHeight: 1.55 }}>{g.desc}</p>
+                </div>
+                {/* Right: play arrow */}
+                <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: 999, border: `1.5px solid ${g.border}`, background: "rgba(255,255,255,0.04)", display: "flex", alignItems: "center", justifyContent: "center", alignSelf: "center" }}>
+                  <span style={{ fontSize: 14, fontWeight: 800, color: accentColor(g.id) }}>→</span>
+                </div>
+              </div>
+              <div style={{ marginTop: 10, paddingTop: 8, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                <span style={{ fontSize: 10, color: "rgba(255,255,255,0.22)", letterSpacing: "0.03em" }}>{g.detail}</span>
+              </div>
             </div>
+          ))}
 
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", letterSpacing: "0.03em" }}>{g.detail}</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: g.id === "delivery" ? "#c9a962" : g.id === "maze" ? "#60a5fa" : "#a78bfa" }}>Play →</span>
-            </div>
-          </div>
-        ))}
+          <p style={{ textAlign: "center", fontSize: 11, color: "rgba(255,255,255,0.15)", margin: "6px 0 0" }}>More games coming soon</p>
+        </div>
       </div>
-
-      <p style={{ marginTop: 36, fontSize: 12, color: "rgba(255,255,255,0.18)" }}>More games coming soon</p>
-    </div>
+    </>
   );
 }
