@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./HomeExperience.module.css";
+import { UPDATE_PREVIEWS } from "../lib/update-previews";
 
 const ROBOTS = [
   {
@@ -213,10 +214,45 @@ export function HomeExperience() {
         </div>
       </section>
 
+      <section className={styles.updatesSection} aria-labelledby="updates-title">
+        <div className={styles.sectionInner}>
+          <div
+            className={`${styles.sectionHeading} ${revealClass("updates-heading")}`}
+            data-home-reveal="updates-heading"
+          >
+            <div>
+              <p className={styles.eyebrow}>02 / From ATSN</p>
+              <h2 id="updates-title">News, stories, and what’s next.</h2>
+            </div>
+            <p>Follow company news, upcoming events, and updates from the Argo fleet.</p>
+          </div>
+
+          <div className={styles.updatesGrid}>
+            {UPDATE_PREVIEWS.map((item, index) => (
+              <article
+                className={`${styles.updatesCard} ${revealClass(`update-${index}`)}`}
+                data-home-reveal={`update-${index}`}
+                key={item.category}
+                style={{ "--robot-index": index } as React.CSSProperties}
+              >
+                <p className={styles.updatesCategory}>{item.category}</p>
+                <h3>{item.title}</h3>
+                <p className={styles.updatesDescription}>{item.description}</p>
+                <span className={styles.updatesStatus}>{item.status}</span>
+              </article>
+            ))}
+          </div>
+
+          <Link className={styles.updatesLink} href="/updates">
+            Visit News &amp; Events <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
       <section className={styles.contactSection} aria-labelledby="contact-title">
         <div className={`${styles.contactInner} ${revealClass("contact")}`} data-home-reveal="contact">
           <div>
-            <p className={styles.eyebrow}>02 / Start a conversation</p>
+            <p className={styles.eyebrow}>03 / Start a conversation</p>
             <h2 id="contact-title">Let’s find the right robot for your space.</h2>
           </div>
           <Link className={styles.primaryAction} href="/contact">

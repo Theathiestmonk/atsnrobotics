@@ -27,28 +27,36 @@ export function AboutUs() {
           </Link>
         </div>
 
-        <section className="atsnSection" aria-label="Mission">
-          <ScrollReveal>
-            <h2 className="atsnSection__title">Mission</h2>
-            <p className="atsnSection__sub">
-              Build technology that feels like it belongs—without sharp learning curves. We design
-              for the person who’s already busy. If a robot requires constant attention, it’s not
-              support; it’s another task. Our mission is to create intelligent motion that reduces
-              friction, respects the flow of a space, and earns trust through consistency.
-            </p>
-          </ScrollReveal>
-        </section>
+        <section className="atsnSection aboutValues" aria-label="Mission and vision">
+          <div className="atsnGrid">
+            <article className="atsnCard aboutValues__card">
+              <ScrollReveal>
+                <p className="atsnCard__kicker">Our mission</p>
+                <h2 className="atsnCard__title">Technology that feels like it belongs.</h2>
+                <p className="atsnCard__body">
+                  Build technology that feels like it belongs—without sharp learning curves. We
+                  design for the person who’s already busy. If a robot requires constant attention,
+                  it’s not support; it’s another task. Our mission is to create intelligent motion
+                  that reduces friction, respects the flow of a space, and earns trust through
+                  consistency.
+                </p>
+              </ScrollReveal>
+            </article>
 
-        <section className="atsnSection" aria-label="Vision">
-          <ScrollReveal>
-            <h2 className="atsnSection__title">Vision</h2>
-            <p className="atsnSection__sub">
-              We believe the future of work includes a quiet current of support for human teams.
-              Not a replacement—an assist. The most valuable work in hospitality, retail, and live
-              events is human: judgment, care, and presence. Our vision is a layer of robotics that
-              carries the repetitive movement so people can stay in the moments that create quality.
-            </p>
-          </ScrollReveal>
+            <article className="atsnCard aboutValues__card">
+              <ScrollReveal>
+                <p className="atsnCard__kicker">Our vision</p>
+                <h2 className="atsnCard__title">More room for human work.</h2>
+                <p className="atsnCard__body">
+                  We believe the future of work includes a quiet current of support for human teams.
+                  Not a replacement—an assist. The most valuable work in hospitality, retail, and
+                  live events is human: judgment, care, and presence. Our vision is a layer of
+                  robotics that carries the repetitive movement so people can stay in the moments
+                  that create quality.
+                </p>
+              </ScrollReveal>
+            </article>
+          </div>
         </section>
 
         <section className="atsnSection" aria-label="Engineering philosophy">
@@ -97,7 +105,7 @@ export function AboutUs() {
 
         <section className="atsnSection" aria-label="Closing">
           <ScrollReveal>
-            <h2 className="atsnSection__title">The work is movement—and movement is experience.</h2>
+            <h2 className="atsnSection__title">The work is movement - and movement is experience.</h2>
             <p className="atsnSection__sub">
               Whether it’s a hotel corridor, a retail aisle, or an arena concourse, the way goods
               move shapes how people feel. Our goal is simple: make that movement quieter, smoother,
@@ -109,4 +117,3 @@ export function AboutUs() {
     </main>
   );
 }
-

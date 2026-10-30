@@ -62,7 +62,7 @@ export default function OrderPage() {
             </p>
 
             <div className="atsnHero__ctaRow">
-              <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us?model=ARGO%20Sonic">
+              <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us">
                 Let's Connect
               </Link>
               <Link className="atsnBtn" href="/products">

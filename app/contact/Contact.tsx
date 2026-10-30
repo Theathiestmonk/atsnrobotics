@@ -1,8 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import { CitySelect, CountrySelect, StateSelect } from "react-country-state-city";
-import "react-country-state-city/dist/react-country-state-city.css";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { GetCountries, GetState, GetCity } from "react-country-state-city";
 import { BlurText } from "../components/BlurText";
 import { ScrollReveal } from "../components/ScrollReveal";
 
@@ -11,20 +10,92 @@ type GeoOption = { id: number; name: string };
 export function Contact() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submissionError, setSubmissionError] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<GeoOption | null>(null);
   const [selectedState, setSelectedState] = useState<GeoOption | null>(null);
   const [selectedCity, setSelectedCity] = useState<GeoOption | null>(null);
+  const [countries, setCountries] = useState<GeoOption[]>([]);
+  const [states, setStates] = useState<GeoOption[]>([]);
+  const [cities, setCities] = useState<GeoOption[]>([]);
+  const [locationError, setLocationError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+
+    GetCountries()
+      .then((result) => {
+        if (active) setCountries(result);
+        if (active) setLocationError("");
+      })
+      .catch((error: unknown) => {
+        console.error("Contact form country options failed to load:", error);
+        if (active) setLocationError("Unable to load countries. Please refresh and try again.");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const countryId = selectedCountry?.id;
+    setStates([]);
+    setSelectedState(null);
+    setCities([]);
+    setSelectedCity(null);
+    if (!countryId) return;
+
+    let active = true;
+    GetState(countryId)
+      .then((result) => {
+        if (active) setStates(result);
+        if (active) setLocationError("");
+      })
+      .catch((error: unknown) => {
+        console.error("Contact form state options failed to load:", error);
+        if (active) setLocationError("Unable to load states. Please try selecting the country again.");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [selectedCountry?.id]);
+
+  useEffect(() => {
+    const countryId = selectedCountry?.id;
+    const stateId = selectedState?.id;
+    setCities([]);
+    setSelectedCity(null);
+    if (!countryId || !stateId) return;
+
+    let active = true;
+    GetCity(countryId, stateId)
+      .then((result) => {
+        if (active) setCities(result);
+        if (active) setLocationError("");
+      })
+      .catch((error: unknown) => {
+        console.error("Contact form city options failed to load:", error);
+        if (active) setLocationError("Unable to load cities. Please try selecting the state again.");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [selectedCountry?.id, selectedState?.id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (status !== "idle" && status !== "error") return;
 
     setStatus("sending");
+    setSubmissionError("");
 
     const formData = new FormData(e.currentTarget);
     const data = {
       name: formData.get("name"),
       company: formData.get("company"),
+      model: formData.get("model"),
       mobile: formData.get("mobile"),
       country: selectedCountry?.name ?? "",
       state: selectedState?.name ?? "",
@@ -40,13 +111,20 @@ export function Contact() {
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        setStatus("sent");
-      } else {
+      const result = (await response.json()) as { error?: unknown };
+      if (!response.ok) {
+        setSubmissionError(
+          typeof result.error === "string"
+            ? result.error
+            : "Unable to send your message. Please try again.",
+        );
         setStatus("error");
+        return;
       }
-    } catch (err) {
-      console.error(err);
+      setStatus("sent");
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
+      setSubmissionError("Unable to send your message. Please try again.");
       setStatus("error");
     }
   };
@@ -202,54 +280,88 @@ export function Contact() {
               <label className="atsnLabel" htmlFor="country">
                 Country
               </label>
-              <div className="atsnGeoField">
-                <CountrySelect
-                  id="country"
-                  inputClassName="atsnInput"
-                  placeHolder="Select country"
-                  required
-                  onChange={(c: any) => {
-                    setSelectedCountry({ id: c.id, name: c.name });
-                    setSelectedState(null);
-                    setSelectedCity(null);
-                  }}
-                />
-              </div>
+              <select
+                className="atsnInput"
+                id="country"
+                required
+                value={selectedCountry?.id ?? ""}
+                onChange={(event) => {
+                  const country = countries.find((option) => option.id === Number(event.target.value));
+                  setSelectedCountry(country ?? null);
+                  setSelectedState(null);
+                  setSelectedCity(null);
+                }}
+              >
+                <option value="" disabled>
+                  {countries.length ? "Select country" : "Loading countries…"}
+                </option>
+                {countries.map((country) => (
+                  <option key={country.id} value={country.id}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label className="atsnLabel" htmlFor="state">
                 State / Province
               </label>
-              <div className="atsnGeoField">
-                <StateSelect
-                  id="state"
-                  inputClassName="atsnInput"
-                  placeHolder={selectedCountry ? "Select state" : "Select country first"}
-                  countryid={selectedCountry?.id ?? 0}
-                  onChange={(s: any) => {
-                    setSelectedState({ id: s.id, name: s.name });
-                    setSelectedCity(null);
-                  }}
-                />
-              </div>
+              <select
+                className="atsnInput"
+                id="state"
+                disabled={!selectedCountry}
+                value={selectedState?.id ?? ""}
+                onChange={(event) => {
+                  const state = states.find((option) => option.id === Number(event.target.value));
+                  setSelectedState(state ?? null);
+                  setSelectedCity(null);
+                }}
+              >
+                <option value="" disabled>
+                  {!selectedCountry
+                    ? "Select country first"
+                    : states.length
+                      ? "Select state / province"
+                      : "No states available"}
+                </option>
+                {states.map((state) => (
+                  <option key={state.id} value={state.id}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label className="atsnLabel" htmlFor="city">
                 City
               </label>
-              <div className="atsnGeoField">
-                <CitySelect
-                  id="city"
-                  inputClassName="atsnInput"
-                  placeHolder={selectedState ? "Select city" : "Select state first"}
-                  countryid={selectedCountry?.id ?? 0}
-                  stateid={selectedState?.id ?? 0}
-                  onChange={(c: any) => setSelectedCity({ id: c.id, name: c.name })}
-                />
-              </div>
+              <select
+                className="atsnInput"
+                id="city"
+                disabled={!selectedState}
+                value={selectedCity?.id ?? ""}
+                onChange={(event) => {
+                  const city = cities.find((option) => option.id === Number(event.target.value));
+                  setSelectedCity(city ?? null);
+                }}
+              >
+                <option value="" disabled>
+                  {!selectedState ? "Select state first" : cities.length ? "Select city" : "No cities available"}
+                </option>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
             </div>
+            {locationError ? (
+              <p role="alert" style={{ gridColumn: "1 / -1", color: "#dc2626" }}>
+                {locationError}
+              </p>
+            ) : null}
 
             <div className="atsnForm__full">
               <label className="atsnLabel" htmlFor="email">
@@ -281,10 +393,14 @@ export function Contact() {
                 ? "Sent — we’ll reply soon"
                 : "Error — please try again"}
             </button>
+            {submissionError ? (
+              <p role="alert" style={{ gridColumn: "1 / -1", color: "#dc2626" }}>
+                {submissionError}
+              </p>
+            ) : null}
           </form>
         </section>
       </div>
     </main>
   );
 }
-

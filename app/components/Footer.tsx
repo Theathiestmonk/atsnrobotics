@@ -5,6 +5,7 @@ import Link from "next/link";
 const LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Careers", href: "/careers" },
+  { label: "News & Events", href: "/updates" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
@@ -29,4 +30,3 @@ export function Footer() {
     </footer>
   );
 }
-

@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { UnoContribution } from "../components/UnoContribution";
 import { RobotProductPage } from "../components/RobotProductPage";
+import { createPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Argo Uno | ATSN Robotics",
+export const metadata = createPageMetadata({
+  title: "Argo Uno Robot",
   description:
-    "Follow the development of Argo Uno, the next robot in the ATSN Robotics fleet.",
-};
+    "Follow Argo Uno, the next autonomous robot in development for the ATSN Robotics fleet. Product details and availability will be announced as development progresses.",
+  path: "/uno",
+});
 
 export default function UnoPage() {
   return (

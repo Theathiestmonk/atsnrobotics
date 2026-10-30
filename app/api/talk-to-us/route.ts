@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
 import { isValidPhoneNumber, parsePhoneNumber } from "libphonenumber-js";
+import { createSmtpTransport, getEmailDeliveryFailure } from "@/app/lib/email";
+import { isRobotModel } from "@/app/lib/models";
 
 export async function POST(req: Request) {
   try {
     const { model, name, businessName, email, phone, phoneCountry, address, city, state, country } =
       await req.json();
+
+    if (!isRobotModel(model)) {
+      return NextResponse.json({ error: "Please select a valid robot model." }, { status: 400 });
+    }
 
     // Validate phone number on backend
     if (!phone || typeof phone !== "string" || !phone.startsWith("+")) {
@@ -33,15 +38,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    const mailer = createSmtpTransport();
+
+    if ("error" in mailer) {
+      return NextResponse.json({ error: mailer.error }, { status: 503 });
+    }
 
     const mailOptions = {
       from: `"${name}" <${process.env.SMTP_USER}>`,
@@ -117,11 +118,18 @@ export async function POST(req: Request) {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await mailer.transporter.sendMail(mailOptions);
 
     return NextResponse.json({ message: "Email sent successfully" }, { status: 200 });
   } catch (error) {
-    console.error("Error sending email:", error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    const failure = getEmailDeliveryFailure(error);
+    console.error("Talk-to-us email delivery failed:", {
+      code: failure.code,
+      responseCode: failure.responseCode,
+    });
+    return NextResponse.json(
+      { error: failure.message },
+      { status: failure.status },
+    );
   }
 }

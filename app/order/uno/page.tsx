@@ -77,7 +77,7 @@ export default function OrderUnoPage() {
             </p>
 
             <div className="atsnHero__ctaRow">
-              <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us?model=Argo%20Uno">
+              <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us">
                 Register your interest
               </Link>
               <Link className="atsnBtn" href="/products">

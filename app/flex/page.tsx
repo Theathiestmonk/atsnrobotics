@@ -1,11 +1,21 @@
-import type { Metadata } from "next";
 import { RobotProductPage } from "../components/RobotProductPage";
+import { createPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Argo Flex | ATSN Robotics",
+export const metadata = createPageMetadata({
+  title: "Argo Flex — Autonomous Delivery Robot for Stadiums & Large Venues",
   description:
-    "Meet Argo Flex, ATSN Robotics' autonomous delivery robot designed for stadiums and large venues. Coming soon.",
-};
+    "Argo Flex by ATSN Robotics is an autonomous delivery robot built for stadiums, arenas, concourses, and large event venues. Designed for scale, high foot traffic, and event-day operations.",
+  path: "/flex",
+  keywords: [
+    "Argo Flex",
+    "stadium delivery robot",
+    "large venue robot",
+    "arena delivery robot",
+    "autonomous venue robot",
+    "event robot",
+    "concourse delivery robot",
+  ],
+});
 
 export default function FlexPage() {
   return (

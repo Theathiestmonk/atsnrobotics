@@ -149,9 +149,41 @@
   gap: clamp(0.9rem, 2.3vw, 1.35rem);
 }
 
+.aboutValues__card {
+  grid-column: span 6;
+}
+
+.updatesGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.updatesGrid > * {
+  grid-column: auto !important;
+}
+
+.updatesCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.updatesCard__status {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--atsn-line);
+  border-radius: 999px;
+  color: var(--atsn-dim);
+  font-size: 0.8rem;
+}
+
 @media (max-width: 900px) {
   .atsnGrid > * {
     grid-column: span 12 !important;
+  }
+
+  .updatesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -305,42 +337,18 @@
   background: rgba(10, 10, 11, 0.66);
 }
 
-.atsnGeoField .stdropdown-container {
-  border: none;
-  background: transparent;
+select.atsnInput {
+  color-scheme: dark;
 }
 
-.atsnGeoField .stdropdown-input.stsearch-box {
-  padding: 0;
-  background: transparent;
+select.atsnInput option {
+  background-color: #0c0c0e;
+  color: #f5f5f5;
 }
 
-.atsnGeoField .stdropdown-input input {
-  cursor: pointer;
-}
-
-.atsnGeoField .stdropdown-tool svg {
-  fill: rgba(245, 245, 245, 0.5);
-}
-
-.atsnGeoField .stdropdown-menu {
-  background: #0c0c0e;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  margin-top: 0.35rem;
-}
-
-.atsnGeoField .stdropdown-item {
-  color: rgba(245, 245, 245, 0.8);
-}
-
-.atsnGeoField .stdropdown-item:hover {
-  background-color: rgba(201, 169, 98, 0.18);
-}
-
-.atsnGeoField .stdropdown-item.selected {
-  background-color: #c9a962;
-  color: #0a0a0b;
+select.atsnInput:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .atsnSubmit {
@@ -386,6 +394,10 @@
 }
 
 @media (max-width: 620px) {
+  .updatesGrid {
+    grid-template-columns: 1fr;
+  }
+
   .atsnForm {
     grid-template-columns: 1fr;
   }

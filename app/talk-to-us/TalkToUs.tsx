@@ -5,6 +5,7 @@ import { parsePhoneNumber, isValidPhoneNumber } from "libphonenumber-js";
 import { GetCountries, GetState, GetCity } from "react-country-state-city";
 import { BlurText } from "../components/BlurText";
 import { ScrollReveal } from "../components/ScrollReveal";
+import { ROBOT_MODELS } from "../lib/models";
 
 // Country phone number lengths (max digits without country code)
 const PHONE_LENGTH_MAP: Record<string, number> = {
@@ -52,8 +53,9 @@ interface City {
   longitude: number;
 }
 
-export function TalkToUs({ model }: { model: string }) {
+export function TalkToUs() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submissionError, setSubmissionError] = useState("");
   const [phoneError, setPhoneError] = useState<string>("");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
@@ -255,9 +257,10 @@ export function TalkToUs({ model }: { model: string }) {
     }
 
     setStatus("sending");
+    setSubmissionError("");
 
     const data = {
-      model,
+      model: formData.get("model"),
       name: formData.get("name"),
       businessName: formData.get("businessName"),
       email: formData.get("email"),
@@ -277,9 +280,20 @@ export function TalkToUs({ model }: { model: string }) {
         body: JSON.stringify(data),
       });
 
-      setStatus(response.ok ? "sent" : "error");
-    } catch (err) {
-      console.error(err);
+      const result = (await response.json()) as { error?: unknown };
+      if (!response.ok) {
+        setSubmissionError(
+          typeof result.error === "string"
+            ? result.error
+            : "Unable to send your inquiry. Please try again.",
+        );
+        setStatus("error");
+        return;
+      }
+      setStatus("sent");
+    } catch (error) {
+      console.error("Order inquiry submission failed:", error);
+      setSubmissionError("Unable to send your inquiry. Please try again.");
       setStatus("error");
     }
   };
@@ -295,13 +309,6 @@ export function TalkToUs({ model }: { model: string }) {
           team will follow up with next steps.
         </p>
 
-        <div className="atsnCard__meta" style={{ marginTop: "1.25rem" }}>
-          <span className="atsnPill">
-            <span className="atsnPill__dot" aria-hidden="true" />
-            Model selected: {model}
-          </span>
-        </div>
-
         <section className="atsnSection" aria-label="Order inquiry form">
           <ScrollReveal>
             <h2 className="atsnSection__title">Your details.</h2>
@@ -312,8 +319,6 @@ export function TalkToUs({ model }: { model: string }) {
           </ScrollReveal>
 
           <form className="atsnForm atsnForm--grid" onSubmit={handleSubmit}>
-            <input type="hidden" name="model" value={model} />
-
             {/* Row 1: Full Name (Left) & Company Name (Right) */}
             <div className="atsnForm__col atsnForm__col--half">
               <label className="atsnLabel" htmlFor="name">
@@ -343,6 +348,28 @@ export function TalkToUs({ model }: { model: string }) {
                 name="businessName"
                 autoComplete="organization"
               />
+            </div>
+
+            <div className="atsnForm__col atsnForm__col--half">
+              <label className="atsnLabel" htmlFor="model">
+                Robot of interest <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <select
+                className="atsnInput"
+                id="model"
+                name="model"
+                defaultValue=""
+                required
+              >
+                <option value="" disabled>
+                  Select a robot
+                </option>
+                {ROBOT_MODELS.map((robotModel) => (
+                  <option key={robotModel} value={robotModel}>
+                    {robotModel}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Row 2: Email (Full Width) */}
@@ -562,6 +589,11 @@ export function TalkToUs({ model }: { model: string }) {
                 ? "Sent — we'll reply soon"
                 : "Error — please try again"}
             </button>
+            {submissionError ? (
+              <p role="alert" style={{ gridColumn: "1 / -1", color: "#dc2626" }}>
+                {submissionError}
+              </p>
+            ) : null}
           </form>
         </section>
       </div>
