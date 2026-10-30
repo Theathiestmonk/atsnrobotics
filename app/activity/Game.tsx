@@ -21,7 +21,7 @@ function getRating(timeLeft: number): { stars: number; label: string } {
   return { stars: 1, label: "Just Made It!" };
 }
 
-export function Game() {
+export function Game({ onExit }: { onExit?: () => void } = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
@@ -37,7 +37,7 @@ export function Game() {
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = "/argo_sonic_cutout.png";
+    img.src = "/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png";
     img.onload = () => { sonicImg.current = img; };
   }, []);
 
@@ -428,6 +428,7 @@ export function Game() {
       {/* ── Idle screen ── */}
       {uiState === "idle" && (
         <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 0 }}>
+          {onExit && <button onClick={onExit} style={{ position: "absolute", top: 16, right: 20, padding: "6px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>Games</button>}
           <div style={{ textAlign: "center", marginBottom: 32 }}>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "#c9a962", textTransform: "uppercase", margin: "0 0 8px" }}>ATSN Robotics</p>
             <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: "#fff", margin: "0 0 10px", letterSpacing: "-0.02em" }}>Argo Delivery Run</h1>
