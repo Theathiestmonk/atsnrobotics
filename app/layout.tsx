@@ -109,7 +109,7 @@ export default function RootLayout({
                   startDate: "2026-10-31",
                   endDate: "2026-11-01",
                   description:
-                    "Visit ATSN Robotics at Amalthea Tech Expo 2026 at IIT Gandhinagar. See the Argo Sonic prototype launch, outdoor navigation demos, and robotics in action at Booth B-2, U Corridor.",
+                    "Visit ATSN Robotics at Amalthea Tech Expo 2026 at IIT Gandhinagar. Witness the official product launch of Argo Sonic — outdoor navigation demos and robotics in action at Booth B-2, U Corridor.",
                   location: {
                     "@type": "Place",
                     name: "IIT Gandhinagar",

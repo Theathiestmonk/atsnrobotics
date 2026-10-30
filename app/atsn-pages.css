@@ -1155,3 +1155,17 @@ select.atsnInput:disabled {
   color: var(--atsn-dim);
   font-style: italic;
 }
+
+.eventInstagramLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  margin-top: 0.25rem;
+  transition: color 0.2s ease;
+}
+.eventInstagramLink:hover {
+  color: rgba(255, 255, 255, 0.8);
+}

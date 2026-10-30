@@ -228,19 +228,57 @@ export function HomeExperience() {
           </div>
 
           <div className={styles.updatesGrid}>
-            {UPDATE_PREVIEWS.map((item, index) => (
-              <article
-                className={`${styles.updatesCard} ${revealClass(`update-${index}`)}`}
-                data-home-reveal={`update-${index}`}
-                key={item.category}
-                style={{ "--robot-index": index } as React.CSSProperties}
-              >
-                <p className={styles.updatesCategory}>{item.category}</p>
-                <h3>{item.title}</h3>
-                <p className={styles.updatesDescription}>{item.description}</p>
-                <span className={styles.updatesStatus}>{item.status}</span>
-              </article>
-            ))}
+            {/* Featured event — Amalthea */}
+            <article
+              className={`${styles.updatesCard} ${styles.updatesCardFeatured} ${revealClass("update-0")}`}
+              data-home-reveal="update-0"
+              style={{ "--robot-index": 0 } as React.CSSProperties}
+            >
+              <div className={styles.updatesCardTop}>
+                <span className={styles.updatesCategoryLive}>● Live event</span>
+                <div className={styles.updatesLogo}>
+                  <Image src="/amalthea-logo.png" alt="Amalthea IIT Gandhinagar" width={44} height={44} style={{ objectFit: "contain" }} />
+                </div>
+              </div>
+              <p className={styles.updatesOrganizer}>Amalthea Tech Expo · IIT Gandhinagar</p>
+              <h3>Argo Sonic: Official Product Launch</h3>
+              <p className={styles.updatesDescription}>
+                We're officially launching Argo Sonic at Amalthea 2026. Come see the robot live — outdoor navigation, demos, and robotics in action.
+              </p>
+              <div className={styles.updatesHighlights}>
+                <span>Product Launch</span>
+                <span>Navigation Demo</span>
+                <span>Robotics in Action</span>
+              </div>
+              <span className={styles.updatesStatus}>Oct 31 – Nov 1, 2026 · Booth B-2, U Corridor</span>
+            </article>
+
+            {/* Second event — Tech EXPO Gujarat */}
+            <article
+              className={`${styles.updatesCard} ${revealClass("update-1")}`}
+              data-home-reveal="update-1"
+              style={{ "--robot-index": 1 } as React.CSSProperties}
+            >
+              <span className={styles.updatesCategory}>Upcoming event</span>
+              <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University</p>
+              <h3>Full Argo Fleet Showcase</h3>
+              <p className={styles.updatesDescription}>
+                Meet the ATSN team and experience autonomous service and delivery robots up close at Tech EXPO Gujarat 2026.
+              </p>
+              <span className={styles.updatesStatus}>Nov 27 – 29, 2026 · Ahmedabad</span>
+            </article>
+
+            {/* Product updates */}
+            <article
+              className={`${styles.updatesCard} ${revealClass("update-2")}`}
+              data-home-reveal="update-2"
+              style={{ "--robot-index": 2 } as React.CSSProperties}
+            >
+              <span className={styles.updatesCategory}>Product updates</span>
+              <h3>What's next for Argo</h3>
+              <p className={styles.updatesDescription}>Product news and milestones from across the Argo fleet.</p>
+              <span className={styles.updatesStatus}>Updates coming soon</span>
+            </article>
           </div>
 
           <Link className={styles.updatesLink} href="/updates">

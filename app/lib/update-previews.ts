@@ -3,7 +3,7 @@ export const UPDATE_PREVIEWS = [
     category: "Live event",
     title: "Amalthea Tech Expo 2026 — IIT Gandhinagar",
     description:
-      "We’re exhibiting at Amalthea Tech Expo 2026 at IIT Gandhinagar. Come see the Argo Sonic prototype launch, outdoor navigation demos, and robotics in action. Find us at Booth B-2, U Corridor.",
+      "We’re officially launching Argo Sonic at Amalthea Tech Expo 2026, IIT Gandhinagar. Come experience our ready-to-deploy hospitality robot live — outdoor navigation, robotics in action, Booth B-2, U Corridor.",
     status: "Oct 31 – Nov 1, 2026 · Booth B-2, U Corridor · IIT Gandhinagar",
   },
   {
