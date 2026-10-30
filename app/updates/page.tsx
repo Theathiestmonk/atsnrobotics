@@ -17,33 +17,33 @@ const EVENTS = [
     logo: "/amalthea-logo.png",
     logoAlt: "Amalthea IIT Gandhinagar",
     organizer: "Amalthea Tech Expo · IIT Gandhinagar",
-    title: "Argo Sonic: Official Product Launch",
+    title: "Visit Us at Amalthea Tech Expo 2026",
     dates: "Oct 31 – Nov 1, 2026",
     booth: "Booth B-2, U Corridor",
     instagram: "https://www.instagram.com/amalthea_iitgn",
     description:
-      "We’re officially launching Argo Sonic at Amalthea Tech Expo 2026, IIT Gandhinagar. A ready-to-deploy hospitality robot built for hotels, restaurants, and cafes. Come see it live.",
+      "We're officially launching Argo Sonic at Amalthea 2026. Come see the robot live: outdoor navigation, demos, and robotics in action. Stop by Booth B-2 to explore our company, products, and services.",
     highlights: [
-      { label: "Argo Sonic Product Launch" },
-      { label: "Outdoor Navigation Demo" },
+      { label: "Live Demos" },
+      { label: "Our Products & Services" },
       { label: "Robotics in Action" },
     ],
   },
   {
-    tag: "Coming soon",
+    tag: "Coming up",
     tagColor: "#3b82f6",
     logo: null,
     logoAlt: null,
     organizer: "Tech EXPO Gujarat · Gujarat University, Ahmedabad",
-    title: "Argo Series Showcase",
+    title: "ATSN Robotics at Tech EXPO Gujarat 2026",
     dates: "Nov 27 – 29, 2026",
     booth: null,
     instagram: null,
     description:
-      "ATSN Robotics will be participating at Tech EXPO Gujarat 2026 at Gujarat University with the full Argo series. Come explore our range of autonomous service and delivery robots and meet the team.",
+      "ATSN Robotics is exhibiting at Tech EXPO Gujarat 2026, Gujarat University. Visit our booth to explore our company, products, and services. See Argo Sonic in a live demo and get a first look at what’s coming next with Argo Flex and Uno.",
     highlights: [
-      { label: "Argo Series on Display" },
-      { label: "Live Robot Demonstrations" },
+      { label: "Argo Sonic Live Demo" },
+      { label: "Sneak Peek: Argo Flex & Uno" },
       { label: "Meet the ATSN Team" },
     ],
   },
@@ -144,7 +144,7 @@ export default function UpdatesPage() {
                     {/* Booth */}
                     {event.booth && (
                       <p style={{ fontSize: "0.82rem", opacity: 0.5, margin: 0 }}>
-                        📍 {event.booth}
+                        {event.booth}
                       </p>
                     )}
 
