@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-const NO_SHELL_ROUTES = ["/activity"];
+const NO_SHELL_ROUTES = ["/activity", "/robotics-lab"];
 
 export function ShellGuard({
   children,
