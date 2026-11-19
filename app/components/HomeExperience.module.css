@@ -219,7 +219,7 @@
   line-height: 0.99;
 }
 
-.heroTitle span { color: var(--accent); }
+.heroTitle span { display: block; color: var(--accent); }
 
 .heroLead {
   max-width: 500px;
@@ -624,4 +624,33 @@
   .primaryAction,
   .secondaryAction,
   .cardCta span { transition: none; }
+}
+/* Phones: the hero is exactly one screen, with the video filling it behind the copy. */
+@media (max-width: 700px) {
+  .hero {
+    min-height: 100svh;
+    padding: 0;
+  }
+
+  .heroInner {
+    min-height: 100svh;
+    padding: 96px 0 calc(40px + env(safe-area-inset-bottom));
+    align-items: center;
+  }
+
+  .heroTitle { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55); }
+
+  .heroLead { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6); }
+
+  .actions { margin-top: 22px; }
+
+  .heroShade {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 11, 0.6) 0%,
+      rgba(10, 10, 11, 0.38) 30%,
+      rgba(10, 10, 11, 0.5) 62%,
+      rgba(10, 10, 11, 0.9) 100%
+    );
+  }
 }
