@@ -241,7 +241,7 @@ export function HomeExperience() {
           </div>
 
           <div className={styles.updatesGrid}>
-            {/* Featured event — Tech EXPO Gujarat (soonest) */}
+            {/* Featured event  -  Tech EXPO Gujarat (soonest) */}
             {(() => {
               const now = new Date(); now.setHours(0,0,0,0);
               const s = new Date("2026-11-27"), e = new Date("2026-11-29");
@@ -258,7 +258,7 @@ export function HomeExperience() {
               <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University, Ahmedabad</p>
               <h3>Tech EXPO Gujarat 2026</h3>
               <p className={styles.updatesDescription}>
-                We're bringing the full Argo series to Tech EXPO Gujarat 2026. See Argo Sonic, Flex, and Influence live — come meet the team.
+                We're bringing the full Argo series to Tech EXPO Gujarat 2026. See Argo Sonic, Flex, and Influence live  -  come meet the team.
               </p>
               <div className={styles.updatesHighlights}>
                 <span>Argo Sonic</span>
@@ -270,7 +270,7 @@ export function HomeExperience() {
             );
             })()}
 
-            {/* Second event — Techfest */}
+            {/* Second event  -  Techfest */}
             {(() => {
               const now = new Date(); now.setHours(0,0,0,0);
               const s = new Date("2026-12-16"), e = new Date("2026-12-18");
@@ -292,7 +292,7 @@ export function HomeExperience() {
               );
             })()}
 
-            {/* Third event — WOHXpo */}
+            {/* Third event  -  WOHXpo */}
             {(() => {
               const now = new Date(); now.setHours(0,0,0,0);
               const s = new Date("2027-02-02"), e = new Date("2027-02-04");

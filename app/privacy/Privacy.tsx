@@ -51,7 +51,7 @@ export function Privacy() {
             </p>
             <ul>
               <li>
-                <strong>Privacy-first defaults.</strong> ARGO is designed for navigation—not
+                <strong>Privacy-first defaults.</strong> ARGO is designed for navigation - not
                 identification. By default, we do not enable facial recognition or facial tracking
                 features for navigation.
               </li>

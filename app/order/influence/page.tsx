@@ -15,9 +15,9 @@ const INFLUENCE_COLORS: ColorOption[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Inquire — Argo Influence | ATSN Robotics",
+  title: "Inquire  -  Argo Influence | ATSN Robotics",
   description:
-    "Get in touch to learn more about Argo Influence — the autonomous advertisement robot for events, parties, and brand activations. Talk to the ATSN team for pricing and availability.",
+    "Get in touch to learn more about Argo Influence  -  the autonomous advertisement robot for events, parties, and brand activations. Talk to the ATSN team for pricing and availability.",
 };
 
 export default function OrderInfluencePage() {
@@ -37,7 +37,7 @@ export default function OrderInfluencePage() {
             <p className="orderDescription">
               Argo Influence is an autonomous advertisement and engagement robot built for parties,
               corporate events, exhibitions, and brand activations. It roams independently through
-              crowds, displays dynamic content, and draws attention — turning any venue into an
+              crowds, displays dynamic content, and draws attention  -  turning any venue into an
               experience.
             </p>
 

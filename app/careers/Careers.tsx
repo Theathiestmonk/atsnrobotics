@@ -13,8 +13,8 @@ export function Careers() {
         <ScrollReveal>
           <p className="atsnHero__lead">
             ATSN Robotics exists to make intelligent motion feel calm, obvious, and trustworthy in
-            real spaces. If you care about systems that work outside the lab—near people, under
-            pressure, and with real consequences—we’d love to meet you.
+            real spaces. If you care about systems that work outside the lab - near people, under
+            pressure, and with real consequences - we’d love to meet you.
           </p>
         </ScrollReveal>
 
@@ -26,7 +26,7 @@ export function Careers() {
                 <h3 className="atsnCard__title">Reliability is a feature.</h3>
                 <p className="atsnCard__body">
                   We optimize for deployments that feel effortless: clear interfaces, predictable
-                  behavior, and engineering choices that reduce operational burden—because the real
+                  behavior, and engineering choices that reduce operational burden - because the real
                   product is trust.
                 </p>
               </ScrollReveal>
@@ -51,7 +51,7 @@ export function Careers() {
             <p className="atsnSection__sub">
               We’re always interested in people across robotics engineering, autonomy, embedded
               systems, product, and field operations. If you don’t see a perfect match, send a note
-              anyway—we’ll read it.
+              anyway - we’ll read it.
             </p>
           </ScrollReveal>
 

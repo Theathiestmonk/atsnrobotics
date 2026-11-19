@@ -22,12 +22,12 @@ interface Level {
   startDir: Dir;
 }
 
-const DX = [1, 0, -1, 0]; // right down left up — column delta
+const DX = [1, 0, -1, 0]; // right down left up  -  column delta
 const DY = [0, 1, 0, -1]; // row delta
 
 const LEVELS: Level[] = [
   {
-    label: "Level 1 — Straight Ahead",
+    label: "Level 1  -  Straight Ahead",
     hint: "Move forward 3 times to reach the delivery point.",
     startR: 2, startC: 1, startDir: 0,
     goals: [[2, 4]],
@@ -37,7 +37,7 @@ const LEVELS: Level[] = [
     })(),
   },
   {
-    label: "Level 2 — First Turn",
+    label: "Level 2  -  First Turn",
     hint: "Go forward, turn, then go forward again.",
     startR: 4, startC: 1, startDir: 0,
     goals: [[1, 4]],
@@ -47,8 +47,8 @@ const LEVELS: Level[] = [
     })(),
   },
   {
-    label: "Level 3 — Around the Obstacle",
-    hint: "There's a wall in the way — navigate around it.",
+    label: "Level 3  -  Around the Obstacle",
+    hint: "There's a wall in the way  -  navigate around it.",
     startR: 2, startC: 1, startDir: 0,
     goals: [[2, 7]],
     grid: (() => {
@@ -58,7 +58,7 @@ const LEVELS: Level[] = [
     })(),
   },
   {
-    label: "Level 4 — S-Curve",
+    label: "Level 4  -  S-Curve",
     hint: "Two turns needed to thread the gap.",
     startR: 0, startC: 1, startDir: 1,
     goals: [[5, 7]],
@@ -70,8 +70,8 @@ const LEVELS: Level[] = [
     })(),
   },
   {
-    label: "Level 5 — The Warehouse",
-    hint: "Two deliveries to make — plan carefully!",
+    label: "Level 5  -  The Warehouse",
+    hint: "Two deliveries to make  -  plan carefully!",
     startR: 0, startC: 0, startDir: 0,
     goals: [[0, 7], [5, 7]],
     grid: (() => {
@@ -288,7 +288,7 @@ export function ProgramGame({ onExit }: { onExit: () => void }) {
           const step = execStepRef.current + 1;
           const cmdsNow = cmdsRef.current;
           if (step >= cmdsNow.length) {
-            // All commands done — check if all goals hit
+            // All commands done  -  check if all goals hit
             const allDone = level.goals.every(([r, c]) => goalsHit.current.has(`${r},${c}`));
             if (allDone) {
               runStateRef.current = "success";
@@ -523,7 +523,7 @@ export function ProgramGame({ onExit }: { onExit: () => void }) {
               </button>
             )}
             {runState === "success" && levelIdx === LEVELS.length - 1 && (
-              <p style={{ margin: "6px 0 0", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>All levels complete — you're a robotics programmer!</p>
+              <p style={{ margin: "6px 0 0", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>All levels complete  -  you're a robotics programmer!</p>
             )}
           </div>
         )}

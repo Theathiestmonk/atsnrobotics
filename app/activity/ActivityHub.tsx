@@ -21,7 +21,7 @@ const GAMES: { id: GameId; title: string; tag: string; desc: string; detail: str
     id: "maze",
     title: "Shortest Path Challenge",
     tag: "Smart Navigation",
-    desc: "Draw your route through a maze from start to end — then watch Argo reveal the algorithmically optimal path it would have chosen. How close can you get?",
+    desc: "Draw your route through a maze from start to end  -  then watch Argo reveal the algorithmically optimal path it would have chosen. How close can you get?",
     detail: "BFS pathfinding · efficiency score · 45s timer",
     color: "rgba(99,179,237,0.07)",
     border: "rgba(99,179,237,0.22)",
@@ -30,7 +30,7 @@ const GAMES: { id: GameId; title: string; tag: string; desc: string; detail: str
     id: "program",
     title: "Program the Robot",
     tag: "Code & Logic",
-    desc: "Stack Forward, Turn Left, and Turn Right commands to build a program — then press Run and watch Argo execute your instructions step by step. Can you reach every delivery point?",
+    desc: "Stack Forward, Turn Left, and Turn Right commands to build a program  -  then press Run and watch Argo execute your instructions step by step. Can you reach every delivery point?",
     detail: "5 levels · 12 commands · real robot logic",
     color: "rgba(167,139,250,0.07)",
     border: "rgba(167,139,250,0.22)",
@@ -62,14 +62,14 @@ export function ActivityHub() {
       `}</style>
       <div style={{ position: "fixed", inset: 0, background: "#080810", fontFamily: "system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
 
-        {/* Header — compact */}
+        {/* Header  -  compact */}
         <div style={{ flexShrink: 0, textAlign: "center", padding: "20px 16px 12px" }}>
           <p style={{ margin: "0 0 4px", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: "#c9a962", textTransform: "uppercase" }}>ATSN Robotics</p>
           <h1 style={{ margin: "0 0 4px", fontSize: "clamp(1.5rem,6vw,2.4rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>Activity Zone</h1>
           <p style={{ margin: 0, color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Choose a game and see what Argo can do.</p>
         </div>
 
-        {/* Cards — scrollable, compact on mobile */}
+        {/* Cards  -  scrollable, compact on mobile */}
         <div className="hub-scroll" style={{ flex: 1, padding: "8px 14px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
           {GAMES.map(g => (
             <div key={g.id} className="game-card"

@@ -20,9 +20,9 @@ const FLEX_COLORS: ColorOption[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Inquire — Argo Flex | ATSN Robotics",
+  title: "Inquire  -  Argo Flex | ATSN Robotics",
   description:
-    "Get in touch to learn more about Argo Flex — the autonomous robot for stadiums, concourses, and large venues. Talk to the ATSN team for pricing and availability.",
+    "Get in touch to learn more about Argo Flex  -  the autonomous robot for stadiums, concourses, and large venues. Talk to the ATSN team for pricing and availability.",
 };
 
 export default function OrderFlexPage() {
@@ -42,7 +42,7 @@ export default function OrderFlexPage() {
             <p className="orderDescription">
               ARGO Flex is our rugged, all-terrain robot built for concourses, stands, and
               high-energy crowds. Sized for large venues, it supports crew logistics with
-              repeatable routes that keep pace with the event — from equipment runs to
+              repeatable routes that keep pace with the event  -  from equipment runs to
               on-demand carrying, like ferrying a golf kit across a course.
             </p>
 

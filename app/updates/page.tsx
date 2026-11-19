@@ -50,7 +50,7 @@ const EVENTS = [
     booth: null,
     instagram: null,
     description:
-      "We’re taking Argo Sonic and Argo Influence to Techfest — one of India’s largest science and technology festivals, hosted at IIT Bombay. Come see both robots working live on the floor. Our team will be there to demo, answer technical questions, and talk about how we build autonomous robots in India. Students, engineers, and innovators are all welcome.",
+      "We’re taking Argo Sonic and Argo Influence to Techfest  -  one of India’s largest science and technology festivals, hosted at IIT Bombay. Come see both robots working live on the floor. Our team will be there to demo, answer technical questions, and talk about how we build autonomous robots in India. Students, engineers, and innovators are all welcome.",
     highlights: [
       { label: "Argo Sonic Live Demo" },
       { label: "Argo Influence" },
@@ -69,7 +69,7 @@ const EVENTS = [
     booth: null,
     instagram: null,
     description:
-      "Restaurant and hotel owners — this one is for you. We’ll be at WOHXpo 2027 with Argo Sonic and Argo Influence working live on the floor. Argo Sonic serves food and drinks, cuts wait times, and keeps service consistent during rush hours. Our team will be on hand to show how both robots fit into real hospitality operations and to arrange a custom demo for your venue.",
+      "Restaurant and hotel owners  -  this one is for you. We’ll be at WOHXpo 2027 with Argo Sonic and Argo Influence working live on the floor. Argo Sonic serves food and drinks, cuts wait times, and keeps service consistent during rush hours. Our team will be on hand to show how both robots fit into real hospitality operations and to arrange a custom demo for your venue.",
     highlights: [
       { label: "Argo Sonic" },
       { label: "Argo Influence" },

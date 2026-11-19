@@ -94,7 +94,7 @@ export function HeroSection({
 
   useEffect(() => {
     // Preload gsap + ScrollTrigger in parallel with the intro video, so they're
-    // already available the instant the fleet cards mount — avoids a race where
+    // already available the instant the fleet cards mount  -  avoids a race where
     // a fast scroll right as the video unlocks could outrun the async import and
     // leave the cards stuck in their hidden "before" state.
     gsapModulesRef.current = Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
@@ -134,7 +134,7 @@ export function HeroSection({
 
       ctx = gsap.context(() => {
         // toggleActions: play on the way down, reverse on the way past it, and the
-        // same again scrolling back up — so the reveal replays every time the
+        // same again scrolling back up  -  so the reveal replays every time the
         // section crosses into or out of view, in either scroll direction.
         gsap.fromTo(
           cards,
@@ -278,7 +278,7 @@ export function HeroSection({
                 key={card.id}
                 href={card.href}
                 className="hero__glassCardLink"
-                aria-label={`${card.title ?? "Learn more"} — ${card.watermark ?? "details"}`}
+                aria-label={`${card.title ?? "Learn more"}  -  ${card.watermark ?? "details"}`}
               >
               <article
                 className={`hero__glassCard${card.featured ? " hero__glassCard--featured" : ""}${card.images?.length ? " hero__glassCard--hasImage" : ""}`}

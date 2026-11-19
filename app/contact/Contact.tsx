@@ -232,7 +232,7 @@ export function Contact() {
           <ScrollReveal>
             <h2 className="atsnSection__title">Tell us about your space.</h2>
             <p className="atsnSection__sub">
-              A few details help us respond with something useful—whether that’s a deployment
+              A few details help us respond with something useful - whether that’s a deployment
               estimate, a workflow recommendation, or a short discovery call.
             </p>
           </ScrollReveal>
@@ -390,8 +390,8 @@ export function Contact() {
                 : status === "sending"
                 ? "Sending…"
                 : status === "sent"
-                ? "Sent — we’ll reply soon"
-                : "Error — please try again"}
+                ? "Sent  -  we’ll reply soon"
+                : "Error  -  please try again"}
             </button>
             {submissionError ? (
               <p role="alert" style={{ gridColumn: "1 / -1", color: "#dc2626" }}>

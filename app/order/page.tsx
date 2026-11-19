@@ -4,9 +4,9 @@ import { OrderGallery, SONIC_COLORS } from "./OrderGallery";
 import { OrderModelSwitch } from "./OrderModelSwitch";
 
 export const metadata: Metadata = {
-  title: "Inquire — Argo Sonic | ATSN Robotics",
+  title: "Inquire  -  Argo Sonic | ATSN Robotics",
   description:
-    "Get in touch to learn more about Argo Sonic — the autonomous hospitality robot for hotels, restaurants, and cafes. Talk to the ATSN team for pricing and availability.",
+    "Get in touch to learn more about Argo Sonic  -  the autonomous hospitality robot for hotels, restaurants, and cafes. Talk to the ATSN team for pricing and availability.",
 };
 
 export default function OrderPage() {
@@ -26,7 +26,7 @@ export default function OrderPage() {
             <p className="orderDescription">
               ARGO Sonic is our autonomous, silent, intelligent robot tuned for lobbies, dining
               areas, and service rhythms where presence matters. It moves replenishment and
-              guest-adjacent runs with the quiet confidence your brand expects — reducing trips,
+              guest-adjacent runs with the quiet confidence your brand expects  -  reducing trips,
               smoothing peaks, and freeing your team for higher-value work.
             </p>
 

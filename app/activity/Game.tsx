@@ -279,7 +279,7 @@ export function Game({ onExit }: { onExit?: () => void } = {}) {
       g.robotY += (targetY - g.robotY) * 0.15;
       g.deliveryFlash = Math.max(0, g.deliveryFlash - dt);
 
-      // obstacle spawn — interval based on speed
+      // obstacle spawn  -  interval based on speed
       g.lastObstacleSpawn += g.speed;
       const spawnInt = Math.max(130, 480 - g.speed * 22);
       if (g.lastObstacleSpawn >= spawnInt) {

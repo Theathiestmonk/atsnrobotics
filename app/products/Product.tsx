@@ -34,7 +34,7 @@ const ARGO_MODELS = [
     segment: "Concourses & large venues",
     status: "Coming soon",
     body:
-      "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
+      "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event - not the other way around.",
     capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
     imageSrc: "/ARGO_Flex.webp",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
@@ -198,7 +198,7 @@ const featureCards: CardSwapItem[] = [
     kicker: "Experience",
     title: "Natural Interaction",
     body:
-      "ARGO understands shared spaces. It moves with intention—yielding, signaling, and arriving with the calm confidence of a great teammate. No spectacle. No awkward choreography. Just intelligent motion that feels familiar.",
+      "ARGO understands shared spaces. It moves with intention - yielding, signaling, and arriving with the calm confidence of a great teammate. No spectacle. No awkward choreography. Just intelligent motion that feels familiar.",
     pills: ["Human-aware navigation", "Predictable approach", "Clear intent cues"],
   },
   {
@@ -206,7 +206,7 @@ const featureCards: CardSwapItem[] = [
     kicker: "Mobility",
     title: "Fluid Mobility",
     body:
-      "Built for real floors, real corners, and real foot traffic. ARGO’s motion is smooth under pressure—threading through lobbies, aisles, and concourses without jolts that disrupt guests or the payload you’re moving.",
+      "Built for real floors, real corners, and real foot traffic. ARGO’s motion is smooth under pressure - threading through lobbies, aisles, and concourses without jolts that disrupt guests or the payload you’re moving.",
     pills: ["Tight turning", "Stable motion", "Crowd-tolerant routing"],
   },
   {
@@ -214,7 +214,7 @@ const featureCards: CardSwapItem[] = [
     kicker: "Presence",
     title: "Quiet Confidence",
     body:
-      "ARGO operates with a low acoustic profile and an unobtrusive silhouette—support that doesn’t announce itself. The result is a robot that can work nearby without pulling focus from the experience you’re delivering.",
+      "ARGO operates with a low acoustic profile and an unobtrusive silhouette - support that doesn’t announce itself. The result is a robot that can work nearby without pulling focus from the experience you’re delivering.",
     pills: ["Low-noise operation", "Guest-friendly design", "Distraction-free"],
   },
   {
@@ -222,7 +222,7 @@ const featureCards: CardSwapItem[] = [
     kicker: "Built for work",
     title: "Purpose‑Built",
     body:
-      "ARGO is designed specifically for goods movement: dependable delivery runs, back-of-house support, and repeatable workflows. It’s the quiet engine behind consistent service—reducing trips, smoothing peaks, and freeing people for higher-value work.",
+      "ARGO is designed specifically for goods movement: dependable delivery runs, back-of-house support, and repeatable workflows. It’s the quiet engine behind consistent service - reducing trips, smoothing peaks, and freeing people for higher-value work.",
     pills: ["Delivery workflows", "Fleet-ready", "Operational insight"],
   },
 ];
@@ -277,7 +277,7 @@ export function Product() {
           <ScrollReveal>
             <h2 className="atsnSection__title">Designed to disappear into your workflow.</h2>
             <p className="atsnSection__sub">
-              The best robotics doesn’t demand attention—it earns trust. ARGO blends graceful motion
+              The best robotics doesn’t demand attention - it earns trust. ARGO blends graceful motion
               with human-aware behavior so it can operate in public-facing environments without
               forcing people to adapt. Think of it as intelligent motion with manners.
             </p>
@@ -296,7 +296,7 @@ export function Product() {
                   ARGO is designed to absorb the invisible workload: the trips that interrupt flow,
                   the runs that steal staffing bandwidth, and the repetitive movement that stacks up
                   when a venue gets busy. Deploy it for consistent routes, scheduled runs, and
-                  on-demand support—then let your team stay where they’re most valuable.
+                  on-demand support - then let your team stay where they’re most valuable.
                 </p>
               </ScrollReveal>
             </div>
@@ -306,7 +306,7 @@ export function Product() {
                 <p className="atsnCard__kicker">Design intent</p>
                 <h3 className="atsnCard__title">Presence without pressure.</h3>
                 <p className="atsnCard__body">
-                  Quiet operation, graceful approach, and predictable motion—so ARGO can work near
+                  Quiet operation, graceful approach, and predictable motion - so ARGO can work near
                   guests and staff without turning the space into a demo. Robotics should feel like
                   it belongs.
                 </p>

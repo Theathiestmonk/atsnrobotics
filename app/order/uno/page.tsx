@@ -20,9 +20,9 @@ const UNO_COLORS: ColorOption[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Inquire — Argo Uno | ATSN Robotics",
+  title: "Inquire  -  Argo Uno | ATSN Robotics",
   description:
-    "Get in touch to register your interest in Argo Uno — the next robot in the ATSN Robotics fleet, currently in development.",
+    "Get in touch to register your interest in Argo Uno  -  the next robot in the ATSN Robotics fleet, currently in development.",
 };
 
 export default function OrderUnoPage() {

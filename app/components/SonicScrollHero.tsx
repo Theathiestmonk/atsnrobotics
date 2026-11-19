@@ -19,7 +19,7 @@ const ORBIT_RADIUS = "104%"; // slightly beyond model-viewer's ideal fit, avoids
 
 // The model's real bounding box (queried via model.getBoundingBoxCenter() /
 // getDimensions()): height ≈ 0.98m, resting on the ground at y=0, box center
-// at y≈0.49 — NOT y=0 or y=1 as earlier (incorrect) assumptions used.
+// at y≈0.49  -  NOT y=0 or y=1 as earlier (incorrect) assumptions used.
 const MODEL_CENTER_Y = 0.49;
 const MODEL_TOP_Y = 0.84; // near the tray, offset down to keep content away from canvas edge
 
@@ -39,7 +39,7 @@ const STATE_2_END_TARGET_Y = MODEL_TOP_Y;
 const STATE_2_ZOOM_PHASE_END = 0.7;
 const STATE_2_PAN_RIGHT_VW = 22;
 
-// State 3: continues from state 2's end — camera pans down from the tray to
+// State 3: continues from state 2's end  -  camera pans down from the tray to
 // the body (vertical center). Zooms out slightly and straightens the tilt
 // back toward level as it settles on the body. Horizontal pan resets to 0.
 const STATE_3_START_TARGET_Y = MODEL_TOP_Y;
@@ -49,7 +49,7 @@ const STATE_3_END_POLAR = 72; // straightens back toward eye-level
 const STATE_3_START_FOV = STATE_2_END_FOV;
 const STATE_3_END_FOV = 40; // zoom out more (20% additional zoom-out from 15°→24°)
 
-// State 4: continues from state 3's end — camera zooms in on the bottom section
+// State 4: continues from state 3's end  -  camera zooms in on the bottom section
 // of the bot (wheels/base), closing back to a zoom level similar to state 2.
 const STATE_4_START_TARGET_Y = MODEL_CENTER_Y;
 const STATE_4_END_TARGET_Y = 0.15; // focus near the bottom/wheels, offset up to prevent edge clipping
@@ -171,7 +171,7 @@ export function SonicScrollHero() {
         state3Text.style.opacity = "0";
         state4Text.style.opacity = "0";
       } else if (inState3) {
-        // State 3: continues from state 2's end frame — straighten the bot
+        // State 3: continues from state 2's end frame  -  straighten the bot
         // by adjusting the polar angle. Keep FOV constant (no zoom), and keep
         // robot panned to the right.
         const stateEndAzimuth = START_ORBIT_AZIMUTH + STATE_1_AZIMUTH_DELTA + STATE_2_AZIMUTH_DELTA;
@@ -191,7 +191,7 @@ export function SonicScrollHero() {
         state3Text.style.opacity = state3TextOpacity.toString();
         state4Text.style.opacity = "0";
       } else {
-        // State 4: continues from state 3's end frame — camera zooms in on the
+        // State 4: continues from state 3's end frame  -  camera zooms in on the
         // bottom section of the bot (wheels/base), tilting back to a similar
         // angle as state 2 for a focused close-up view. Keep robot on the right.
         const stateEndAzimuth = START_ORBIT_AZIMUTH + STATE_1_AZIMUTH_DELTA + STATE_2_AZIMUTH_DELTA;
@@ -261,7 +261,7 @@ export function SonicScrollHero() {
     <model-viewer
       ref={modelRef}
       src="/sonic-compressed.glb"
-      alt="ARGO Sonic — autonomous delivery robot"
+      alt="ARGO Sonic  -  autonomous delivery robot"
       loading="eager"
       reveal="auto"
       disable-zoom

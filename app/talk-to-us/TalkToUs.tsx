@@ -313,7 +313,7 @@ export function TalkToUs() {
           <ScrollReveal>
             <h2 className="atsnSection__title">Your details.</h2>
             <p className="atsnSection__sub">
-              We accept inquiries from businesses anywhere in the world—just let us know where to
+              We accept inquiries from businesses anywhere in the world - just let us know where to
               reach you.
             </p>
           </ScrollReveal>
@@ -586,8 +586,8 @@ export function TalkToUs() {
                 : status === "sending"
                 ? "Sending…"
                 : status === "sent"
-                ? "Sent — we'll reply soon"
-                : "Error — please try again"}
+                ? "Sent  -  we'll reply soon"
+                : "Error  -  please try again"}
             </button>
             {submissionError ? (
               <p role="alert" style={{ gridColumn: "1 / -1", color: "#dc2626" }}>

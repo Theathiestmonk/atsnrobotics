@@ -4,7 +4,7 @@ import { ActivityHub } from "./ActivityHub";
 export const metadata = createPageMetadata({
   title: "Activity Zone",
   description:
-    "Play Argo Delivery Run and Shortest Path Challenge — interactive mini games featuring ATSN Robotics Argo Sonic robot.",
+    "Play Argo Delivery Run and Shortest Path Challenge  -  interactive mini games featuring ATSN Robotics Argo Sonic robot.",
   path: "/activity",
   index: false,
 });

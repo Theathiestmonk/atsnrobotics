@@ -238,7 +238,7 @@ export function MazeGame({ onExit }: { onExit: () => void }) {
       ctx.fillStyle = "#22c55e"; ctx.font = `bold ${Math.max(8, cs * 0.32)}px sans-serif`;
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
       ctx.fillText("S", s.x, s.y);
-      // end — pulse red for urgency
+      // end  -  pulse red for urgency
       const urgency = timerRef.current < 10 ? 0.3 + 0.15 * Math.sin(Date.now() / 150) : pulse;
       ctx.fillStyle = `rgba(239,68,68,${urgency * 0.6})`;
       ctx.beginPath(); ctx.arc(e.x, e.y, cs * urgency, 0, Math.PI * 2); ctx.fill();
@@ -425,7 +425,7 @@ export function MazeGame({ onExit }: { onExit: () => void }) {
           <div style={{ textAlign: "center", maxWidth: 460, padding: "0 24px" }}>
             <h2 style={{ margin: "0 0 10px", fontSize: "clamp(1.6rem,4vw,2.2rem)", fontWeight: 800, color: "#fff" }}>Shortest Path Challenge</h2>
             <p style={{ margin: "0 0 6px", color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.65 }}>
-              Draw your route from <span style={{ color: "#22c55e", fontWeight: 700 }}>S</span> to <span style={{ color: "#ef4444", fontWeight: 700 }}>E</span> through the maze before time runs out. Multiple routes exist — find the shortest one to beat Argo.
+              Draw your route from <span style={{ color: "#22c55e", fontWeight: 700 }}>S</span> to <span style={{ color: "#ef4444", fontWeight: 700 }}>E</span> through the maze before time runs out. Multiple routes exist  -  find the shortest one to beat Argo.
             </p>
             <p style={{ margin: 0, color: "#f59e0b", fontSize: 13, fontWeight: 600 }}>You have {GAME_TIME} seconds.</p>
           </div>
@@ -450,8 +450,8 @@ export function MazeGame({ onExit }: { onExit: () => void }) {
             {pathLen <= 1
               ? "Drag from the S cell to start"
               : atEnd
-              ? "Reached the end — submit your route!"
-              : `${pathLen - 1} steps — keep going to reach E`}
+              ? "Reached the end  -  submit your route!"
+              : `${pathLen - 1} steps  -  keep going to reach E`}
           </p>
           {atEnd && (
             <button onClick={submitPath} style={{ pointerEvents: "auto", padding: "11px 36px", borderRadius: 999, border: "1.5px solid #22c55e", background: "rgba(34,197,94,0.12)", color: "#22c55e", fontSize: 14, fontWeight: 800, cursor: "pointer" }}>
@@ -524,7 +524,7 @@ export function MazeGame({ onExit }: { onExit: () => void }) {
             </div>
           </div>
           <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: 12 }}>
-            {stars === 3 ? "Near-perfect — you think like a robot!" : stars === 2 ? "Good route. Argo found a slightly shorter way." : "Argo's algorithm found a much shorter path."}
+            {stars === 3 ? "Near-perfect  -  you think like a robot!" : stars === 2 ? "Good route. Argo found a slightly shorter way." : "Argo's algorithm found a much shorter path."}
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             <button onClick={startNew} style={{ padding: "10px 28px", borderRadius: 999, border: "1.5px solid #c9a962", background: "rgba(201,169,98,0.12)", color: "#c9a962", fontSize: 14, fontWeight: 800, cursor: "pointer" }}>

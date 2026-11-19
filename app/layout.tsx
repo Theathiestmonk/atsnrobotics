@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ATSN Robotics | Autonomous Service & Delivery Robots",
     description:
-      "Meet the Argo fleet — autonomous service and delivery robots from ATSN Robotics, built for hotels, restaurants, cafes, stadiums, and large venues.",
+      "Meet the Argo fleet - autonomous service and delivery robots from ATSN Robotics, built for hotels, restaurants, cafes, stadiums, and large venues.",
     url: "https://www.atsnrobotics.com",
     siteName: "ATSN Robotics",
     locale: "en_US",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ATSN Robotics | Autonomous Service & Delivery Robots",
     description:
-      "Meet the Argo fleet of autonomous service and delivery robots from ATSN Robotics — built for hotels, restaurants, cafes, and stadiums.",
+      "Meet the Argo fleet of autonomous service and delivery robots from ATSN Robotics - built for hotels, restaurants, cafes, and stadiums.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -115,11 +115,11 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Event",
-                  name: "Amalthea Tech Expo 2026 — ATSN Robotics",
+                  name: "Amalthea Tech Expo 2026 - ATSN Robotics",
                   startDate: "2026-10-31",
                   endDate: "2026-11-01",
                   description:
-                    "Visit ATSN Robotics at Amalthea Tech Expo 2026 at IIT Gandhinagar. Witness the official product launch of Argo Sonic — outdoor navigation demos and robotics in action at Booth B-2, U Corridor.",
+                    "Visit ATSN Robotics at Amalthea Tech Expo 2026 at IIT Gandhinagar. Witness the official product launch of Argo Sonic - outdoor navigation demos and robotics in action at Booth B-2, U Corridor.",
                   location: {
                     "@type": "Place",
                     name: "IIT Gandhinagar",
@@ -136,7 +136,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Event",
-                  name: "Tech EXPO Gujarat 2026 — ATSN Robotics",
+                  name: "Tech EXPO Gujarat 2026 - ATSN Robotics",
                   startDate: "2026-11-27",
                   endDate: "2026-11-29",
                   description:
@@ -157,7 +157,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Event",
-                  name: "Techfest 2026 — ATSN Robotics",
+                  name: "Techfest 2026 - ATSN Robotics",
                   startDate: "2026-12-16",
                   endDate: "2026-12-18",
                   description:
@@ -178,11 +178,11 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Event",
-                  name: "WOHXpo 2027 — ATSN Robotics",
+                  name: "WOHXpo 2027 - ATSN Robotics",
                   startDate: "2027-02-02",
                   endDate: "2027-02-04",
                   description:
-                    "ATSN Robotics is exhibiting at WOHXpo 2027 at Nesco Hall 5, Goregaon, Mumbai. See Argo Sonic and Argo Influence live — built for hospitality professionals.",
+                    "ATSN Robotics is exhibiting at WOHXpo 2027 at Nesco Hall 5, Goregaon, Mumbai. See Argo Sonic and Argo Influence live - built for hospitality professionals.",
                   location: {
                     "@type": "Place",
                     name: "Nesco Exhibition Centre, Hall 5",
