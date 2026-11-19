@@ -751,6 +751,9 @@ body {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   padding: 1.25rem clamp(1.5rem, 5vw, 2rem) clamp(2rem, 6vh, 3rem);
   background: linear-gradient(180deg, #0a0a0b 0%, #0c0c0e 55%, #0a0a0b 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -777,6 +780,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  width: 100%;
+}
+
+.siteHeader__panelNav {
+  width: 100%;
+  min-height: min-content;
 }
 
 .siteHeader__panelLink {
