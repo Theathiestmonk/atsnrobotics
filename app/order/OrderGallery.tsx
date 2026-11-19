@@ -12,30 +12,11 @@ export type ColorOption = {
 
 export const SONIC_COLORS: ColorOption[] = [
   {
-    id: "black",
-    label: "Black",
-    swatch: "#1a1a1a",
+    id: "sonic",
+    label: "Argo Sonic",
+    swatch: "#c9a962",
     images: [
-      { src: "/sonic_black_without_food.webp", alt: "ARGO Sonic robot in black", width: 1121, height: 1403 },
-      { src: "/sonic_black.webp", alt: "ARGO Sonic robot in black carrying food", width: 1122, height: 1402 },
-    ],
-  },
-  {
-    id: "white",
-    label: "White",
-    swatch: "#f5f5f5",
-    images: [
-      { src: "/sonic_white_without_food.webp", alt: "ARGO Sonic robot in white", width: 1122, height: 1402 },
-      { src: "/sonic_with_food.webp", alt: "ARGO Sonic robot in white carrying food", width: 1122, height: 1402 },
-    ],
-  },
-  {
-    id: "silver",
-    label: "Silver",
-    swatch: "#c7c9cc",
-    images: [
-      { src: "/sonic_silver_without_food.webp", alt: "ARGO Sonic robot in silver", width: 1122, height: 1402 },
-      { src: "/argo_sonic_silver.webp", alt: "ARGO Sonic robot in silver carrying food", width: 1122, height: 1402 },
+      { src: "/argo_sonic.webp", alt: "Argo Sonic autonomous hospitality robot", width: 418, height: 597 },
     ],
   },
 ];
@@ -67,18 +48,14 @@ export function OrderGallery({
       {layout === "stack" ? (
         <div className="orderMediaStack">
           {images.map((img) => (
-            <div
-              key={img.src}
-              className="orderMediaFrame"
-              style={{ aspectRatio: `${img.width} / ${img.height}` }}
-            >
+            <div key={img.src} className="orderMediaFrame">
               <Image
                 src={img.src}
                 alt={img.alt}
                 width={img.width}
                 height={img.height}
                 sizes="(max-width: 900px) 100vw, 42vw"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain", padding: "1.5rem" }}
                 priority
               />
             </div>
@@ -86,10 +63,7 @@ export function OrderGallery({
         </div>
       ) : (
         <>
-          <div
-            className="orderMediaFrame"
-            style={{ aspectRatio: `${activeImage.width} / ${activeImage.height}` }}
-          >
+          <div className="orderMediaFrame">
             <Image
               key={activeImage.src}
               src={activeImage.src}
@@ -97,7 +71,7 @@ export function OrderGallery({
               width={activeImage.width}
               height={activeImage.height}
               sizes="(max-width: 900px) 100vw, 42vw"
-              style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain", padding: "1.5rem" }}
               priority
             />
 

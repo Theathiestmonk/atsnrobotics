@@ -25,7 +25,7 @@ export default function FlexPage() {
       status="Coming soon"
       headline="Delivery built for the scale of big venues."
       introduction="Argo Flex is being developed for the pace and footprint of stadiums, arenas, and other large venues."
-      imageSrc="/argo_flex_rover_3x_upscaled-removebg-preview.png"
+      imageSrc="/ARGO_Flex.webp"
       imageAlt="Argo Flex autonomous delivery robot"
       emphasizeImage
       detailTitle="Made for larger spaces."

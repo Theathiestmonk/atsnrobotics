@@ -13,7 +13,7 @@ const ROBOTS = [
     role: "Large venue delivery",
     status: "Coming soon",
     description: "Designed for the scale and pace of stadiums and other large venues.",
-    image: "/argo_flex_rover_3x_upscaled-removebg-preview.png",
+    image: "/ARGO_Flex.webp",
     alt: "Argo Flex rover robot",
     width: 601,
     height: 415,
@@ -26,7 +26,7 @@ const ROBOTS = [
     role: "Hospitality service",
     status: "Available",
     description: "For hotels, restaurants, and cafes where guest-facing service matters.",
-    image: "/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png",
+    image: "/argo_sonic.webp",
     alt: "Argo Sonic hospitality service robot",
     width: 418,
     height: 597,
@@ -45,6 +45,19 @@ const ROBOTS = [
     height: 1224,
     href: "/uno",
     cta: "Explore Argo Uno",
+  },
+  {
+    id: "influence",
+    name: "Argo Influence",
+    role: "Events & brand presence",
+    status: "Coming soon",
+    description: "Autonomous advertisement robot for parties, corporate events, exhibitions, and brand activations.",
+    image: "/argo_influence.webp",
+    alt: "Argo Influence advertisement robot",
+    width: 600,
+    height: 800,
+    href: "/influence",
+    cta: "Explore Argo Influence",
   },
 ] as const;
 
@@ -171,7 +184,6 @@ export function HomeExperience() {
         <div className={styles.sectionInner}>
           <div className={`${styles.sectionHeading} ${revealClass("fleet-heading")}`} data-home-reveal="fleet-heading">
             <div>
-              <p className={styles.eyebrow}>01 / The Argo fleet</p>
               <h2 id="fleet-title">A model for every kind of movement.</h2>
             </div>
             <p>See what is available, what is coming soon, and what is in development.</p>
@@ -187,7 +199,6 @@ export function HomeExperience() {
               >
                 <Link className={styles.robotCardLink} href={robot.href} aria-label={robot.cta}>
                   <div className={styles.robotMedia}>
-                    <span className={styles.robotIndex}>0{index + 1} — {robot.role}</span>
                     <div className={styles.robotImageFrame}>
                       <Image
                         className={styles.robotCardImage}
@@ -224,64 +235,84 @@ export function HomeExperience() {
             data-home-reveal="updates-heading"
           >
             <div>
-              <p className={styles.eyebrow}>02 / From ATSN</p>
               <h2 id="updates-title">News, stories, and what’s next.</h2>
             </div>
             <p>Follow company news, upcoming events, and updates from the Argo fleet.</p>
           </div>
 
           <div className={styles.updatesGrid}>
-            {/* Featured event — Amalthea */}
-            <article
-              className={`${styles.updatesCard} ${styles.updatesCardFeatured} ${revealClass("update-0")}`}
-              data-home-reveal="update-0"
-              style={{ "--robot-index": 0 } as React.CSSProperties}
-            >
+            {/* Featured event — Tech EXPO Gujarat (soonest) */}
+            {(() => {
+              const now = new Date(); now.setHours(0,0,0,0);
+              const s = new Date("2026-11-27"), e = new Date("2026-11-29");
+              const live = now >= s && now <= e;
+              return (
+              <article
+                className={`${styles.updatesCard} ${styles.updatesCardFeatured} ${revealClass("update-0")}`}
+                data-home-reveal="update-0"
+                style={{ "--robot-index": 0, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(201,169,98,0.3)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(201,169,98,0.08), rgba(255,255,255,0.02))" } as React.CSSProperties}
+              >
               <div className={styles.updatesCardTop}>
-                <span className={styles.updatesCategoryLive}>● Live event</span>
-                <div className={styles.updatesLogo}>
-                  <Image src="/amalthea-logo.png" alt="Amalthea IIT Gandhinagar" width={44} height={44} style={{ objectFit: "contain" }} />
-                </div>
+                <span className={styles.updatesCategoryLive} style={{ color: live ? "#22c55e" : "#c9a962" }}>● {live ? "Live now" : "Upcoming"}</span>
               </div>
-              <p className={styles.updatesOrganizer}>Amalthea Tech Expo · IIT Gandhinagar</p>
-              <h3>Argo Sonic: Official Product Launch</h3>
+              <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University, Ahmedabad</p>
+              <h3>Tech EXPO Gujarat 2026</h3>
               <p className={styles.updatesDescription}>
-                We're officially launching Argo Sonic at Amalthea 2026. Come see the robot live — outdoor navigation, demos, and robotics in action.
+                We're bringing the full Argo series to Tech EXPO Gujarat 2026. See Argo Sonic, Flex, and Influence live — come meet the team.
               </p>
               <div className={styles.updatesHighlights}>
-                <span>Product Launch</span>
-                <span>Navigation Demo</span>
-                <span>Robotics in Action</span>
+                <span>Argo Sonic</span>
+                <span>Argo Flex</span>
+                <span>Argo Influence</span>
               </div>
-              <span className={styles.updatesStatus}>Oct 31 – Nov 1, 2026 · Booth B-2, U Corridor</span>
-            </article>
-
-            {/* Second event — Tech EXPO Gujarat */}
-            <article
-              className={`${styles.updatesCard} ${revealClass("update-1")}`}
-              data-home-reveal="update-1"
-              style={{ "--robot-index": 1 } as React.CSSProperties}
-            >
-              <span className={styles.updatesCategory}>Upcoming event</span>
-              <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University</p>
-              <h3>Argo Series Showcase</h3>
-              <p className={styles.updatesDescription}>
-                We're participating at Tech EXPO Gujarat 2026 with the full Argo series. Come explore our autonomous robots and meet the team.
-              </p>
               <span className={styles.updatesStatus}>Nov 27 – 29, 2026 · Ahmedabad</span>
             </article>
+            );
+            })()}
 
-            {/* Product updates */}
-            <article
-              className={`${styles.updatesCard} ${revealClass("update-2")}`}
-              data-home-reveal="update-2"
-              style={{ "--robot-index": 2 } as React.CSSProperties}
-            >
-              <span className={styles.updatesCategory}>Product updates</span>
-              <h3>What's next for Argo</h3>
-              <p className={styles.updatesDescription}>Product news and milestones from across the Argo fleet.</p>
-              <span className={styles.updatesStatus}>Updates coming soon</span>
+            {/* Second event — Techfest */}
+            {(() => {
+              const now = new Date(); now.setHours(0,0,0,0);
+              const s = new Date("2026-12-16"), e = new Date("2026-12-18");
+              const live = now >= s && now <= e;
+              return (
+              <article
+                className={`${styles.updatesCard} ${revealClass("update-1")}`}
+                data-home-reveal="update-1"
+                style={{ "--robot-index": 1, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(34,211,238,0.25)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(34,211,238,0.06), rgba(255,255,255,0.02))" } as React.CSSProperties}
+              >
+              <span className={styles.updatesCategory} style={{ color: live ? "#22c55e" : "#22d3ee" }}>{live ? "● Live now" : "Upcoming event"}</span>
+              <p className={styles.updatesOrganizer}>Techfest · IIT Bombay, Mumbai</p>
+              <h3>Techfest 2026</h3>
+              <p className={styles.updatesDescription}>
+                Argo Sonic and Argo Influence at one of India's largest tech festivals. Live demos for students and engineers.
+              </p>
+              <span className={styles.updatesStatus}>Dec 16 – 18, 2026 · IIT Bombay</span>
             </article>
+              );
+            })()}
+
+            {/* Third event — WOHXpo */}
+            {(() => {
+              const now = new Date(); now.setHours(0,0,0,0);
+              const s = new Date("2027-02-02"), e = new Date("2027-02-04");
+              const live = now >= s && now <= e;
+              return (
+              <article
+                className={`${styles.updatesCard} ${revealClass("update-2")}`}
+                data-home-reveal="update-2"
+                style={{ "--robot-index": 2, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(251,146,60,0.25)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(251,146,60,0.06), rgba(255,255,255,0.02))" } as React.CSSProperties}
+              >
+              <span className={styles.updatesCategory} style={{ color: live ? "#22c55e" : "#fb923c" }}>{live ? "● Live now" : "Upcoming event"}</span>
+              <p className={styles.updatesOrganizer}>WOHXpo · Nesco Hall 5, Goregaon, Mumbai</p>
+              <h3>WOHXpo 2027</h3>
+              <p className={styles.updatesDescription}>
+                Argo Sonic and Argo Influence live for hospitality professionals. Demo and custom quotes on site.
+              </p>
+              <span className={styles.updatesStatus}>Feb 2 – 4, 2027 · Mumbai</span>
+            </article>
+              );
+            })()}
           </div>
 
           <Link className={styles.updatesLink} href="/updates">
@@ -293,7 +324,6 @@ export function HomeExperience() {
       <section className={styles.contactSection} aria-labelledby="contact-title">
         <div className={`${styles.contactInner} ${revealClass("contact")}`} data-home-reveal="contact">
           <div>
-            <p className={styles.eyebrow}>03 / Start a conversation</p>
             <h2 id="contact-title">Let’s find the right robot for your space.</h2>
           </div>
           <Link className={styles.primaryAction} href="/contact">

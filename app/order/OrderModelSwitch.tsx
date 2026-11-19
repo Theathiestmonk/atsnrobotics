@@ -1,12 +1,13 @@
 import Link from "next/link";
 
 const MODELS = [
-  { id: "sonic", label: "ARGO‑H · Sonic", href: "/order" },
-  { id: "flex", label: "ARGO‑S · Flex", href: "/order/flex" },
+  { id: "sonic", label: "Argo Sonic", href: "/order" },
+  { id: "flex", label: "Argo Flex", href: "/order/flex" },
+  { id: "influence", label: "Argo Influence", href: "/order/influence" },
   { id: "uno", label: "Argo Uno", href: "/order/uno" },
 ] as const;
 
-export function OrderModelSwitch({ active }: { active: "sonic" | "flex" | "uno" }) {
+export function OrderModelSwitch({ active }: { active: "sonic" | "flex" | "influence" | "uno" }) {
   return (
     <div className="orderModelSwitch">
       {MODELS.map((model) => (

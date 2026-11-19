@@ -105,7 +105,7 @@ export default function RootLayout({
                     "Autonomous hospitality service robot for hotels, restaurants, and cafes. Delivers room service, amenities, and food orders quietly and reliably.",
                   brand: { "@id": "https://www.atsnrobotics.com/#organization" },
                   url: "https://www.atsnrobotics.com/sonic",
-                  image: "https://www.atsnrobotics.com/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png",
+                  image: "https://www.atsnrobotics.com/argo_sonic.webp",
                   category: "Autonomous Service Robot",
                   offers: {
                     "@type": "Offer",
@@ -156,6 +156,48 @@ export default function RootLayout({
                   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
                 },
                 {
+                  "@type": "Event",
+                  name: "Techfest 2026 — ATSN Robotics",
+                  startDate: "2026-12-16",
+                  endDate: "2026-12-18",
+                  description:
+                    "ATSN Robotics is exhibiting at Techfest 2026, one of India's largest science and technology festivals at IIT Bombay. See Argo Sonic and Argo Influence working live.",
+                  location: {
+                    "@type": "Place",
+                    name: "IIT Bombay",
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: "Mumbai",
+                      addressRegion: "Maharashtra",
+                      addressCountry: "IN",
+                    },
+                  },
+                  organizer: { "@id": "https://www.atsnrobotics.com/#organization" },
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                },
+                {
+                  "@type": "Event",
+                  name: "WOHXpo 2027 — ATSN Robotics",
+                  startDate: "2027-02-02",
+                  endDate: "2027-02-04",
+                  description:
+                    "ATSN Robotics is exhibiting at WOHXpo 2027 at Nesco Hall 5, Goregaon, Mumbai. See Argo Sonic and Argo Influence live — built for hospitality professionals.",
+                  location: {
+                    "@type": "Place",
+                    name: "Nesco Exhibition Centre, Hall 5",
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: "Mumbai",
+                      addressRegion: "Maharashtra",
+                      addressCountry: "IN",
+                    },
+                  },
+                  organizer: { "@id": "https://www.atsnrobotics.com/#organization" },
+                  eventStatus: "https://schema.org/EventScheduled",
+                  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+                },
+                {
                   "@type": "Product",
                   "@id": "https://www.atsnrobotics.com/flex#product",
                   name: "Argo Flex",
@@ -163,7 +205,7 @@ export default function RootLayout({
                     "Autonomous delivery robot for stadiums, arenas, concourses, and large event venues. Built for high foot traffic and event-day scale.",
                   brand: { "@id": "https://www.atsnrobotics.com/#organization" },
                   url: "https://www.atsnrobotics.com/flex",
-                  image: "https://www.atsnrobotics.com/argo_flex_rover_3x_upscaled-removebg-preview.png",
+                  image: "https://www.atsnrobotics.com/ARGO_Flex.webp",
                   category: "Autonomous Delivery Robot",
                   offers: {
                     "@type": "Offer",

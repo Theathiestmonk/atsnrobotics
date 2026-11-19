@@ -103,7 +103,7 @@ export function MazeGame({ onExit }: { onExit: () => void }) {
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = "/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png";
+    img.src = "/argo_sonic.webp";
     img.onload = () => { sonicImg.current = img; };
   }, []);
 

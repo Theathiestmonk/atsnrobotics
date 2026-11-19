@@ -21,7 +21,7 @@ const GLASS_CARDS: GlassCardData[] = [
   {
     id: "hotels-hospitality",
     href: "/sonic",
-    images: [{ src: "/argo_sonic_tall_robot_3x_upscaled-removebg-preview.png", alt: "Argo Sonic" }],
+    images: [{ src: "/argo_sonic.webp", alt: "Argo Sonic" }],
     title: "Hotels, restaurants & cafes",
     body: "Designed for lobbies, dining areas, and guest-facing service.",
     watermark: "Sonic",
@@ -29,7 +29,7 @@ const GLASS_CARDS: GlassCardData[] = [
   {
     id: "support",
     href: "/flex",
-    images: [{ src: "/argo_flex_rover_3x_upscaled-removebg-preview.png", alt: "Argo Flex" }],
+    images: [{ src: "/ARGO_Flex.webp", alt: "Argo Flex" }],
     title: "Cricket stadiums & large venues",
     body: "Sized for concourses, stands, and high-energy crowds.",
     watermark: "Flex",
@@ -37,10 +37,18 @@ const GLASS_CARDS: GlassCardData[] = [
   {
     id: "argo-uno",
     href: "/uno",
-    images: [{ src: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png", alt: "Argo Uno" }],
+    images: [{ src: "/argo_uno.webp", alt: "Argo Uno" }],
     title: "The next Argo model",
     body: "Argo Uno is in development. Follow along as the next model takes shape.",
     watermark: "Uno",
+  },
+  {
+    id: "argo-influence",
+    href: "/influence",
+    images: [{ src: "/argo_influence.webp", alt: "Argo Influence" }],
+    title: "Events, parties & brand activations",
+    body: "Autonomous advertisement robot that roams, displays, and engages crowds.",
+    watermark: "Influence",
   },
 ];
 

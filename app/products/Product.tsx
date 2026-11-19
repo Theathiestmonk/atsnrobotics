@@ -19,7 +19,7 @@ const ARGO_MODELS = [
     body:
       "Tuned for lobbies, dining areas, and service rhythms where presence matters. Argo Sonic moves replenishment and guest-adjacent runs with the quiet confidence your brand expects.",
     capabilities: ["Guest-facing delivery", "Quiet replenishment runs", "Hospitality environments"],
-    imageSrc: "/sonic_black-removebg-preview.png",
+    imageSrc: "/argo_sonic.webp",
     imageAlt: "Argo Sonic robot for hotels, restaurants, and cafes",
     imageWidth: 447,
     imageHeight: 558,
@@ -36,7 +36,7 @@ const ARGO_MODELS = [
     body:
       "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event—not the other way around.",
     capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
-    imageSrc: "/argo_flex_rover_3x_upscaled-removebg-preview.png",
+    imageSrc: "/ARGO_Flex.webp",
     imageAlt: "ARGO Flex robot for stadiums and large venues",
     imageWidth: 601,
     imageHeight: 415,
@@ -53,12 +53,29 @@ const ARGO_MODELS = [
     body:
       "Our next robot is taking shape. Follow along as development continues and we share more about Argo Uno.",
     capabilities: ["Development in progress", "Role and capabilities to be announced", "Follow model updates"],
-    imageSrc: "/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png",
+    imageSrc: "/argo_uno.webp",
     imageAlt: "Argo Uno robot in development",
     imageWidth: 408,
     imageHeight: 612,
     href: "/uno",
     cta: "Explore Argo Uno",
+  },
+  {
+    id: "argo-influence",
+    code: "Argo Influence",
+    modelCode: "Argo Influence",
+    name: "For events, parties & brand activations",
+    segment: "Events & brand presence",
+    status: "Coming soon",
+    body:
+      "Argo Influence roams autonomously through crowds, displaying your brand and engaging guests at parties, exhibitions, corporate events, and product launches.",
+    capabilities: ["Dynamic digital display", "Autonomous crowd roaming", "Events, parties & brand activations"],
+    imageSrc: "/argo_influence.webp",
+    imageAlt: "Argo Influence advertisement robot for events",
+    imageWidth: 600,
+    imageHeight: 800,
+    href: "/influence",
+    cta: "Explore Argo Influence",
   },
 ] as const;
 
@@ -240,10 +257,11 @@ export function Product() {
 
         <section className="atsnSection" id="fleet" aria-label="ARGO models">
           <ScrollReveal>
-            <h2 className="atsnSection__title">Three robots. One platform.</h2>
+            <h2 className="atsnSection__title">Four robots. One platform.</h2>
             <p className="atsnSection__sub">
-              <strong>ARGO‑H (Argo Sonic)</strong> is built for hotels and hospitality, while{" "}
-              <strong>ARGO‑S (Argo Flex)</strong> is designed for stadiums and large venues. Argo
+              <strong>Argo Sonic</strong> is built for hotels and hospitality.{" "}
+              <strong>Argo Flex</strong> is designed for stadiums and large venues.{" "}
+              <strong>Argo Influence</strong> brings autonomous brand presence to events and parties. Argo
               Uno is in development, with details to come.
             </p>
           </ScrollReveal>

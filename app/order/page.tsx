@@ -4,16 +4,16 @@ import { OrderGallery, SONIC_COLORS } from "./OrderGallery";
 import { OrderModelSwitch } from "./OrderModelSwitch";
 
 export const metadata: Metadata = {
-  title: "Order ARGO‑H (Argo Sonic)",
+  title: "Inquire — Argo Sonic | ATSN Robotics",
   description:
-    "Order ARGO‑H (Argo Sonic), an autonomous hospitality robot for hotels, restaurants, and cafes. ₹4,00,000 plus 18% GST.",
+    "Get in touch to learn more about Argo Sonic — the autonomous hospitality robot for hotels, restaurants, and cafes. Talk to the ATSN team for pricing and availability.",
 };
 
 export default function OrderPage() {
   return (
     <main className="atsnPage">
       <div className="atsnContainer atsnHero">
-        <p className="atsnHero__eyebrow">Order</p>
+        <p className="atsnHero__eyebrow">Inquire</p>
         <OrderModelSwitch active="sonic" />
 
         <div className="orderLayout">
@@ -22,10 +22,6 @@ export default function OrderPage() {
           <div>
             <p className="orderSegment">ARGO‑H · Hotels, restaurants &amp; cafes</p>
             <h1 className="orderName">ARGO Sonic</h1>
-            <p className="orderPrice">
-              ₹4,00,000 <span className="orderPrice__note">+ 18% GST (₹72,000)</span>
-              <span className="orderPrice__total">Total: ₹4,72,000 including GST</span>
-            </p>
 
             <p className="orderDescription">
               ARGO Sonic is our autonomous, silent, intelligent robot tuned for lobbies, dining
@@ -44,26 +40,18 @@ export default function OrderPage() {
                 <span className="orderSpecs__value">Hotels, restaurants &amp; cafes</span>
               </li>
               <li>
-                <span className="orderSpecs__label">Base price</span>
-                <span className="orderSpecs__value">₹4,00,000</span>
-              </li>
-              <li>
-                <span className="orderSpecs__label">18% GST</span>
-                <span className="orderSpecs__value">₹72,000 · Total ₹4,72,000</span>
-              </li>
-              <li>
                 <span className="orderSpecs__label">Availability</span>
-                <span className="orderSpecs__value">Pre-order now</span>
+                <span className="orderSpecs__value">Available now</span>
+              </li>
+              <li>
+                <span className="orderSpecs__label">Pricing</span>
+                <span className="orderSpecs__value">Contact us for a quote</span>
               </li>
             </ul>
 
-            <p className="orderNotice">
-              Details on this page are placeholders and will be updated soon.
-            </p>
-
             <div className="atsnHero__ctaRow">
               <Link className="atsnBtn atsnBtn--primary" href="/talk-to-us">
-                Let's Connect
+                Talk to us
               </Link>
               <Link className="atsnBtn" href="/products">
                 View all models

@@ -38,7 +38,7 @@ export default function NotFound() {
           <span className={styles.visualLabel}>Searching for signal</span>
           <Image
             className={styles.robot}
-            src="/argo_uno_upscaled_2x_file_size__1_-removebg-preview.png"
+            src="/argo_uno.webp"
             alt=""
             width={408}
             height={612}
