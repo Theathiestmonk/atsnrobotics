@@ -285,6 +285,21 @@
   overflow: hidden;
 }
 
+/* Front-page group shot: wide landscape image, shown whole rather than cropped. */
+.heroFleetGroup {
+  width: min(100%, 780px);
+  height: auto;
+  aspect-ratio: 1800 / 1273;
+  align-self: center;
+  margin: 0;
+  z-index: 2;
+}
+
+.heroRobotImage.heroFleetImage {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
 .heroRobotImage {
   display: block;
   width: 100%;

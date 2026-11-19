@@ -118,7 +118,6 @@ export function HomeExperience() {
 
   const revealClass = (revealId: string) =>
     `${styles.reveal}${visibleItems.has(revealId) ? ` ${styles.visible}` : ""}`;
-  const heroRobot = ROBOTS.find((robot) => robot.id === "uno");
 
   return (
     <main className={`${styles.page}${motionReady ? ` ${styles.motionReady}` : ""}`}>
@@ -145,20 +144,18 @@ export function HomeExperience() {
 
           <div className={`${styles.heroVisual} ${revealClass("hero-robots")}`} data-home-reveal="hero-robots">
             <div className={styles.heroRobots}>
-              {heroRobot ? (
-                <figure className={`${styles.heroRobot} ${styles.heroRobotuno}`}>
-                  <Image
-                    className={styles.heroRobotImage}
-                    src={heroRobot.image}
-                    alt={heroRobot.alt}
-                    width={heroRobot.width}
-                    height={heroRobot.height}
-                    priority
-                    quality={90}
-                    sizes="(max-width: 700px) 78vw, (max-width: 1100px) 48vw, 42vw"
-                  />
-                </figure>
-              ) : null}
+              <figure className={`${styles.heroRobot} ${styles.heroFleetGroup}`}>
+                <Image
+                  className={`${styles.heroRobotImage} ${styles.heroFleetImage}`}
+                  src="/atsn-robots-hero.webp"
+                  alt="The ATSN Robotics lineup: a service robot with a serving tray, a display concierge robot, a four-wheel delivery rover and a humanoid robot"
+                  width={1800}
+                  height={1273}
+                  priority
+                  quality={90}
+                  sizes="(max-width: 1100px) 52vw, 46vw"
+                />
+              </figure>
             </div>
           </div>
         </div>
