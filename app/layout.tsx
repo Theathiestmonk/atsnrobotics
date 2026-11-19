@@ -35,17 +35,24 @@ export const metadata: Metadata = {
     siteName: "ATSN Robotics",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/logo.png", width: 1080, height: 1080, alt: "ATSN Robotics" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "ATSN Robotics" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ATSN Robotics | Autonomous Service & Delivery Robots",
     description:
       "Meet the Argo fleet of autonomous service and delivery robots from ATSN Robotics — built for hotels, restaurants, cafes, and stadiums.",
-    images: ["/logo.png"],
+    images: ["/og-image.png"],
   },
   icons: {
-    icon: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
 };
 
@@ -70,7 +77,9 @@ export default function RootLayout({
                   url: "https://www.atsnrobotics.com",
                   logo: {
                     "@type": "ImageObject",
-                    url: "https://www.atsnrobotics.com/logo.png",
+                    url: "https://www.atsnrobotics.com/favicon-512.png",
+                    width: 512,
+                    height: 512,
                   },
                   description:
                     "ATSN Robotics manufactures the Argo fleet of autonomous service and delivery robots for hotels, restaurants, cafes, stadiums, and large venues.",
