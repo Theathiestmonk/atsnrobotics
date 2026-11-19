@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./HomeExperience.module.css";
 import { UPDATE_PREVIEWS } from "../lib/update-previews";
 
@@ -119,10 +119,32 @@ export function HomeExperience() {
   const revealClass = (revealId: string) =>
     `${styles.reveal}${visibleItems.has(revealId) ? ` ${styles.visible}` : ""}`;
 
+  // Nudge playback for browsers that skip the autoPlay attribute (it plays for everyone, muted and looping).
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (video?.paused) void video.play().catch(() => undefined);
+  }, []);
+
   return (
     <main className={`${styles.page}${motionReady ? ` ${styles.motionReady}` : ""}`}>
       <div className={introComplete ? styles.introComplete : styles.introPending}>
       <section className={styles.hero} id="home" aria-labelledby="home-title">
+        <div className={styles.heroMedia} aria-hidden="true">
+          <video
+            ref={heroVideoRef}
+            className={styles.heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/argo-sonic-hero-poster.jpg"
+          >
+            <source src="/argo-sonic-hero.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.heroShade} />
+        </div>
         <div className={styles.heroInner}>
           <div className={`${styles.heroCopy} ${revealClass("hero-copy")}`} data-home-reveal="hero-copy">
             <h1 className={styles.heroTitle} id="home-title">
@@ -142,22 +164,6 @@ export function HomeExperience() {
             </div>
           </div>
 
-          <div className={`${styles.heroVisual} ${revealClass("hero-robots")}`} data-home-reveal="hero-robots">
-            <div className={styles.heroRobots}>
-              <figure className={`${styles.heroRobot} ${styles.heroFleetGroup}`}>
-                <Image
-                  className={`${styles.heroRobotImage} ${styles.heroFleetImage}`}
-                  src="/atsn-robots-hero.webp"
-                  alt="The ATSN Robotics lineup: a service robot with a serving tray, a display concierge robot, a four-wheel delivery rover and a humanoid robot"
-                  width={1800}
-                  height={1273}
-                  priority
-                  quality={90}
-                  sizes="(max-width: 1100px) 52vw, 46vw"
-                />
-              </figure>
-            </div>
-          </div>
         </div>
       </section>
 
