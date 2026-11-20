@@ -24,41 +24,7 @@ const ARGO_MODELS = [
     imageWidth: 447,
     imageHeight: 558,
     href: "/sonic",
-    cta: "View hospitality",
-  },
-  {
-    id: "argo-flex",
-    code: "ARGO Flex",
-    modelCode: "ARGO‑S",
-    name: "For stadiums & venues",
-    segment: "Concourses & large venues",
-    status: "Coming soon",
-    body:
-      "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event - not the other way around.",
-    capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
-    imageSrc: "/ARGO_Flex.webp",
-    imageAlt: "ARGO Flex robot for stadiums and large venues",
-    imageWidth: 601,
-    imageHeight: 415,
-    href: "/flex",
-    cta: "View venues",
-  },
-  {
-    id: "argo-uno",
-    code: "Argo Uno",
-    modelCode: "Argo Uno",
-    name: "The next Argo model",
-    segment: "In development",
-    status: "In development",
-    body:
-      "Our next robot is taking shape. Follow along as development continues and we share more about Argo Uno.",
-    capabilities: ["Development in progress", "Role and capabilities to be announced", "Follow model updates"],
-    imageSrc: "/argo_uno.webp",
-    imageAlt: "Argo Uno robot in development",
-    imageWidth: 408,
-    imageHeight: 612,
-    href: "/uno",
-    cta: "Explore Argo Uno",
+    cta: "Explore Argo Sonic",
   },
   {
     id: "argo-influence",
@@ -77,114 +43,92 @@ const ARGO_MODELS = [
     href: "/influence",
     cta: "Explore Argo Influence",
   },
+  {
+    id: "argo-flex",
+    code: "ARGO Flex",
+    modelCode: "ARGO‑S",
+    name: "For stadiums & venues",
+    segment: "Concourses & large venues",
+    status: "Coming soon",
+    body:
+      "Sized for concourses, stands, and high-energy crowds. ARGO Flex supports crew logistics with repeatable routes that keep pace with the event - not the other way around.",
+    capabilities: ["Venue-scale logistics", "Concourses & event-day workflows", "Repeatable crew routes"],
+    imageSrc: "/ARGO_Flex.webp",
+    imageAlt: "ARGO Flex robot for stadiums and large venues",
+    imageWidth: 601,
+    imageHeight: 415,
+    href: "/flex",
+    cta: "Explore Argo Flex",
+  },
+  {
+    id: "argo-uno",
+    code: "Argo Uno",
+    modelCode: "Argo Uno",
+    name: "The next Argo model",
+    segment: "In development",
+    status: "In development",
+    body:
+      "Our next robot is taking shape. Follow along as development continues and we share more about Argo Uno.",
+    capabilities: ["Development in progress", "Role and capabilities to be announced", "Follow model updates"],
+    imageSrc: "/argo_uno.webp",
+    imageAlt: "Argo Uno robot in development",
+    imageWidth: 408,
+    imageHeight: 612,
+    href: "/uno",
+    cta: "Explore Argo Uno",
+  },
 ] as const;
 
 function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const frontButtonRef = useRef<HTMLButtonElement>(null);
-  const backButtonRef = useRef<HTMLButtonElement>(null);
-  const restoreFocus = useRef(false);
-
-  useEffect(() => {
-    if (!restoreFocus.current) return;
-    (isFlipped ? backButtonRef.current : frontButtonRef.current)?.focus();
-    restoreFocus.current = false;
-  }, [isFlipped]);
-
-  const flipTo = (flipped: boolean) => {
-    restoreFocus.current = true;
-    setIsFlipped(flipped);
-  };
 
   const canHover = () =>
     window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   return (
     <article
-      className={`atsnCard productRobotCard${isFlipped ? " productRobotCard--flipped" : ""}`}
+      className={`productRobotCard${isFlipped ? " productRobotCard--flipped" : ""}`}
       aria-label={`${robot.code} product card`}
-      onMouseEnter={(event) => {
-        if (canHover() && !event.currentTarget.contains(document.activeElement)) {
-          setIsFlipped(true);
-        }
-      }}
-      onMouseLeave={(event) => {
-        if (canHover() && !event.currentTarget.contains(document.activeElement)) {
-          setIsFlipped(false);
-        }
-      }}
+      onMouseEnter={() => { if (canHover()) setIsFlipped(true); }}
+      onMouseLeave={() => { if (canHover()) setIsFlipped(false); }}
     >
       <div className="productRobotCard__inner">
-        <div
-          className="productRobotCard__face productRobotCard__front"
-          aria-hidden={isFlipped}
-        >
+        {/* Front */}
+        <div className="productRobotCard__face productRobotCard__front" aria-hidden={isFlipped}>
           <div className="productRobotCard__media">
             <Image
               src={robot.imageSrc}
               alt={robot.imageAlt}
               width={robot.imageWidth}
               height={robot.imageHeight}
-              sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 30vw"
+              sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 44vw"
             />
           </div>
-          <p className="productRobotCard__code">{robot.code}</p>
-          <h3 className="productRobotCard__name">{robot.name}</h3>
-          <p className="productRobotCard__status">{robot.status}</p>
-          <button
-            ref={frontButtonRef}
-            className="productRobotCard__flip"
-            type="button"
-            aria-pressed={isFlipped}
-            aria-label={`Show ${robot.code} capabilities`}
-            tabIndex={isFlipped ? -1 : 0}
-            onClick={() => flipTo(true)}
-          >
-            View capabilities <span aria-hidden="true">↻</span>
-          </button>
+          <div className="productRobotCard__info">
+            <p className="productRobotCard__code">{robot.segment}</p>
+            <h3 className="productRobotCard__name">{robot.code}</h3>
+            <span className="productRobotCard__status">{robot.status}</span>
+          </div>
         </div>
 
-        <div
-          className="productRobotCard__face productRobotCard__back"
-          aria-hidden={!isFlipped}
-        >
+        {/* Back */}
+        <div className="productRobotCard__face productRobotCard__back" aria-hidden={!isFlipped}>
           <Image
             className="productRobotCard__backImage"
             src={robot.imageSrc}
             alt=""
             fill
-            sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 30vw"
+            sizes="(max-width: 620px) 90vw, (max-width: 900px) 44vw, 44vw"
             aria-hidden="true"
           />
           <div className="productRobotCard__backContent">
-            <p className="productRobotCard__backKicker">{robot.segment}</p>
-            <h3 className="productRobotCard__backTitle">{robot.modelCode}</h3>
+            <p className="productRobotCard__code">{robot.segment}</p>
+            <h3 className="productRobotCard__name">{robot.code}</h3>
             <p className="productRobotCard__body">{robot.body}</p>
             <ul className="productRobotCard__capabilities">
-              {robot.capabilities.map((capability) => (
-                <li key={capability}>{capability}</li>
-              ))}
+              {robot.capabilities.map((c) => <li key={c}>{c}</li>)}
             </ul>
-            <div className="productRobotCard__backActions">
-              <button
-                ref={backButtonRef}
-                className="productRobotCard__flipBack"
-                type="button"
-                aria-pressed={isFlipped}
-                aria-label={`Show ${robot.code} robot image`}
-                tabIndex={isFlipped ? 0 : -1}
-                onClick={() => flipTo(false)}
-              >
-                <span aria-hidden="true">↶</span>
-              </button>
-              <Link
-                className="productRobotCard__link"
-                href={robot.href}
-                tabIndex={isFlipped ? 0 : -1}
-              >
-                {robot.cta}
-              </Link>
-            </div>
+            <Link className="productRobotCard__link" href={robot.href}>{robot.cta}</Link>
           </div>
         </div>
       </div>
