@@ -286,8 +286,44 @@ export function HomeExperience() {
       <section className={styles.supportedSection} aria-label="Supported by">
         <div className={styles.sectionInner}>
           <p className={styles.supportedLabel}>Supported by</p>
+
+          {/* Desktop / tablet: marquee */}
           <div className={styles.supportedMarquee}>
-          <div className={styles.supportedRow}>
+            <div className={styles.supportedRow}>
+              {[
+                { name: "NVIDIA",          logo: "/nvidia.png" },
+                { name: "Prakriti",        logo: "/prakriti.png" },
+                { name: "NDBI",            logo: "/ndbi.png" },
+                { name: "TannaTechBiz",    logo: "/tannatechbiz.png" },
+                { name: "IIT Bombay",      logo: "/iit-bombay.png" },
+                { name: "IIT Gandhinagar", logo: "/iit-gandhinagar.png" },
+                { name: "Tech EXPO",       logo: "/tech-expo-gujarat.png" },
+                { name: "Horizon",         logo: "/horizon.png" },
+                { name: "WOHXpo",          logo: "/woh-expo.png" },
+                { name: "NVIDIA-2",          logo: "/nvidia.png" },
+                { name: "Prakriti-2",        logo: "/prakriti.png" },
+                { name: "NDBI-2",            logo: "/ndbi.png" },
+                { name: "TannaTechBiz-2",    logo: "/tannatechbiz.png" },
+                { name: "IIT Bombay-2",      logo: "/iit-bombay.png" },
+                { name: "IIT Gandhinagar-2", logo: "/iit-gandhinagar.png" },
+                { name: "Tech EXPO-2",       logo: "/tech-expo-gujarat.png" },
+                { name: "Horizon-2",         logo: "/horizon.png" },
+                { name: "WOHXpo-2",          logo: "/woh-expo.png" },
+              ].map((p) => (
+                <div key={p.name} className={styles.supportedItem} aria-hidden={p.name.endsWith("-2") ? "true" : undefined}>
+                  {p.logo ? (
+                    <span className={styles.supportedLogoWrap}>
+                      <Image src={p.logo} alt="" width={62} height={62} className={styles.supportedLogo} />
+                    </span>
+                  ) : null}
+                  <span className={styles.supportedName}>{p.name.replace(/-2$/, "")}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile: compact logo grid */}
+          <div className={styles.supportedGrid}>
             {[
               { name: "NVIDIA",          logo: "/nvidia.png" },
               { name: "Prakriti",        logo: "/prakriti.png" },
@@ -298,27 +334,14 @@ export function HomeExperience() {
               { name: "Tech EXPO",       logo: "/tech-expo-gujarat.png" },
               { name: "Horizon",         logo: "/horizon.png" },
               { name: "WOHXpo",          logo: "/woh-expo.png" },
-              /* duplicate for seamless loop */
-              { name: "NVIDIA-2",          logo: "/nvidia.png" },
-              { name: "Prakriti-2",        logo: "/prakriti.png" },
-              { name: "NDBI-2",            logo: "/ndbi.png" },
-              { name: "TannaTechBiz-2",    logo: "/tannatechbiz.png" },
-              { name: "IIT Bombay-2",      logo: "/iit-bombay.png" },
-              { name: "IIT Gandhinagar-2", logo: "/iit-gandhinagar.png" },
-              { name: "Tech EXPO-2",       logo: "/tech-expo-gujarat.png" },
-              { name: "Horizon-2",         logo: "/horizon.png" },
-              { name: "WOHXpo-2",          logo: "/woh-expo.png" },
             ].map((p) => (
-              <div key={p.name} className={styles.supportedItem} aria-hidden={p.name.endsWith("-2") ? "true" : undefined}>
-                {p.logo ? (
-                  <span className={styles.supportedLogoWrap}>
-                    <Image src={p.logo} alt="" width={62} height={62} className={styles.supportedLogo} />
-                  </span>
-                ) : null}
-                <span className={styles.supportedName}>{p.name.replace(/-2$/, "")}</span>
+              <div key={p.name} className={styles.supportedGridItem}>
+                <span className={styles.supportedGridLogoWrap}>
+                  <Image src={p.logo} alt={p.name} width={64} height={40} />
+                </span>
+                <span className={styles.supportedGridName}>{p.name}</span>
               </div>
             ))}
-          </div>
           </div>
         </div>
       </section>

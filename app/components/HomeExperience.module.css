@@ -545,6 +545,56 @@
   color: #f5f5f5;
   white-space: nowrap;
 }
+/* Mobile logo grid — hidden on desktop/tablet */
+.supportedGrid {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .supportedMarquee { display: none; }
+
+  .supportedGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 12px;
+  }
+
+  .supportedGridItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .supportedGridLogoWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 64px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 10px;
+  }
+
+  .supportedGridLogoWrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+  }
+
+  .supportedGridName {
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: rgba(245,245,245,0.38);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    letter-spacing: 0.03em;
+  }
+}
 /* ── end Supported by ─────────────────────────────────────────── */
 
 .updatesSection { padding: clamp(72px, 10vw, 112px) 0; background: #0a0a0b; }
