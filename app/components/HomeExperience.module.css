@@ -495,8 +495,6 @@
   align-items: center;
   justify-content: center;
   padding: 28px 24px;
-  border-right: 1px solid var(--line);
-  background: rgba(255,255,255,0.02);
 }
 
 .updatesEventLogo {

@@ -6,6 +6,7 @@ const LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Careers", href: "/careers" },
   { label: "News & Events", href: "/updates" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },

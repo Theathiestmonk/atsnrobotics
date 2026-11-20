@@ -1121,3 +1121,147 @@ select.atsnInput:disabled {
 .eventInstagramLink:hover {
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* ── Gallery ──────────────────────────────────────────────────── */
+.galleryFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: clamp(24px, 4vw, 40px) 0;
+}
+
+.galleryFilter {
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: rgba(245,245,245,0.6);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.galleryFilter:hover {
+  background: rgba(255,255,255,0.06);
+  color: #f5f5f5;
+}
+
+.galleryFilter--active {
+  background: rgba(201,169,98,0.12);
+  border-color: rgba(201,169,98,0.4);
+  color: #c9a962;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.galleryCard {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 220ms ease, transform 220ms ease;
+}
+
+.galleryCard--wide {
+  grid-column: span 2;
+}
+
+.galleryCard:hover {
+  border-color: rgba(201,169,98,0.3);
+  transform: translateY(-3px);
+}
+
+.galleryCardImg {
+  transition: transform 400ms ease;
+  padding: 16px;
+}
+
+.galleryCard:hover .galleryCardImg {
+  transform: scale(1.04);
+}
+
+.galleryCardTag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245,245,245,0.6);
+  background: rgba(10,10,11,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: 3px 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* Lightbox */
+.galleryLightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10,10,11,0.95);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  cursor: pointer;
+}
+
+.galleryLightboxClose {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 180ms ease;
+}
+
+.galleryLightboxClose:hover { background: rgba(255,255,255,0.14); }
+
+.galleryLightboxImgWrap {
+  position: relative;
+  width: min(90vw, 900px);
+  height: min(70vh, 600px);
+  cursor: default;
+}
+
+.galleryLightboxCaption {
+  font-size: 0.8rem;
+  color: rgba(245,245,245,0.45);
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .galleryGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .galleryCard--wide { grid-column: span 2; }
+}
+
+@media (max-width: 500px) {
+  .galleryGrid { grid-template-columns: 1fr; }
+  .galleryCard--wide { grid-column: span 1; }
+}
+/* ── end Gallery ──────────────────────────────────────────────── */
