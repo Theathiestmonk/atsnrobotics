@@ -355,7 +355,11 @@
   line-height: 1.65;
 }
 
-.robotGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.robotGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
 
 .robotCard {
   min-width: 0;
@@ -373,12 +377,12 @@
   position: relative;
   min-width: 0;
   min-height: 0;
-  height: clamp(320px, 36vw, 480px);
+  height: clamp(200px, 22vw, 300px);
   display: grid;
   grid-template-rows: minmax(0, 1fr);
   place-items: center;
   overflow: hidden;
-  padding: 40px 24px 20px;
+  padding: 24px 16px 12px;
   background: rgba(255,255,255,0.02);
 }
 
@@ -602,10 +606,18 @@
   .heroTitle { max-width: 560px; font-size: clamp(3rem, 12vw, 4.5rem); }
   .heroLead { max-width: 480px; font-size: 0.94rem; }
   .sectionHeading { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .robotGrid { grid-template-columns: 1fr; gap: 14px; }
-  .robotCard { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
-  .robotCardLink { display: contents; }
-  .robotMedia { height: clamp(245px, 68vw, 330px); padding: 28px 12px 12px; }
+  .robotGrid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+  .robotCard { flex: 0 0 78vw; scroll-snap-align: start; }
+  .robotMedia { height: clamp(200px, 48vw, 260px); padding: 20px 12px 12px; }
   .robotImageFrame { inset: 28px 12px 12px; }
   .robotIndex { top: 11px; left: 11px; font-size: 0.5rem; }
   .robotCopy { min-height: 0; justify-content: center; padding: 16px 14px; }
@@ -624,7 +636,7 @@
   .sectionInner,
   .contactInner { width: calc(100% - 28px); }
   .heroTitle { font-size: 2.85rem; }
-  .robotCard { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  .robotGrid { grid-template-columns: 1fr; }
   .robotMedia { height: 250px; padding-inline: 8px; }
   .robotImageFrame { inset: 28px 8px 12px; }
   .robotCopy { padding-inline: 12px; }
