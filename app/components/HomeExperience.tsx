@@ -331,12 +331,12 @@ export function HomeExperience() {
               { name: "TannaTechBiz",    logo: "/tannatechbiz.png" },
               { name: "IIT Bombay",      logo: "/iit-bombay.png" },
               { name: "IIT Gandhinagar", logo: "/iit-gandhinagar.png" },
-              { name: "Tech EXPO",       logo: "/tech-expo-gujarat.png" },
+              { name: "Tech EXPO",       logo: "/tech-expo-gujarat.png", dark: true },
               { name: "Horizon",         logo: "/horizon.png" },
               { name: "WOHXpo",          logo: "/woh-expo.png" },
             ].map((p) => (
               <div key={p.name} className={styles.supportedGridItem}>
-                <span className={styles.supportedGridLogoWrap}>
+                <span className={`${styles.supportedGridLogoWrap}${p.dark ? ` ${styles.supportedGridLogoWrapDark}` : ""}`}>
                   <Image src={p.logo} alt={p.name} width={64} height={40} />
                 </span>
                 <span className={styles.supportedGridName}>{p.name}</span>
