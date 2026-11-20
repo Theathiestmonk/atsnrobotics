@@ -61,70 +61,46 @@ const ROBOTS = [
   },
 ] as const;
 
-function FleetSlider({ robots, styles, revealClass }: { robots: typeof ROBOTS; styles: any; revealClass: (k: string) => string }) {
-  const gridRef = useRef<HTMLDivElement>(null);
+function FleetShowcase({ robots, styles }: { robots: typeof ROBOTS; styles: any }) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 1;
-      setActiveIndex(Math.round(el.scrollLeft / cardWidth));
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const scrollTo = (i: number) => {
-    const el = gridRef.current;
-    if (!el) return;
-    const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 0;
-    el.scrollTo({ left: i * cardWidth, behavior: "smooth" });
-  };
+  const active = robots[activeIndex];
 
   return (
-    <div>
-      <div className={styles.robotGrid} ref={gridRef}>
-        {robots.map((robot, index) => (
-          <article
-            className={`${styles.robotCard} ${revealClass(`robot-${robot.id}`)}`}
-            data-home-reveal={`robot-${robot.id}`}
-            key={robot.id}
-            style={{ "--robot-index": index } as React.CSSProperties}
-          >
-            <Link className={styles.robotCardLink} href={robot.href} aria-label={robot.cta}>
-              <div className={styles.robotMedia}>
-                <div className={styles.robotImageFrame}>
-                  <Image
-                    className={styles.robotCardImage}
-                    src={robot.image}
-                    alt={robot.alt}
-                    width={robot.width}
-                    height={robot.height}
-                    loading="lazy"
-                    sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                  />
-                </div>
-              </div>
-              <div className={styles.robotCopy}>
-                <h3>{robot.name}</h3>
-                <p>{robot.description}</p>
-                <span className={styles.cardCta}>{robot.cta} <span aria-hidden="true">→</span></span>
-              </div>
-            </Link>
-          </article>
-        ))}
+    <div className={styles.showcase}>
+      {/* Left: full team image */}
+      <div className={styles.showcaseImageWrap}>
+        <Image
+          src="/Argo_Team.webp"
+          alt="The full Argo fleet"
+          width={800}
+          height={560}
+          style={{ width: "100%", height: "auto", objectFit: "contain" }}
+          priority
+        />
       </div>
-      <div className={styles.sliderDots}>
-        {robots.map((_, i) => (
+
+      {/* Right: accordion robot selector */}
+      <div className={styles.showcasePanel}>
+        {robots.map((robot, i) => (
           <button
-            key={i}
-            className={`${styles.sliderDot}${i === activeIndex ? ` ${styles.sliderDotActive}` : ""}`}
-            onClick={() => scrollTo(i)}
-            aria-label={`Go to card ${i + 1}`}
-          />
+            key={robot.id}
+            className={`${styles.showcaseItem}${i === activeIndex ? ` ${styles.showcaseItemActive}` : ""}`}
+            onClick={() => setActiveIndex(i)}
+            aria-expanded={i === activeIndex}
+          >
+            <div className={styles.showcaseItemHeader}>
+              <span className={styles.showcaseItemNum}>0{i + 1}</span>
+              <span className={styles.showcaseItemName}>{robot.name}</span>
+              <span className={`${styles.showcaseItemChevron} ${styles.showcaseItemChevronDesktop}`} aria-hidden="true">↓</span>
+            </div>
+            {/* Desktop: only active item expands */}
+            <div className={`${styles.showcaseItemBody} ${i === activeIndex ? styles.showcaseItemBodyVisible : styles.showcaseItemBodyHidden}`}>
+              <p className={styles.showcaseItemDesc}>{robot.description}</p>
+              <Link className={styles.showcaseItemCta} href={robot.href}>
+                Explore <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </button>
         ))}
       </div>
     </div>
@@ -258,7 +234,7 @@ export function HomeExperience() {
             </div>
           </div>
 
-          <FleetSlider robots={ROBOTS} styles={styles} revealClass={revealClass} />
+          <FleetShowcase robots={ROBOTS} styles={styles} />
         </div>
       </section>
 
@@ -271,7 +247,6 @@ export function HomeExperience() {
             <div>
               <h2 id="updates-title">News, stories, and what’s next.</h2>
             </div>
-            <p>Follow company news, upcoming events, and updates from the Argo fleet.</p>
           </div>
 
           <div className={styles.updatesGrid}>
@@ -284,22 +259,27 @@ export function HomeExperience() {
               <article
                 className={`${styles.updatesCard} ${styles.updatesCardFeatured} ${revealClass("update-0")}`}
                 data-home-reveal="update-0"
-                style={{ "--robot-index": 0, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(201,169,98,0.3)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(201,169,98,0.08), rgba(255,255,255,0.02))" } as React.CSSProperties}
+                style={{ "--robot-index": 0 } as React.CSSProperties}
               >
-              <div className={styles.updatesCardTop}>
-                <span className={styles.updatesCategoryLive} style={{ color: live ? "#22c55e" : "#c9a962" }}>● {live ? "Live now" : "Upcoming"}</span>
+              <div className={styles.updatesCardLogo}>
+                <Image src="/tech-expo-gujarat.png" alt="Tech EXPO Gujarat" width={52} height={52} className={styles.updatesEventLogo} />
               </div>
-              <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University, Ahmedabad</p>
-              <h3>Tech EXPO Gujarat 2026</h3>
-              <p className={styles.updatesDescription}>
-                We're bringing the full Argo series to Tech EXPO Gujarat 2026. See Argo Sonic, Flex, and Influence live  -  come meet the team.
-              </p>
-              <div className={styles.updatesHighlights}>
-                <span>Argo Sonic</span>
-                <span>Argo Flex</span>
-                <span>Argo Influence</span>
+              <div className={styles.updatesCardBody}>
+                <div className={styles.updatesCardTop}>
+                  <span className={live ? styles.updatesBadgeLive : styles.updatesBadge}>{live ? "● Live now" : "Upcoming"}</span>
+                </div>
+                <p className={styles.updatesOrganizer}>Tech EXPO Gujarat · Gujarat University, Ahmedabad</p>
+                <h3>Tech EXPO Gujarat 2026</h3>
+                <p className={styles.updatesDescription}>
+                  We're bringing the full Argo series to Tech EXPO Gujarat 2026. See Argo Sonic, Flex, and Influence live  -  come meet the team.
+                </p>
+                <div className={styles.updatesHighlights}>
+                  <span>Argo Sonic</span>
+                  <span>Argo Flex</span>
+                  <span>Argo Influence</span>
+                </div>
+                <span className={styles.updatesStatus}>Nov 27 – 29, 2026 · Ahmedabad</span>
               </div>
-              <span className={styles.updatesStatus}>Nov 27 – 29, 2026 · Ahmedabad</span>
             </article>
             );
             })()}
@@ -313,15 +293,22 @@ export function HomeExperience() {
               <article
                 className={`${styles.updatesCard} ${revealClass("update-1")}`}
                 data-home-reveal="update-1"
-                style={{ "--robot-index": 1, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(34,211,238,0.25)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(34,211,238,0.06), rgba(255,255,255,0.02))" } as React.CSSProperties}
+                style={{ "--robot-index": 1 } as React.CSSProperties}
               >
-              <span className={styles.updatesCategory} style={{ color: live ? "#22c55e" : "#22d3ee" }}>{live ? "● Live now" : "Upcoming event"}</span>
-              <p className={styles.updatesOrganizer}>Techfest · IIT Bombay, Mumbai</p>
-              <h3>Techfest 2026</h3>
-              <p className={styles.updatesDescription}>
-                Argo Sonic and Argo Influence at one of India's largest tech festivals. Live demos for students and engineers.
-              </p>
-              <span className={styles.updatesStatus}>Dec 16 – 18, 2026 · IIT Bombay</span>
+              <div className={styles.updatesCardLogo}>
+                <Image src="/iit-bombay.png" alt="IIT Bombay" width={52} height={52} className={styles.updatesEventLogo} />
+              </div>
+              <div className={styles.updatesCardBody}>
+                <div className={styles.updatesCardTop}>
+                  <span className={live ? styles.updatesBadgeLive : styles.updatesBadge}>{live ? "● Live now" : "Upcoming"}</span>
+                </div>
+                <p className={styles.updatesOrganizer}>Techfest · IIT Bombay, Mumbai</p>
+                <h3>Techfest 2026</h3>
+                <p className={styles.updatesDescription}>
+                  Argo Sonic and Argo Influence at one of India's largest tech festivals. Live demos for students and engineers.
+                </p>
+                <span className={styles.updatesStatus}>Dec 16 – 18, 2026 · IIT Bombay</span>
+              </div>
             </article>
               );
             })()}
@@ -335,15 +322,22 @@ export function HomeExperience() {
               <article
                 className={`${styles.updatesCard} ${revealClass("update-2")}`}
                 data-home-reveal="update-2"
-                style={{ "--robot-index": 2, borderColor: live ? "rgba(34,197,94,0.35)" : "rgba(251,146,60,0.25)", background: live ? "linear-gradient(145deg, rgba(34,197,94,0.1), rgba(255,255,255,0.02))" : "linear-gradient(145deg, rgba(251,146,60,0.06), rgba(255,255,255,0.02))" } as React.CSSProperties}
+                style={{ "--robot-index": 2 } as React.CSSProperties}
               >
-              <span className={styles.updatesCategory} style={{ color: live ? "#22c55e" : "#fb923c" }}>{live ? "● Live now" : "Upcoming event"}</span>
-              <p className={styles.updatesOrganizer}>WOHXpo · Nesco Hall 5, Goregaon, Mumbai</p>
-              <h3>WOHXpo 2027</h3>
-              <p className={styles.updatesDescription}>
-                Argo Sonic and Argo Influence live for hospitality professionals. Demo and custom quotes on site.
-              </p>
-              <span className={styles.updatesStatus}>Feb 2 – 4, 2027 · Mumbai</span>
+              <div className={styles.updatesCardLogo}>
+                <Image src="/woh-expo.png" alt="World of Hospitality" width={52} height={52} className={styles.updatesEventLogo} />
+              </div>
+              <div className={styles.updatesCardBody}>
+                <div className={styles.updatesCardTop}>
+                  <span className={live ? styles.updatesBadgeLive : styles.updatesBadge}>{live ? "● Live now" : "Upcoming"}</span>
+                </div>
+                <p className={styles.updatesOrganizer}>WOHXpo · Nesco Hall 5, Goregaon, Mumbai</p>
+                <h3>WOHXpo 2027</h3>
+                <p className={styles.updatesDescription}>
+                  Argo Sonic and Argo Influence live for hospitality professionals. Demo and custom quotes on site.
+                </p>
+                <span className={styles.updatesStatus}>Feb 2 – 4, 2027 · Mumbai</span>
+              </div>
             </article>
               );
             })()}
