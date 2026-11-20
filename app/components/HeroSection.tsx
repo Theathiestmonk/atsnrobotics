@@ -27,6 +27,14 @@ const GLASS_CARDS: GlassCardData[] = [
     watermark: "Sonic",
   },
   {
+    id: "argo-influence",
+    href: "/influence",
+    images: [{ src: "/argo_influence.webp", alt: "Argo Influence" }],
+    title: "Events, parties & brand activations",
+    body: "Autonomous advertisement robot that roams, displays, and engages crowds.",
+    watermark: "Influence",
+  },
+  {
     id: "support",
     href: "/flex",
     images: [{ src: "/ARGO_Flex.webp", alt: "Argo Flex" }],
@@ -41,14 +49,6 @@ const GLASS_CARDS: GlassCardData[] = [
     title: "The next Argo model",
     body: "Argo Uno is in development. Follow along as the next model takes shape.",
     watermark: "Uno",
-  },
-  {
-    id: "argo-influence",
-    href: "/influence",
-    images: [{ src: "/argo_influence.webp", alt: "Argo Influence" }],
-    title: "Events, parties & brand activations",
-    body: "Autonomous advertisement robot that roams, displays, and engages crowds.",
-    watermark: "Influence",
   },
 ];
 
@@ -272,7 +272,7 @@ export function HeroSection({
 
       {showGlassCards && !hideFleet ? (
         <section className="hero__glassRow" id="fleet" aria-label="Our fleet">
-          <div className={`hero__glassRowTrack${GLASS_CARDS.length > 2 ? " hero__glassRowTrack--three" : ""}`} ref={trackRef}>
+          <div className="hero__glassRowTrack" ref={trackRef}>
             {GLASS_CARDS.map((card) => (
               <Link
                 key={card.id}
@@ -280,32 +280,10 @@ export function HeroSection({
                 className="hero__glassCardLink"
                 aria-label={`${card.title ?? "Learn more"}  -  ${card.watermark ?? "details"}`}
               >
-              <article
-                className={`hero__glassCard${card.featured ? " hero__glassCard--featured" : ""}${card.images?.length ? " hero__glassCard--hasImage" : ""}`}
-              >
+              <article className="hero__glassCard">
                 <div className="hero__glassCardSurface">
-                <span className="hero__glassSheen" aria-hidden="true" />
-                {card.images?.length ? (
-                  <div className="hero__glassCardSplit">
-                    <div className="hero__glassCopy">
-                      {card.title ? (
-                        <h2 className="hero__glassTitle">{card.title}</h2>
-                      ) : null}
-                      {Array.isArray(card.body) ? (
-                        <div className="hero__glassBodies">
-                          {card.body.map((para, i) => (
-                            <p key={i} className="hero__glassBody">
-                              {para}
-                            </p>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="hero__glassBody">{card.body}</p>
-                      )}
-                    </div>
-                    <div
-                      className={`hero__glassMedia${card.images.length > 1 ? " hero__glassMedia--multi" : ""}`}
-                    >
+                  {card.images?.length ? (
+                    <div className={`hero__glassMedia${card.images.length > 1 ? " hero__glassMedia--multi" : ""}`}>
                       {card.images.map((img) => (
                         <img
                           key={img.src}
@@ -317,37 +295,12 @@ export function HeroSection({
                         />
                       ))}
                     </div>
+                  ) : null}
+                  <div className="hero__glassCopy">
+                    {card.title ? <h2 className="hero__glassTitle">{card.title}</h2> : null}
+                    <p className="hero__glassBody">{Array.isArray(card.body) ? card.body[0] : card.body}</p>
+                    <span className="hero__glassCta">Explore {card.watermark} <span aria-hidden="true">→</span></span>
                   </div>
-                ) : (
-                  <>
-                    {card.headline ? (
-                      <div className="hero__glassHeadline">
-                        <p className="hero__glassHeadlineLine">{card.headline[0]}</p>
-                        <p className="hero__glassHeadlineLine hero__glassHeadlineLine--accent">
-                          {card.headline[1]}
-                        </p>
-                      </div>
-                    ) : (
-                      <h2 className="hero__glassTitle">{card.title}</h2>
-                    )}
-                    {Array.isArray(card.body) ? (
-                      <div className="hero__glassBodies">
-                        {card.body.map((para, i) => (
-                          <p key={i} className="hero__glassBody">
-                            {para}
-                          </p>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="hero__glassBody">{card.body}</p>
-                    )}
-                  </>
-                )}
-                {card.watermark ? (
-                  <p className="hero__glassWatermark" aria-hidden="true">
-                    {card.watermark}
-                  </p>
-                ) : null}
                 </div>
               </article>
               </Link>

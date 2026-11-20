@@ -247,6 +247,7 @@ body {
 }
 
 /* Glass cards row (minimal, still premium) */
+/* —— Fleet cards —— */
 .hero__glassRow {
   position: relative;
   z-index: 1;
@@ -259,25 +260,10 @@ body {
 .hero__glassRowTrack {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 1.75rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
   max-width: 84rem;
   margin-inline: auto;
-}
-
-.hero__glassRowTrack--three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 90rem;
-}
-
-.hero__glassRowTrack--three .hero__glassCardSplit {
-  grid-template-columns: 1fr;
-  gap: 0.6rem;
-}
-
-.hero__glassRowTrack--three .hero__glassMedia {
-  height: clamp(190px, 19vw, 260px);
-  min-height: 190px;
 }
 
 .hero__glassCardLink {
@@ -285,7 +271,12 @@ body {
   display: flex;
   text-decoration: none;
   color: inherit;
-  border-radius: clamp(1.35rem, 3.2vw, 2rem);
+  border-radius: 24px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__glassCardLink:hover {
+  transform: translateY(-6px);
 }
 
 .hero__glassCard {
@@ -293,160 +284,114 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  will-change: transform, opacity, filter;
 }
 
-.hero__glassSheen {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0) 42%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0) 58%
-  );
-  opacity: 0;
-}
+.hero__glassSheen { display: none; }
 
 .hero__glassCardSurface {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  text-align: left;
-  min-height: 0;
   width: 100%;
-  padding: clamp(1.1rem, 2.4vw, 1.65rem);
-  border-radius: clamp(1.35rem, 3.2vw, 2rem);
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.35),
-    0 2px 8px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(1.35);
-  -webkit-backdrop-filter: blur(20px) saturate(1.35);
-  transform-origin: center center;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  position: relative;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .hero__glassCardLink:hover .hero__glassCardSurface {
-  transform: scale(1.035);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
-.hero__glassTitle {
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.12rem, 2.45vw, 1.38rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: #fafafa;
-}
-
-.hero__glassBody {
-  margin: 0;
-  font-size: clamp(0.92rem, 1.85vw, 1.06rem);
-  line-height: 1.55;
-  color: rgba(245, 245, 245, 0.72);
-}
-
-.hero__glassCardSplit {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
-  gap: clamp(0.75rem, 2.2vw, 1.35rem);
-  align-items: stretch;
-  min-height: 0;
-}
-
-.hero__glassCopy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
+/* Image area */
 .hero__glassMedia {
   margin: 0;
-  height: clamp(190px, 22vw, 280px);
+  width: 100%;
+  height: clamp(240px, 28vw, 380px);
+  background: rgba(255,255,255,0.02);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 190px;
-  overflow: visible;
-  border-radius: clamp(0.5rem, 1.2vw, 0.85rem);
+  overflow: hidden;
 }
 
 .hero__glassImage {
   display: block;
   width: 100%;
-  max-width: 100%;
   height: 100%;
-  max-height: 100%;
   object-fit: contain;
   object-position: center;
-  transform-origin: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hero__glassMedia--multi {
+.hero__glassCardLink:hover .hero__glassImage {
+  transform: translateY(-4px) scale(1.03);
+}
+
+/* Text area */
+.hero__glassCardSplit { display: flex; flex-direction: column; }
+
+.hero__glassCopy {
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: clamp(0.85rem, 2.2vw, 1.35rem);
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+  gap: 0.4rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
 
-.hero__glassMedia--multi .hero__glassImage {
-  width: 100%;
-  height: clamp(140px, 19vw, 220px);
-  max-height: none;
-  flex: none;
-  object-fit: cover;
-  object-position: center center;
-  border-radius: clamp(0.4rem, 1vw, 0.7rem);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.hero__glassWatermark {
-  position: absolute;
-  left: clamp(0.75rem, 2vw, 1.2rem);
-  bottom: clamp(0.35rem, 1.2vh, 0.8rem);
+.hero__glassTitle {
   margin: 0;
-  font-size: clamp(2.1rem, 6.8vw, 4.2rem);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 0.9;
-  text-transform: uppercase;
-  color: rgba(245, 245, 245, 0.14);
-  pointer-events: none;
-  user-select: none;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: #fafafa;
 }
 
-@media (max-width: 720px) {
+.hero__glassBody {
+  margin: 0 0 1rem;
+  font-size: clamp(0.82rem, 1.3vw, 0.92rem);
+  line-height: 1.55;
+  color: rgba(245, 245, 245, 0.5);
+}
+
+.hero__glassCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(245,245,245,0.8);
+  width: fit-content;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.hero__glassCardLink:hover .hero__glassCta {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.hero__glassWatermark { display: none; }
+
+.hero__glassMedia--multi { flex-direction: column; gap: 0; }
+.hero__glassMedia--multi .hero__glassImage { flex: 1; height: 50%; object-fit: cover; padding: 0; }
+
+@media (max-width: 600px) {
   .hero__glassRowTrack {
     grid-template-columns: 1fr;
     max-width: 28rem;
   }
-
-  .hero__glassRowTrack--three {
-    grid-template-columns: 1fr;
-    max-width: 28rem;
-  }
-
-  .hero__glassCardSplit {
-    grid-template-columns: 1fr;
-  }
-
   .hero__glassMedia {
-    justify-content: center;
-    min-height: clamp(160px, 34vh, 270px);
-    height: clamp(190px, 34vh, 270px);
-  }
-
-  .hero__glassImage {
-    object-position: center center;
-    transform-origin: center center;
+    height: clamp(200px, 50vw, 280px);
   }
 }
 

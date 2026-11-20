@@ -516,19 +516,20 @@ select.atsnInput:disabled {
   }
 }
 
-/* Product page — three-model fleet (images match home hero glass cards) */
+/* Product page — two-column fleet grid */
 .productRobotGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2.5vw, 1.5rem);
   margin-top: clamp(1.5rem, 4vh, 2.25rem);
 }
 
 .productRobotCard {
   position: relative;
-  min-height: 500px;
+  min-height: 540px;
   padding: 0;
   perspective: 1200px;
+  border-radius: 24px !important;
 }
 
 .productRobotCard__inner {
@@ -599,12 +600,14 @@ select.atsnInput:disabled {
   position: relative;
   flex: 0 0 auto;
   width: 100%;
-  height: clamp(15rem, 25vw, 18rem);
+  height: clamp(18rem, 28vw, 22rem);
   margin: 0 0 0.55rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem;
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 18px;
 }
 
 .productRobotCard__media img {
@@ -681,38 +684,40 @@ select.atsnInput:disabled {
 
 .productRobotCard__flip {
   display: inline-flex;
-  min-height: 42px;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0.5rem 0;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  background: transparent;
+  gap: 8px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
   color: rgba(245, 245, 245, 0.9);
   font: inherit;
-  font-size: 0.82rem;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   text-align: left;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: color 200ms ease, border-color 200ms ease;
+  transition: background 200ms ease, border-color 200ms ease;
+  width: fit-content;
 }
 
 .productRobotCard__front > .productRobotCard__flip {
-  width: 100%;
   margin-top: 1.2rem;
 }
 
 .productRobotCard__flip:hover {
-  color: var(--atsn-accent);
-  border-color: var(--atsn-accent);
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.28);
 }
 
 .productRobotCard__flip span {
   color: var(--atsn-accent);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  transition: transform 180ms ease;
+}
+
+.productRobotCard:hover .productRobotCard__flip span {
+  transform: translateX(3px);
 }
 
 .productRobotCard__backKicker {
@@ -819,6 +824,7 @@ select.atsnInput:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
 
 @media (max-width: 620px) {
   .productRobotGrid {
