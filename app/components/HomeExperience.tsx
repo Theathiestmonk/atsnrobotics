@@ -61,46 +61,70 @@ const ROBOTS = [
   },
 ] as const;
 
-function FleetShowcase({ robots, styles }: { robots: typeof ROBOTS; styles: any }) {
+function FleetSlider({ robots, styles, revealClass }: { robots: typeof ROBOTS; styles: any; revealClass: (k: string) => string }) {
+  const gridRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = robots[activeIndex];
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 1;
+      setActiveIndex(Math.round(el.scrollLeft / cardWidth));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (i: number) => {
+    const el = gridRef.current;
+    if (!el) return;
+    const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 0;
+    el.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+  };
 
   return (
-    <div className={styles.showcase}>
-      {/* Left: full team image */}
-      <div className={styles.showcaseImageWrap}>
-        <Image
-          src="/Argo_Team.webp"
-          alt="The full Argo fleet"
-          width={800}
-          height={560}
-          style={{ width: "100%", height: "auto", objectFit: "contain" }}
-          priority
-        />
-      </div>
-
-      {/* Right: accordion robot selector */}
-      <div className={styles.showcasePanel}>
-        {robots.map((robot, i) => (
-          <button
+    <div>
+      <div className={styles.robotGrid} ref={gridRef}>
+        {robots.map((robot, index) => (
+          <article
+            className={`${styles.robotCard} ${revealClass(`robot-${robot.id}`)}`}
+            data-home-reveal={`robot-${robot.id}`}
             key={robot.id}
-            className={`${styles.showcaseItem}${i === activeIndex ? ` ${styles.showcaseItemActive}` : ""}`}
-            onClick={() => setActiveIndex(i)}
-            aria-expanded={i === activeIndex}
+            style={{ "--robot-index": index } as React.CSSProperties}
           >
-            <div className={styles.showcaseItemHeader}>
-              <span className={styles.showcaseItemNum}>0{i + 1}</span>
-              <span className={styles.showcaseItemName}>{robot.name}</span>
-              <span className={`${styles.showcaseItemChevron} ${styles.showcaseItemChevronDesktop}`} aria-hidden="true">↓</span>
-            </div>
-            {/* Desktop: only active item expands */}
-            <div className={`${styles.showcaseItemBody} ${i === activeIndex ? styles.showcaseItemBodyVisible : styles.showcaseItemBodyHidden}`}>
-              <p className={styles.showcaseItemDesc}>{robot.description}</p>
-              <Link className={styles.showcaseItemCta} href={robot.href}>
-                Explore <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </button>
+            <Link className={styles.robotCardLink} href={robot.href} aria-label={robot.cta}>
+              <div className={styles.robotMedia}>
+                <div className={styles.robotImageFrame}>
+                  <Image
+                    className={styles.robotCardImage}
+                    src={robot.image}
+                    alt={robot.alt}
+                    width={robot.width}
+                    height={robot.height}
+                    loading="lazy"
+                    sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </div>
+              </div>
+              <div className={styles.robotCopy}>
+                <h3>{robot.name}</h3>
+                <p>{robot.description}</p>
+                <span className={styles.cardCta}>{robot.cta} <span aria-hidden="true">→</span></span>
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
+      <div className={styles.sliderDots}>
+        {robots.map((_, i) => (
+          <button
+            key={i}
+            className={`${styles.sliderDot}${i === activeIndex ? ` ${styles.sliderDotActive}` : ""}`}
+            onClick={() => scrollTo(i)}
+            aria-label={`Go to card ${i + 1}`}
+          />
         ))}
       </div>
     </div>
@@ -234,7 +258,28 @@ export function HomeExperience() {
             </div>
           </div>
 
-          <FleetShowcase robots={ROBOTS} styles={styles} />
+          {/* Desktop / tablet: card slider */}
+          <div className={styles.fleetDesktop}>
+            <FleetSlider robots={ROBOTS} styles={styles} revealClass={revealClass} />
+          </div>
+
+          {/* Mobile only: team image + single paragraph */}
+          <div className={styles.fleetMobile}>
+            <Image
+              src="/Argo_Team.webp"
+              alt="The full Argo fleet"
+              width={800}
+              height={560}
+              style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              loading="lazy"
+            />
+            <p className={styles.fleetMobileSummary}>
+              The Argo fleet brings intelligent automation into the spaces where people live and work. Argo Sonic handles delivery and replenishment in hotels, restaurants, and cafes. Argo Influence engages crowds at events and brand activations. Argo Flex manages logistics in stadiums and large venues. Argo Uno is currently in development, with new capabilities on the way. Each model is purpose-built to make everyday operations smoother and more efficient.
+            </p>
+            <Link href="/products" className={styles.cardCta}>
+              See all models <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

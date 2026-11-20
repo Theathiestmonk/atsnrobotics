@@ -355,6 +355,28 @@
   line-height: 1.65;
 }
 
+/* Desktop/tablet: show slider, hide mobile block */
+.fleetDesktop { display: block; }
+.fleetMobile  { display: none; }
+
+/* Mobile: hide slider, show image + paragraph */
+@media (max-width: 700px) {
+  .fleetDesktop { display: none; }
+  .fleetMobile  { display: flex; flex-direction: column; gap: 28px; }
+}
+
+.fleetMobileSummary {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 0;
+}
+
+.fleetMobile a {
+  text-decoration: none;
+  color: var(--text);
+}
+
 .robotGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -447,174 +469,6 @@
 .robotCard:hover .cardCta { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); }
 .cardCta span { color: var(--accent); font-size: 1rem; transition: transform 180ms ease; }
 .robotCard:hover .cardCta span { transform: translateX(4px); }
-
-/* ── Fleet Showcase ───────────────────────────────────────────── */
-.showcase {
-  display: flex;
-  flex-direction: row;
-  gap: clamp(24px, 4vw, 48px);
-  align-items: stretch;
-  min-height: 420px;
-}
-
-.showcaseImageWrap {
-  flex: 0 0 52%;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.showcaseImageWrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.showcasePanel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0;
-}
-
-.showcaseItem {
-  all: unset;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  transition: opacity 200ms ease;
-}
-.showcaseItem:first-child { border-top: 1px solid var(--line); }
-
-.showcaseItemHeader {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.showcaseItemNum {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(245,245,245,0.3);
-  flex-shrink: 0;
-  width: 20px;
-}
-
-.showcaseItemActive .showcaseItemNum {
-  color: var(--accent);
-}
-
-.showcaseItemName {
-  flex: 1;
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: rgba(245,245,245,0.6);
-  transition: color 200ms ease;
-}
-
-.showcaseItemActive .showcaseItemName {
-  color: #f5f5f5;
-}
-
-.showcaseItemChevron {
-  font-size: 0.75rem;
-  color: rgba(245,245,245,0.25);
-  transition: transform 250ms ease, color 200ms ease;
-}
-
-.showcaseItemActive .showcaseItemChevron {
-  transform: rotate(180deg);
-  color: var(--accent);
-}
-
-.showcaseItemBody {
-  overflow: hidden;
-}
-
-.showcaseItemBodyHidden {
-  display: none;
-}
-
-.showcaseItemBodyVisible {
-  animation: showcase-expand 280ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
-}
-
-/* Desktop chevron — hidden on mobile */
-.showcaseItemChevronDesktop {
-  display: inline;
-}
-
-@keyframes showcase-expand {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.showcaseItemDesc {
-  margin: 12px 0 14px;
-  font-size: 0.84rem;
-  line-height: 1.65;
-  color: var(--muted);
-  padding-left: 34px;
-}
-
-.showcaseItemCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 34px;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text);
-  text-decoration: none;
-  transition: background 180ms ease, border-color 180ms ease;
-}
-
-.showcaseItemCta:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.22);
-}
-
-.showcaseItemCta span { color: var(--accent); }
-
-@media (max-width: 1000px) {
-  .showcase {
-    flex-direction: column;
-  }
-  .showcaseImageWrap {
-    flex: 0 0 auto;
-    min-height: 260px;
-  }
-
-  /* On mobile: show all descriptions without clicking */
-  .showcaseItemBodyHidden {
-    display: block;
-    animation: showcase-expand 280ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
-  }
-  .showcaseItemChevronDesktop {
-    display: none;
-  }
-  /* Remove active highlight distinction — all items are equal on mobile */
-  .showcaseItem {
-    cursor: default;
-  }
-}
-
-/* ── end Fleet Showcase ───────────────────────────────────────── */
 
 .updatesSection { padding: clamp(72px, 10vw, 112px) 0; background: #0a0a0b; }
 .updatesGrid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; }
