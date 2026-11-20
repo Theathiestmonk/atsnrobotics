@@ -259,10 +259,10 @@ body {
 
 .hero__glassRowTrack {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
   width: 100%;
-  max-width: 84rem;
+  max-width: 90rem;
   margin-inline: auto;
 }
 
@@ -310,7 +310,7 @@ body {
 .hero__glassMedia {
   margin: 0;
   width: 100%;
-  height: clamp(240px, 28vw, 380px);
+  height: clamp(180px, 20vw, 260px);
   background: rgba(255,255,255,0.02);
   display: flex;
   align-items: center;
@@ -385,10 +385,14 @@ body {
 .hero__glassMedia--multi { flex-direction: column; gap: 0; }
 .hero__glassMedia--multi .hero__glassImage { flex: 1; height: 50%; object-fit: cover; padding: 0; }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+  .hero__glassRowTrack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 500px) {
   .hero__glassRowTrack {
     grid-template-columns: 1fr;
-    max-width: 28rem;
   }
   .hero__glassMedia {
     height: clamp(200px, 50vw, 280px);
@@ -543,7 +547,7 @@ body {
 
 .siteHeader__list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
   gap: clamp(0.5rem, 3vw, 1.5rem);
@@ -762,7 +766,7 @@ body {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .siteHeader__navDesktop {
     display: none;
   }
@@ -772,7 +776,7 @@ body {
   }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1101px) {
   .siteHeader__panel,
   .siteHeader__backdrop {
     display: none !important;

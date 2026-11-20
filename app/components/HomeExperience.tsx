@@ -18,7 +18,7 @@ const ROBOTS = [
     width: 418,
     height: 597,
     href: "/sonic",
-    cta: "Explore Argo Sonic",
+    cta: "Explore",
   },
   {
     id: "influence",
@@ -31,7 +31,7 @@ const ROBOTS = [
     width: 600,
     height: 800,
     href: "/influence",
-    cta: "Explore Argo Influence",
+    cta: "Explore",
   },
   {
     id: "flex",
@@ -44,7 +44,7 @@ const ROBOTS = [
     width: 601,
     height: 415,
     href: "/flex",
-    cta: "Explore Argo Flex",
+    cta: "Explore",
   },
   {
     id: "uno",
@@ -57,9 +57,79 @@ const ROBOTS = [
     width: 816,
     height: 1224,
     href: "/uno",
-    cta: "Explore Argo Uno",
+    cta: "Explore",
   },
 ] as const;
+
+function FleetSlider({ robots, styles, revealClass }: { robots: typeof ROBOTS; styles: any; revealClass: (k: string) => string }) {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 1;
+      setActiveIndex(Math.round(el.scrollLeft / cardWidth));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (i: number) => {
+    const el = gridRef.current;
+    if (!el) return;
+    const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 0;
+    el.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+  };
+
+  return (
+    <div>
+      <div className={styles.robotGrid} ref={gridRef}>
+        {robots.map((robot, index) => (
+          <article
+            className={`${styles.robotCard} ${revealClass(`robot-${robot.id}`)}`}
+            data-home-reveal={`robot-${robot.id}`}
+            key={robot.id}
+            style={{ "--robot-index": index } as React.CSSProperties}
+          >
+            <Link className={styles.robotCardLink} href={robot.href} aria-label={robot.cta}>
+              <div className={styles.robotMedia}>
+                <div className={styles.robotImageFrame}>
+                  <Image
+                    className={styles.robotCardImage}
+                    src={robot.image}
+                    alt={robot.alt}
+                    width={robot.width}
+                    height={robot.height}
+                    loading="lazy"
+                    sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </div>
+              </div>
+              <div className={styles.robotCopy}>
+                <h3>{robot.name}</h3>
+                <p>{robot.description}</p>
+                <span className={styles.cardCta}>{robot.cta} <span aria-hidden="true">→</span></span>
+              </div>
+            </Link>
+          </article>
+        ))}
+      </div>
+      <div className={styles.sliderDots}>
+        {robots.map((_, i) => (
+          <button
+            key={i}
+            className={`${styles.sliderDot}${i === activeIndex ? ` ${styles.sliderDotActive}` : ""}`}
+            onClick={() => scrollTo(i)}
+            aria-label={`Go to card ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function HomeExperience() {
   const [motionReady, setMotionReady] = useState(false);
@@ -186,45 +256,9 @@ export function HomeExperience() {
             <div>
               <h2 id="fleet-title">A model for every kind of movement.</h2>
             </div>
-            <p>See what is available, what is coming soon, and what is in development.</p>
           </div>
 
-          <div className={styles.robotGrid}>
-            {ROBOTS.map((robot, index) => (
-              <article
-                className={`${styles.robotCard} ${revealClass(`robot-${robot.id}`)}`}
-                data-home-reveal={`robot-${robot.id}`}
-                key={robot.id}
-                style={{ "--robot-index": index } as React.CSSProperties}
-              >
-                <Link className={styles.robotCardLink} href={robot.href} aria-label={robot.cta}>
-                  <div className={styles.robotMedia}>
-                    <div className={styles.robotImageFrame}>
-                      <Image
-                        className={styles.robotCardImage}
-                        src={robot.image}
-                        alt={robot.alt}
-                        width={robot.width}
-                        height={robot.height}
-                        loading="lazy"
-                        sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
-                        style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                      />
-                    </div>
-                  </div>
-                  <div className={styles.robotCopy}>
-                    <div className={styles.robotMeta}>
-                      <span>{robot.role}</span>
-                      <span>{robot.status}</span>
-                    </div>
-                    <h3>{robot.name}</h3>
-                    <p>{robot.description}</p>
-                    <span className={styles.cardCta}>{robot.cta} <span aria-hidden="true">→</span></span>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
+          <FleetSlider robots={ROBOTS} styles={styles} revealClass={revealClass} />
         </div>
       </section>
 

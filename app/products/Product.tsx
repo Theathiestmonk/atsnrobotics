@@ -7,6 +7,68 @@ import { BlurText } from "../components/BlurText";
 import { CardSwap, type CardSwapItem } from "../components/CardSwap";
 import { ScrollReveal } from "../components/ScrollReveal";
 
+function ProductSliderDots({ count, activeIndex, onDotClick }: { count: number; activeIndex: number; onDotClick: (i: number) => void }) {
+  return (
+    <div className="productSliderDots">
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          className={`productSliderDot${i === activeIndex ? " productSliderDotActive" : ""}`}
+          onClick={() => onDotClick(i)}
+          aria-label={`Go to card ${i + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ProductFleetGrid() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobileSlider, setIsMobileSlider] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    setIsMobileSlider(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobileSlider(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || !isMobileSlider) return;
+    const onScroll = () => {
+      const first = el.firstElementChild as HTMLElement | null;
+      const cardWidth = first ? first.offsetWidth + 12 : 1;
+      setActiveIndex(Math.round(el.scrollLeft / cardWidth));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [isMobileSlider]);
+
+  const scrollToCard = (i: number) => {
+    const el = gridRef.current;
+    if (!el) return;
+    const first = el.firstElementChild as HTMLElement | null;
+    const cardWidth = first ? first.offsetWidth + 12 : 0;
+    el.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <div className="productRobotGrid" ref={gridRef}>
+        {ARGO_MODELS.map((robot) => (
+          <ProductRobotCard key={robot.id} robot={robot} />
+        ))}
+      </div>
+      {isMobileSlider && (
+        <ProductSliderDots count={ARGO_MODELS.length} activeIndex={activeIndex} onDotClick={scrollToCard} />
+      )}
+    </>
+  );
+}
+
 /** Same image assets as home hero glass cards (`HeroSection` → `GLASS_CARDS`). */
 const ARGO_MODELS = [
   {
@@ -24,7 +86,7 @@ const ARGO_MODELS = [
     imageWidth: 447,
     imageHeight: 558,
     href: "/sonic",
-    cta: "Explore Argo Sonic",
+    cta: "Explore",
   },
   {
     id: "argo-influence",
@@ -41,7 +103,7 @@ const ARGO_MODELS = [
     imageWidth: 600,
     imageHeight: 800,
     href: "/influence",
-    cta: "Explore Argo Influence",
+    cta: "Explore",
   },
   {
     id: "argo-flex",
@@ -58,7 +120,7 @@ const ARGO_MODELS = [
     imageWidth: 601,
     imageHeight: 415,
     href: "/flex",
-    cta: "Explore Argo Flex",
+    cta: "Explore",
   },
   {
     id: "argo-uno",
@@ -75,7 +137,7 @@ const ARGO_MODELS = [
     imageWidth: 408,
     imageHeight: 612,
     href: "/uno",
-    cta: "Explore Argo Uno",
+    cta: "Explore",
   },
 ] as const;
 
@@ -105,9 +167,9 @@ function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
             />
           </div>
           <div className="productRobotCard__info">
-            <p className="productRobotCard__code">{robot.segment}</p>
             <h3 className="productRobotCard__name">{robot.code}</h3>
-            <span className="productRobotCard__status">{robot.status}</span>
+            <p className="productRobotCard__body">{robot.body}</p>
+            <Link className="productRobotCard__link" href={robot.href}>{robot.cta}</Link>
           </div>
         </div>
 
@@ -122,7 +184,6 @@ function ProductRobotCard({ robot }: { robot: (typeof ARGO_MODELS)[number] }) {
             aria-hidden="true"
           />
           <div className="productRobotCard__backContent">
-            <p className="productRobotCard__code">{robot.segment}</p>
             <h3 className="productRobotCard__name">{robot.code}</h3>
             <p className="productRobotCard__body">{robot.body}</p>
             <ul className="productRobotCard__capabilities">
@@ -202,19 +263,9 @@ export function Product() {
         <section className="atsnSection" id="fleet" aria-label="ARGO models">
           <ScrollReveal>
             <h2 className="atsnSection__title">Four robots. One platform.</h2>
-            <p className="atsnSection__sub">
-              <strong>Argo Sonic</strong> is built for hotels and hospitality.{" "}
-              <strong>Argo Flex</strong> is designed for stadiums and large venues.{" "}
-              <strong>Argo Influence</strong> brings autonomous brand presence to events and parties. Argo
-              Uno is in development, with details to come.
-            </p>
           </ScrollReveal>
 
-          <div className="productRobotGrid">
-            {ARGO_MODELS.map((robot) => (
-              <ProductRobotCard key={robot.id} robot={robot} />
-            ))}
-          </div>
+          <ProductFleetGrid />
         </section>
 
         <section className="atsnSection" id="capabilities" aria-label="Capabilities">

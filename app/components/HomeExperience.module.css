@@ -591,8 +591,24 @@
   .heroInner { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 20px; }
   .heroRobots { height: clamp(450px, 54vw, 570px); }
   .heroTitle { font-size: clamp(3.2rem, 7vw, 5.2rem); }
-  .robotGrid { gap: 10px; }
   .robotCopy { padding-inline: 16px; }
+
+  /* Tablet: 2-column horizontal slider */
+  .robotGrid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+  .robotGrid::-webkit-scrollbar { display: none; }
+  .robotCard {
+    flex: 0 0 calc(50% - 6px);
+    scroll-snap-align: start;
+  }
 }
 
 @media (max-width: 700px) {
@@ -606,17 +622,8 @@
   .heroTitle { max-width: 560px; font-size: clamp(3rem, 12vw, 4.5rem); }
   .heroLead { max-width: 480px; font-size: 0.94rem; }
   .sectionHeading { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .robotGrid {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 12px;
-    padding-bottom: 8px;
-  }
-  .robotCard { flex: 0 0 78vw; scroll-snap-align: start; }
+  /* Mobile: single card, full width — no peeking */
+  .robotCard { flex: 0 0 100%; scroll-snap-align: start; }
   .robotMedia { height: clamp(200px, 48vw, 260px); padding: 20px 12px 12px; }
   .robotImageFrame { inset: 28px 12px 12px; }
   .robotIndex { top: 11px; left: 11px; font-size: 0.5rem; }
@@ -682,5 +689,35 @@
       rgba(10, 10, 11, 0.5) 62%,
       rgba(10, 10, 11, 0.9) 100%
     );
+  }
+}
+
+/* Slider dot indicators — hidden on desktop, shown only in mobile slider mode */
+.sliderDots {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .sliderDots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .sliderDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.22);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .sliderDotActive {
+    background: rgba(255, 255, 255, 0.85);
+    transform: scale(1.35);
   }
 }
